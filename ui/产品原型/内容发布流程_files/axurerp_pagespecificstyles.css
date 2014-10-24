@@ -1,0 +1,1502 @@
+﻿body {
+    margin: 0px;
+}
+
+div {
+    background-repeat: no-repeat;
+}
+
+.raw_image {
+    width: 100%;
+    height: 100%;
+}
+
+.preload {
+    display: none;
+}
+#main_container {
+}
+
+.form_sketch {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.u0 {
+    position:absolute;
+    left:22px;
+    top:6px;
+    width:150px;
+    height:19px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u1_normal {
+    background-image: url('../内容发布流程_files/u1_normal.png');
+}
+
+.u1_container {
+    position:absolute;
+    left:120px;
+    top:142px;
+    width:74px;
+    height:38px;
+}
+
+#u1_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:80px;
+    height:44px;
+}
+
+.u2 {
+    position:absolute;
+    left:2px;
+    top:11px;
+    width:70px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u3_normal {
+    background-image: url('../内容发布流程_files/u3_normal.png');
+}
+
+.u3_container {
+    position:absolute;
+    left:218px;
+    top:131px;
+    width:100px;
+    height:60px;
+}
+
+#u3_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u4 {
+    position:absolute;
+    left:2px;
+    top:22px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u5c0 {
+    background-image: url('../内容发布流程_files/u5c0.png');
+}
+
+.u5c0 {
+    position:absolute;
+    left:190px;
+    top:151px;
+    width:38px;
+    height:20px;
+}
+
+.u6 {
+    position:absolute;
+    left:-38px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u7_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u7_container {
+    position:absolute;
+    left:218px;
+    top:256px;
+    width:100px;
+    height:60px;
+}
+
+#u7_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u8 {
+    position:absolute;
+    left:2px;
+    top:14px;
+    width:96px;
+    height:32px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u9c0 {
+    background-image: url('../内容发布流程_files/u9c0.png');
+}
+
+.u9c0 {
+    position:absolute;
+    left:258px;
+    top:187px;
+    width:20px;
+    height:79px;
+}
+
+.u10 {
+    position:absolute;
+    left:-50px;
+    top:24px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u11_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u11_container {
+    position:absolute;
+    left:421px;
+    top:131px;
+    width:100px;
+    height:60px;
+}
+
+#u11_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u12 {
+    position:absolute;
+    left:2px;
+    top:22px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u13c0 {
+    background-image: url('../内容发布流程_files/u13c0.png');
+}
+
+.u13c0 {
+    position:absolute;
+    left:314px;
+    top:151px;
+    width:117px;
+    height:20px;
+}
+
+.u14 {
+    position:absolute;
+    left:2px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u15c0 {
+    background-image: url('../内容发布流程_files/u15c0.png');
+}
+
+.u15c0 {
+    position:absolute;
+    left:608px;
+    top:111px;
+    width:20px;
+    height:24px;
+}
+
+.u15c1 {
+    background-image: url('../内容发布流程_files/u15c1.png');
+}
+
+.u15c1 {
+    position:absolute;
+    left:258px;
+    top:111px;
+    width:370px;
+    height:20px;
+}
+
+.u15c2 {
+    background-image: url('../内容发布流程_files/u15c2.png');
+}
+
+.u15c2 {
+    position:absolute;
+    left:258px;
+    top:111px;
+    width:20px;
+    height:24px;
+}
+
+.u16 {
+    position:absolute;
+    left:-225px;
+    top:-18px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u17_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u17_container {
+    position:absolute;
+    left:568px;
+    top:131px;
+    width:100px;
+    height:60px;
+}
+
+#u17_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u18 {
+    position:absolute;
+    left:2px;
+    top:22px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u19c0 {
+    background-image: url('../内容发布流程_files/u19c0.png');
+}
+
+.u19c0 {
+    position:absolute;
+    left:517px;
+    top:151px;
+    width:61px;
+    height:20px;
+}
+
+.u20 {
+    position:absolute;
+    left:-26px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u21_normal {
+    background-image: url('../内容发布流程_files/u3_normal.png');
+}
+
+.u21_container {
+    position:absolute;
+    left:218px;
+    top:362px;
+    width:100px;
+    height:60px;
+}
+
+#u21_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u22 {
+    position:absolute;
+    left:2px;
+    top:22px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u23c0 {
+    background-image: url('../内容发布流程_files/u23c0.png');
+}
+
+.u23c0 {
+    position:absolute;
+    left:258px;
+    top:312px;
+    width:20px;
+    height:60px;
+}
+
+.u24 {
+    position:absolute;
+    left:-50px;
+    top:15px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u25_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u25_container {
+    position:absolute;
+    left:109px;
+    top:446px;
+    width:100px;
+    height:60px;
+}
+
+#u25_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u26 {
+    position:absolute;
+    left:2px;
+    top:22px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u27c0 {
+    background-image: url('../内容发布流程_files/u27c0.png');
+}
+
+.u27c0 {
+    position:absolute;
+    left:149px;
+    top:382px;
+    width:73px;
+    height:20px;
+}
+
+.u27c1 {
+    background-image: url('../内容发布流程_files/u27c1.png');
+}
+
+.u27c1 {
+    position:absolute;
+    left:149px;
+    top:382px;
+    width:20px;
+    height:68px;
+}
+
+.u28 {
+    position:absolute;
+    left:-106px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u29_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u29_container {
+    position:absolute;
+    left:353px;
+    top:446px;
+    width:100px;
+    height:60px;
+}
+
+#u29_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u30 {
+    position:absolute;
+    left:2px;
+    top:22px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u31c0 {
+    background-image: url('../内容发布流程_files/u31c0.png');
+}
+
+.u31c0 {
+    position:absolute;
+    left:314px;
+    top:382px;
+    width:99px;
+    height:20px;
+}
+
+.u31c1 {
+    background-image: url('../内容发布流程_files/u31c1.png');
+}
+
+.u31c1 {
+    position:absolute;
+    left:393px;
+    top:382px;
+    width:20px;
+    height:68px;
+}
+
+.u32 {
+    position:absolute;
+    left:20px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u33_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u33_container {
+    position:absolute;
+    left:109px;
+    top:550px;
+    width:100px;
+    height:60px;
+}
+
+#u33_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u34 {
+    position:absolute;
+    left:2px;
+    top:14px;
+    width:96px;
+    height:32px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u35_normal {
+    background-image: url('../内容发布流程_files/u1_normal.png');
+}
+
+.u35_container {
+    position:absolute;
+    left:13px;
+    top:142px;
+    width:74px;
+    height:38px;
+}
+
+#u35_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:80px;
+    height:44px;
+}
+
+.u36 {
+    position:absolute;
+    left:2px;
+    top:11px;
+    width:70px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u37c0 {
+    background-image: url('../内容发布流程_files/u37c0.png');
+}
+
+.u37c0 {
+    position:absolute;
+    left:83px;
+    top:151px;
+    width:47px;
+    height:20px;
+}
+
+.u38 {
+    position:absolute;
+    left:-34px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u39c0 {
+    background-image: url('../内容发布流程_files/u39c0.png');
+}
+
+.u39c0 {
+    position:absolute;
+    left:40px;
+    top:276px;
+    width:182px;
+    height:20px;
+}
+
+.u39c1 {
+    background-image: url('../内容发布流程_files/u39c1.png');
+}
+
+.u39c1 {
+    position:absolute;
+    left:40px;
+    top:176px;
+    width:20px;
+    height:120px;
+}
+
+.u40 {
+    position:absolute;
+    left:-187px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u41_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u41_container {
+    position:absolute;
+    left:353px;
+    top:550px;
+    width:100px;
+    height:60px;
+}
+
+#u41_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u42 {
+    position:absolute;
+    left:2px;
+    top:22px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u43c0 {
+    background-image: url('../内容发布流程_files/u43c0.png');
+}
+
+.u43c0 {
+    position:absolute;
+    left:149px;
+    top:502px;
+    width:20px;
+    height:58px;
+}
+
+.u44 {
+    position:absolute;
+    left:-50px;
+    top:14px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u45c0 {
+    background-image: url('../内容发布流程_files/u45c0.png');
+}
+
+.u45c0 {
+    position:absolute;
+    left:393px;
+    top:502px;
+    width:20px;
+    height:58px;
+}
+
+.u46 {
+    position:absolute;
+    left:-50px;
+    top:14px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u47c0 {
+    background-image: url('../内容发布流程_files/u47c0.png');
+}
+
+.u47c0 {
+    position:absolute;
+    left:199px;
+    top:570px;
+    width:158px;
+    height:20px;
+}
+
+.u48 {
+    position:absolute;
+    left:-122px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u49_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u49_container {
+    position:absolute;
+    left:109px;
+    top:652px;
+    width:100px;
+    height:60px;
+}
+
+#u49_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u50 {
+    position:absolute;
+    left:2px;
+    top:14px;
+    width:96px;
+    height:32px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u51c0 {
+    background-image: url('../内容发布流程_files/u51c0.png');
+}
+
+.u51c0 {
+    position:absolute;
+    left:149px;
+    top:606px;
+    width:20px;
+    height:56px;
+}
+
+.u52 {
+    position:absolute;
+    left:-50px;
+    top:13px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u53_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u53_container {
+    position:absolute;
+    left:109px;
+    top:765px;
+    width:100px;
+    height:60px;
+}
+
+#u53_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u54 {
+    position:absolute;
+    left:2px;
+    top:14px;
+    width:96px;
+    height:32px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u55c0 {
+    background-image: url('../内容发布流程_files/u55c0.png');
+}
+
+.u55c0 {
+    position:absolute;
+    left:149px;
+    top:708px;
+    width:20px;
+    height:67px;
+}
+
+.u56 {
+    position:absolute;
+    left:-50px;
+    top:18px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u57_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u57_container {
+    position:absolute;
+    left:353px;
+    top:703px;
+    width:100px;
+    height:60px;
+}
+
+#u57_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u58 {
+    position:absolute;
+    left:2px;
+    top:22px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u59c0 {
+    background-image: url('../内容发布流程_files/u59c0.png');
+}
+
+.u59c0 {
+    position:absolute;
+    left:205px;
+    top:672px;
+    width:148px;
+    height:20px;
+}
+
+.u59c1 {
+    background-image: url('../内容发布流程_files/u59c1.png');
+}
+
+.u59c1 {
+    position:absolute;
+    left:333px;
+    top:672px;
+    width:20px;
+    height:71px;
+}
+
+.u59c2 {
+    background-image: url('../内容发布流程_files/u59c2.png');
+}
+
+.u59c2 {
+    position:absolute;
+    left:333px;
+    top:723px;
+    width:24px;
+    height:20px;
+}
+
+.u60 {
+    position:absolute;
+    left:48px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u61c0 {
+    background-image: url('../内容发布流程_files/u61c0.png');
+}
+
+.u61c0 {
+    position:absolute;
+    left:205px;
+    top:785px;
+    width:150px;
+    height:20px;
+}
+
+.u61c1 {
+    background-image: url('../内容发布流程_files/u61c1.png');
+}
+
+.u61c1 {
+    position:absolute;
+    left:335px;
+    top:728px;
+    width:20px;
+    height:77px;
+}
+
+.u62 {
+    position:absolute;
+    left:50px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u63_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u63_container {
+    position:absolute;
+    left:517px;
+    top:703px;
+    width:100px;
+    height:60px;
+}
+
+#u63_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u64 {
+    position:absolute;
+    left:2px;
+    top:14px;
+    width:96px;
+    height:32px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u65c0 {
+    background-image: url('../内容发布流程_files/u65c0.png');
+}
+
+.u65c0 {
+    position:absolute;
+    left:449px;
+    top:723px;
+    width:78px;
+    height:20px;
+}
+
+.u66 {
+    position:absolute;
+    left:-18px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u67_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u67_container {
+    position:absolute;
+    left:109px;
+    top:870px;
+    width:100px;
+    height:60px;
+}
+
+#u67_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u68 {
+    position:absolute;
+    left:2px;
+    top:22px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u69c0 {
+    background-image: url('../内容发布流程_files/u69c0.png');
+}
+
+.u69c0 {
+    position:absolute;
+    left:149px;
+    top:821px;
+    width:20px;
+    height:59px;
+}
+
+.u70 {
+    position:absolute;
+    left:-50px;
+    top:14px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u71_normal {
+    background-image: url('../内容发布流程_files/u3_normal.png');
+}
+
+.u71_container {
+    position:absolute;
+    left:109px;
+    top:965px;
+    width:100px;
+    height:60px;
+}
+
+#u71_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u72 {
+    position:absolute;
+    left:2px;
+    top:22px;
+    width:96px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u73c0 {
+    background-image: url('../内容发布流程_files/u73c0.png');
+}
+
+.u73c0 {
+    position:absolute;
+    left:149px;
+    top:926px;
+    width:20px;
+    height:49px;
+}
+
+.u74 {
+    position:absolute;
+    left:-50px;
+    top:10px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u75c0 {
+    background-image: url('../内容发布流程_files/u75c0.png');
+}
+
+.u75c0 {
+    position:absolute;
+    left:40px;
+    top:985px;
+    width:73px;
+    height:20px;
+}
+
+.u75c1 {
+    background-image: url('../内容发布流程_files/u75c1.png');
+}
+
+.u75c1 {
+    position:absolute;
+    left:40px;
+    top:176px;
+    width:20px;
+    height:829px;
+}
+
+.u76 {
+    position:absolute;
+    left:-109px;
+    top:-386px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u77_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u77_container {
+    position:absolute;
+    left:278px;
+    top:965px;
+    width:100px;
+    height:60px;
+}
+
+#u77_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u78 {
+    position:absolute;
+    left:2px;
+    top:14px;
+    width:96px;
+    height:32px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u79c0 {
+    background-image: url('../内容发布流程_files/u79c0.png');
+}
+
+.u79c0 {
+    position:absolute;
+    left:205px;
+    top:985px;
+    width:83px;
+    height:20px;
+}
+
+.u80 {
+    position:absolute;
+    left:-16px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u81 {
+    position:absolute;
+    left:22px;
+    top:48px;
+    width:326px;
+    height:48px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u82_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u82_container {
+    position:absolute;
+    left:428px;
+    top:965px;
+    width:100px;
+    height:60px;
+}
+
+#u82_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u83 {
+    position:absolute;
+    left:2px;
+    top:14px;
+    width:96px;
+    height:32px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u84c0 {
+    background-image: url('../内容发布流程_files/u84c0.png');
+}
+
+.u84c0 {
+    position:absolute;
+    left:374px;
+    top:985px;
+    width:64px;
+    height:20px;
+}
+
+.u85 {
+    position:absolute;
+    left:-25px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u86_normal {
+    background-image: url('../内容发布流程_files/u7_normal.png');
+}
+
+.u86_container {
+    position:absolute;
+    left:574px;
+    top:965px;
+    width:100px;
+    height:60px;
+}
+
+#u86_img {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:106px;
+    height:66px;
+}
+
+.u87 {
+    position:absolute;
+    left:2px;
+    top:14px;
+    width:96px;
+    height:32px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u88c0 {
+    background-image: url('../内容发布流程_files/u88c0.png');
+}
+
+.u88c0 {
+    position:absolute;
+    left:524px;
+    top:985px;
+    width:60px;
+    height:20px;
+}
+
+.u89 {
+    position:absolute;
+    left:-27px;
+    top:-8px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u90c0 {
+    background-image: url('../内容发布流程_files/u90c0.png');
+}
+
+.u90c0 {
+    position:absolute;
+    left:614px;
+    top:890px;
+    width:20px;
+    height:79px;
+}
+
+.u90c1 {
+    background-image: url('../内容发布流程_files/u90c1.png');
+}
+
+.u90c1 {
+    position:absolute;
+    left:205px;
+    top:890px;
+    width:429px;
+    height:20px;
+}
+
+.u91 {
+    position:absolute;
+    left:-225px;
+    top:-73px;
+    width:100px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
