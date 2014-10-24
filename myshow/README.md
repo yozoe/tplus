@@ -1,4 +1,0 @@
-myshow-ios
-===============
-
-myshow
