@@ -12,20 +12,24 @@
 	<dict>
 		<key>4A7E585041A67376476BE4A32B8A18ECD14A68C2</key>
 		<string>https://github.com/TlanguateOranization/MyShow.git</string>
+		<key>4C88B0731DDD2650C4361FD763FEA5C61B165FCB</key>
+		<string>https://github.com/yozoe/hehehehe.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>myshow/MyShow.xcodeproj/project.xcworkspace</string>
+	<string>myshow/MyShow.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>4A7E585041A67376476BE4A32B8A18ECD14A68C2</key>
+		<string>../../../../MyShow</string>
+		<key>4C88B0731DDD2650C4361FD763FEA5C61B165FCB</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/TlanguateOranization/MyShow.git</string>
+	<string>https://github.com/yozoe/hehehehe.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>4A7E585041A67376476BE4A32B8A18ECD14A68C2</string>
+	<string>4C88B0731DDD2650C4361FD763FEA5C61B165FCB</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -35,6 +39,14 @@
 			<string>4A7E585041A67376476BE4A32B8A18ECD14A68C2</string>
 			<key>IDESourceControlWCCName</key>
 			<string>MyShow</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4C88B0731DDD2650C4361FD763FEA5C61B165FCB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>tplus</string>
 		</dict>
 	</array>
 </dict>
