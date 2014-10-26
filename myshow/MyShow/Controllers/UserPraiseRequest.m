@@ -42,8 +42,6 @@
 - (void)processResult
 {
     [super processResult];
-    NSString *result = [[self.handleredResult objectForKey:@"resp"] objectForKey:@"result"];
-    [self.handleredResult setObject:result forKey:@"respResult"];
 }
 
 @end

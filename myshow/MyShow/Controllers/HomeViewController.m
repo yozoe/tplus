@@ -382,7 +382,13 @@
         cell.favourBlock = ^() {
 
             if (im.isLike.integerValue) {
-                NSLog(@"1");
+
+                [self praiseCancelWithAtlasID:im.atlas.ID completion:^(BOOL finished, NSString *result) {
+                    if (finished) {
+                        im.isLike = @"0";
+                        [recommendCell refresh];
+                    }
+                }];
 
             } else {
                 [self praiseAddWithAtlasID:im.atlas.ID completion:^(BOOL finished, NSString *result) {
@@ -436,18 +442,25 @@
         cell.favourBlock = ^() {
 
             if (im.isLike.integerValue) {
-                [self praiseAddWithAtlasID:im.atlas.ID completion:^(BOOL finished, NSString *result) {
-                    NSLog(@"%@", result);
-                }];
-            } else {
 
+                [self praiseCancelWithAtlasID:im.atlas.ID completion:^(BOOL finished, NSString *result) {
+                    if (finished) {
+                        im.isLike = @"0";
+                        [itemCell refresh];
+                    }
+                }];
+
+            } else {
+                [self praiseAddWithAtlasID:im.atlas.ID completion:^(BOOL finished, NSString *result) {
+                    if (finished) {
+                        if ([result isEqualToString:@"selfSuccess"]) {
+                            im.isLike = @"1";
+                        }
+                        im.atlas.praiseNum = [NSString stringWithFormat:@"%d", im.atlas.praiseNum.integerValue + 1];
+                        [itemCell refresh];
+                    }
+                }];
             }
-//            [self detailLikeWithPublishID:im.publish.ID action:action completion:^(BOOL finished, NSString *actionResult) {
-//                if (finished) {
-//                    im.isLike = actionResult;
-//                    [itemCell refresh];
-//                }
-//            }];
         };
         cell.itemModel = im;
         cell.incrementHeight = [heightArray[indexPath.row] integerValue];
@@ -529,8 +542,8 @@
 
 - (void)praiseCancelWithAtlasID:(NSString *)atlasID completion:(void (^)(BOOL finished, NSString *result))completion
 {
-    [UserPraiseAddRequest requestWithParameters:@{} withIndicatorView:nil withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
-        NSLog(@"%@", request.handleredResult);
+    [UserPraiseCancelRequest requestWithParameters:@{@"atlasId" : atlasID} withIndicatorView:nil withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
+        completion(YES, @"");
     }];
 }
 
