@@ -8,6 +8,10 @@
 
 #import "ITTAFNBaseDataRequest.h"
 
-@interface DetailLikeRequest : ITTAFNBaseDataRequest
+@interface UserPraiseAddRequest : ITTAFNBaseDataRequest
+
+@end
+
+@interface UserPraiseCancelRequest : ITTAFNBaseDataRequest
 
 @end

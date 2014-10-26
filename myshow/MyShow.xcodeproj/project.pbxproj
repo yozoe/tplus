@@ -314,7 +314,7 @@
 		65F6F51519AE010700D6902D /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65F6F51319AE010700D6902D /* SearchViewController.xib */; };
 		65F6F51919AE0C2700D6902D /* SearchTagListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65F6F51719AE0C2700D6902D /* SearchTagListViewController.m */; };
 		65F6F51A19AE0C2700D6902D /* SearchTagListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65F6F51819AE0C2700D6902D /* SearchTagListViewController.xib */; };
-		65FA317A19A5B9AE009DA536 /* DetailLikeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FA317919A5B9AE009DA536 /* DetailLikeRequest.m */; };
+		65FA317A19A5B9AE009DA536 /* UserPraiseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65FA317919A5B9AE009DA536 /* UserPraiseRequest.m */; };
 		E125BACA1928752D00BD6BB9 /* HeiShowMainTableBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E125BAC91928752D00BD6BB9 /* HeiShowMainTableBar.m */; };
 		E13FEEC0190388120029F6E8 /* MyShowPopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = E13FEEBF190388120029F6E8 /* MyShowPopUpView.m */; };
 		E13FEF03190390C10029F6E8 /* 1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E13FEF02190390C10029F6E8 /* 1@2x.png */; };
@@ -889,8 +889,8 @@
 		65F6F51619AE0C2700D6902D /* SearchTagListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTagListViewController.h; sourceTree = "<group>"; };
 		65F6F51719AE0C2700D6902D /* SearchTagListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTagListViewController.m; sourceTree = "<group>"; };
 		65F6F51819AE0C2700D6902D /* SearchTagListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTagListViewController.xib; sourceTree = "<group>"; };
-		65FA317819A5B9AE009DA536 /* DetailLikeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailLikeRequest.h; sourceTree = "<group>"; };
-		65FA317919A5B9AE009DA536 /* DetailLikeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailLikeRequest.m; sourceTree = "<group>"; };
+		65FA317819A5B9AE009DA536 /* UserPraiseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPraiseRequest.h; sourceTree = "<group>"; };
+		65FA317919A5B9AE009DA536 /* UserPraiseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPraiseRequest.m; sourceTree = "<group>"; };
 		E125BAC81928752D00BD6BB9 /* HeiShowMainTableBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeiShowMainTableBar.h; sourceTree = "<group>"; };
 		E125BAC91928752D00BD6BB9 /* HeiShowMainTableBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeiShowMainTableBar.m; sourceTree = "<group>"; };
 		E13FEEBE190388120029F6E8 /* MyShowPopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyShowPopUpView.h; sourceTree = "<group>"; };
@@ -1043,8 +1043,8 @@
 				659606251996753E009C63B5 /* DetailCommentRequest.m */,
 				653B07B6199ADD1000DB4578 /* UserCommentAddRequest.h */,
 				653B07B7199ADD1100DB4578 /* UserCommentAddRequest.m */,
-				65FA317819A5B9AE009DA536 /* DetailLikeRequest.h */,
-				65FA317919A5B9AE009DA536 /* DetailLikeRequest.m */,
+				65FA317819A5B9AE009DA536 /* UserPraiseRequest.h */,
+				65FA317919A5B9AE009DA536 /* UserPraiseRequest.m */,
 			);
 			name = NetRequest;
 			sourceTree = "<group>";
@@ -2366,7 +2366,7 @@
 				659E74BC197E557C0062ACE9 /* UIColor-Expanded.m in Sources */,
 				659E74B8197E557C0062ACE9 /* NSLocale+ITTAdditions.m in Sources */,
 				659E7517197E557C0062ACE9 /* AddressBookUtils.m in Sources */,
-				65FA317A19A5B9AE009DA536 /* DetailLikeRequest.m in Sources */,
+				65FA317A19A5B9AE009DA536 /* UserPraiseRequest.m in Sources */,
 				E16353BB19000D7D0068918E /* AppDelegate.m in Sources */,
 				659E754F197E5BAB0062ACE9 /* ITTUserDefaultCacheDao.m in Sources */,
 				659E74F9197E557C0062ACE9 /* ITTRequestDataHandler.m in Sources */,

@@ -10,7 +10,7 @@
 #import "DetailCommentRequest.h"
 #import "DetailShareView.h"
 #import "ImageActionButton.h"
-#import "DetailLikeRequest.h"
+#import "UserPraiseRequest.h"
 
 #define FIX_BUTTON_TAG(x) (x - 1000)
 #define CREATE_BUTTON_TAG(x) (x + 1000)
@@ -400,7 +400,7 @@ int static drawerHeaderViewHeight = 40;
 - (void)detailLikeWithPublishID:(NSString *)pid action:(NSString *)action completion:(void (^)(BOOL finished, NSString *actionResult))completion
 {
     NSDictionary *parameter = @{@"pubId" : pid, @"action" : action};
-    [DetailLikeRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
+    [UserPraiseAddRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
         if ([[request.handleredResult objectForKey:@"respResult"] integerValue] == 1) {
             completion(YES, @"1");
         } else {

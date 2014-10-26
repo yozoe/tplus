@@ -29,7 +29,7 @@
 #import "DetailImgListRequest.h"
 #import "PersonalHomePageViewController.h"
 #import "SearchViewController.h"
-#import "DetailLikeRequest.h"
+#import "UserPraiseRequest.h"
 #import "AtlasModel.h"
 
 @interface SearchTagListViewController ()
@@ -297,7 +297,7 @@
 - (void)detailLikeWithPublishID:(NSString *)pid action:(NSString *)action completion:(void (^)(BOOL finished, NSString *actionResult))completion
 {
     NSDictionary *parameter = @{@"pubId" : pid, @"action" : action};
-    [DetailLikeRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
+    [UserPraiseAddRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
         if ([[request.handleredResult objectForKey:@"respResult"] integerValue] == 1) {
             completion(YES, @"1");
         } else {

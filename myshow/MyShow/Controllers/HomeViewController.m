@@ -28,7 +28,7 @@
 #import "DetailImgListRequest.h"
 #import "PersonalHomePageViewController.h"
 #import "SearchViewController.h"
-#import "DetailLikeRequest.h"
+#import "UserPraiseRequest.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 
@@ -297,7 +297,6 @@
             bodyHeight = 321;
             break;
         case 5:
-            bodyHeight = 213;
         case 6:
             bodyHeight = 213;
             break;
@@ -383,16 +382,13 @@
         cell.favourBlock = ^() {
 
             if (im.isLike.integerValue) {
-            } else {
-            }
+                NSLog(@"1");
 
-//            NSString *action = im.isLike.intValue ? @"false" : @"true";
-//            [self detailLikeWithPublishID:im.atlas.ID action:action completion:^(BOOL finished, NSString *actionResult) {
-//                if (finished) {
-//                    im.isLike = actionResult;
-//                    [recommendCell refresh];
-//                }
-//            }];
+            } else {
+                [self praiseAddWithAtlasID:im.atlas.ID completion:^(BOOL finished, NSString *result) {
+                    NSLog(@"%@", result);
+                }];
+            }
         };
 
         cell.imageViewClickHandlerBlock = ^(NSInteger tag) {
@@ -400,10 +396,12 @@
         };
 
         cell.itemModel = im;
+
         cell.incrementHeight = [heightArray[indexPath.row] integerValue];
         if (cell.itemModel.atlas.imageNum > 0) {
             [self requestPublishImgsWithPulishModel:cell.itemModel.atlas index:indexPath.row onFinished:^(NSArray *imgsArray) {
                 if (imgsArray) {
+                    [cell.itemModel.atlas.imgsArray removeAllObjects];
                     [cell.itemModel.atlas.imgsArray addObjectsFromArray:imgsArray];
                     [cell refresh];
                 }
@@ -430,13 +428,20 @@
 
         __block HomeItemCell *itemCell = cell;
         cell.favourBlock = ^() {
-            NSString *action = im.isLike.intValue ? @"false" : @"true";
-            [self detailLikeWithPublishID:im.publish.ID action:action completion:^(BOOL finished, NSString *actionResult) {
-                if (finished) {
-                    im.isLike = actionResult;
-                    [itemCell refresh];
-                }
-            }];
+
+            if (im.isLike.integerValue) {
+                [self praiseAddWithAtlasID:im.atlas.ID completion:^(BOOL finished, NSString *result) {
+                    NSLog(@"%@", result);
+                }];
+            } else {
+
+            }
+//            [self detailLikeWithPublishID:im.publish.ID action:action completion:^(BOOL finished, NSString *actionResult) {
+//                if (finished) {
+//                    im.isLike = actionResult;
+//                    [itemCell refresh];
+//                }
+//            }];
         };
         cell.itemModel = im;
         cell.incrementHeight = [heightArray[indexPath.row] integerValue];
@@ -488,21 +493,42 @@
              }
          }
      }];
+}
 
+- (void)praiseAddWithAtlasID:(NSString *)atlasID completion:(void (^)(BOOL finished, NSString *result))completion
+{
+
+    [UserPraiseAddRequest requestWithParameters:@{@"atlasID" : atlasID} withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+
+    } onRequestFinished:^(ITTBaseDataRequest *request) {
+
+    } onRequestCanceled:^(ITTBaseDataRequest *request) {
+
+    } onRequestFailed:^(ITTBaseDataRequest *request) {
+        NSLog(@"faied");
+    }];
+}
+
+- (void)praiseCancelWithAtlasID:(NSString *)atlasID completion:(void (^)(BOOL finished, NSString *result))completion
+{
+    [UserPraiseAddRequest requestWithParameters:@{} withIndicatorView:nil withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
+        NSLog(@"%@", request.handleredResult);
+    }];
 }
 
 #pragma mark - 请求喜欢和不喜欢
-- (void)detailLikeWithPublishID:(NSString *)pid action:(NSString *)action completion:(void (^)(BOOL finished, NSString *actionResult))completion
-{
-    NSDictionary *parameter = @{@"pubId" : pid, @"action" : action};
-    [DetailLikeRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
-        if ([[request.handleredResult objectForKey:@"respResult"] integerValue] == 1) {
-            completion(YES, @"1");
-        } else {
-            completion(YES, @"0");
-        }
-    }];
-}
+//- (void)detailLikeWithPublishID:(NSString *)pid action:(BOOL *)action completion:(void (^)(BOOL finished, NSString *actionResult))completion
+//{
+//    NSDictionary *parameter = @{@"pubId" : pid, @"action" : action};
+//
+//    [DetailLikeRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
+//        if ([[request.handleredResult objectForKey:@"respResult"] integerValue] == 1) {
+//            completion(YES, @"1");
+//        } else {
+//            completion(YES, @"0");
+//        }
+//    }];
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
