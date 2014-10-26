@@ -72,8 +72,7 @@ static AppDelegate *_appDelegate;
     [MobClick startWithAppkey:UmengAppkey reportPolicy:SEND_INTERVAL channelId:@"App Store"];
     
     //本机信息
-//    DATA_ENV.platformString = [[UIDevice currentDevice] platformString];
-    DATA_ENV.platformString = @" ";
+    DATA_ENV.platformString = [[UIDevice currentDevice] platformString];
     NSLog(@"platformString:%@",DATA_ENV.platformString);
     
     //定位location

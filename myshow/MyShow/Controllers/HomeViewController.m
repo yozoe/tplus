@@ -386,7 +386,13 @@
 
             } else {
                 [self praiseAddWithAtlasID:im.atlas.ID completion:^(BOOL finished, NSString *result) {
-                    NSLog(@"%@", result);
+                    if (finished) {
+                        if ([result isEqualToString:@"selfSuccess"]) {
+                            im.isLike = @"1";
+                        }
+                        im.atlas.praiseNum = [NSString stringWithFormat:@"%d", im.atlas.praiseNum.integerValue + 1];
+                        [recommendCell refresh];
+                    }
                 }];
             }
         };
@@ -497,15 +503,27 @@
 
 - (void)praiseAddWithAtlasID:(NSString *)atlasID completion:(void (^)(BOOL finished, NSString *result))completion
 {
-
-    [UserPraiseAddRequest requestWithParameters:@{@"atlasID" : atlasID} withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    BOOL selfPraise = NO;
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:atlasID forKey:@"atlasId"];
+    if (DATA_ENV.userInfo) {
+        [parameters setObject:DATA_ENV.userInfo.ID forKey:@"userId"];
+        selfPraise = YES;
+    }
+    [UserPraiseAddRequest requestWithParameters:parameters withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
 
     } onRequestFinished:^(ITTBaseDataRequest *request) {
-
+        if ([[request.handleredResult objectForKey:@"code"] integerValue] == 20000) {
+            if (selfPraise) {
+                completion(YES, @"selfSuccess");
+            } else {
+                completion(YES, @"customerSuccess");
+            }
+        }
     } onRequestCanceled:^(ITTBaseDataRequest *request) {
 
     } onRequestFailed:^(ITTBaseDataRequest *request) {
-        NSLog(@"faied");
+
     }];
 }
 
