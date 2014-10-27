@@ -167,14 +167,14 @@
                                                    model.type = @"sina";
                                                    DATA_ENV.type = model.type;
                                                    
-                                                   NSDictionary * params = @{@"headurl":model.headUrl,@"nickname":model.nickname,@"uid":model.uid,@"type":model.type};
+                                                   NSDictionary * params = @{@"uid":model.uid,@"nickname":model.nickname,@"headUrl":model.headUrl,@"type":model.type};
                                                    
                                                    
                                                    
-                                                   NSLog(@"查看请求头数据对不对location:%@",DATA_ENV.location);
-                                                   NSLog(@"查看请求头数据对不对did:%@",DATA_ENV.did);
-                                                   NSLog(@"查看请求头数据对不对brand:%@",DATA_ENV.platformString);
-                                                   NSLog(@"查看请求头数据对不对ll:%@*%@",DATA_ENV.longitude, DATA_ENV.latitude);
+//                                                   NSLog(@"查看请求头数据对不对location:%@",DATA_ENV.location);
+//                                                   NSLog(@"查看请求头数据对不对did:%@",DATA_ENV.did);
+//                                                   NSLog(@"查看请求头数据对不对brand:%@",DATA_ENV.platformString);
+//                                                   NSLog(@"查看请求头数据对不对ll:%@*%@",DATA_ENV.longitude, DATA_ENV.latitude);
                                                 
                                                    [self startRegisterWithParams:params];
                                                }];
@@ -204,7 +204,7 @@
                                                   model.nickname = entity.userName;
                                                   model.headUrl = entity.iconURL;
                                                   
-                                                  NSDictionary * params = @{@"headurl":model.headUrl,@"nickname":model.nickname,@"uid":model.uid,@"type":type};
+                                                  NSDictionary * params = @{@"uid":model.uid,@"nickname":model.nickname,@"headUrl":model.headUrl,@"type":type};
                                                   
                                                   NSLog(@"查看请求头数据对不对location:%@",DATA_ENV.location);
                                                   NSLog(@"查看请求头数据对不对did:%@",DATA_ENV.did);

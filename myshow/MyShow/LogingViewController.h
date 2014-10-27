@@ -17,6 +17,6 @@
 
 @property (nonatomic, copy) void(^didLoginSuccess)();
 @property (nonatomic, copy) void(^didRegisterSuccess)();
-+ (void)loginAction;
+//+ (void)loginAction;
 
 @end

@@ -160,6 +160,7 @@
 
 - (void)reloadData
 {
+    NSLog(@"DATA_ENV.userInfo:%@",DATA_ENV.userInfo);
     [self.headImage loadImage:DATA_ENV.userInfo.headUrl placeHolder:[UIImage imageNamed:@"NoHeaderImge"]];
     self.nameLabel.text = DATA_ENV.userInfo.nickname;
 }
