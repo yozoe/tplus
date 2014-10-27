@@ -40,36 +40,8 @@ static AppDelegate *_appDelegate;
 
     _tabBarController = [[MyTabBarViewController alloc] init];
     self.window.rootViewController = _tabBarController;
-    [self.window makeKeyAndVisible];
-    
-    NSLog(@"DATA_ENV.isHasUserInfo:%d",DATA_ENV.isHasUserInfo);
-    NSLog(@"DATA_ENV.userInfo:%@",DATA_ENV.userInfo);
     
     
-    //打开调试log的开关
-    [UMSocialData openLog:YES];
-    
-    //设置友盟社会化组件appkey
-    [UMSocialData setAppKey:UmengAppkey];
-    
-//    //设置微信AppId，设置分享url，默认使用友盟的网址
-//    [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:@"http://www.umeng.com/social"];
-
-    //打开新浪微博的SSO开关
-    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
-    
-    //打开腾讯微博SSO开关，设置回调地址
-    [UMSocialTencentWeiboHandler openSSOWithRedirectUrl:@"http://sns.whalecloud.com/tencent2/callback"];
-    
-    //打开人人网SSO开关
-    [UMSocialRenrenHandler openSSO];
-    
-    //设置分享到QQ空间的应用Id，和分享url 链接
-//    [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"http://www.umeng.com/social"];
-    //设置支持没有客户端情况下使用SSO授权
-    [UMSocialQQHandler setSupportWebView:YES];
-    
-    [MobClick startWithAppkey:UmengAppkey reportPolicy:SEND_INTERVAL channelId:@"App Store"];
     
     //本机信息
     DATA_ENV.platformString = [[UIDevice currentDevice] platformString];
@@ -94,9 +66,39 @@ static AppDelegate *_appDelegate;
     DATA_ENV.did = [[UIDevice currentDevice] uuid];
     NSLog(@"did:%@",DATA_ENV.did);
     
+    
+    //打开调试log的开关
+    [UMSocialData openLog:YES];
+    
+    //设置友盟社会化组件appkey
+    [UMSocialData setAppKey:UmengAppkey];
+    
+    //    //设置微信AppId，设置分享url，默认使用友盟的网址
+    //    [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:@"http://www.umeng.com/social"];
+    
+    //打开新浪微博的SSO开关
+    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    
+    //打开腾讯微博SSO开关，设置回调地址
+    [UMSocialTencentWeiboHandler openSSOWithRedirectUrl:@"http://sns.whalecloud.com/tencent2/callback"];
+    
+    //打开人人网SSO开关
+    [UMSocialRenrenHandler openSSO];
+    
+    //设置分享到QQ空间的应用Id，和分享url 链接
+    //    [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"http://www.umeng.com/social"];
+    //设置支持没有客户端情况下使用SSO授权
+    [UMSocialQQHandler setSupportWebView:YES];
+    
+    [MobClick startWithAppkey:UmengAppkey reportPolicy:SEND_INTERVAL channelId:@"App Store"];
+    
+    
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory=[paths objectAtIndex:0];
     NSLog(@"NSDocumentDirectory:%@",documentsDirectory);
+    
+    [self.window makeKeyAndVisible];
     
     return YES;
 }

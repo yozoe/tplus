@@ -8,9 +8,9 @@
 
 
 //#define REQUEST_DOMAIN @"http://show.591ku.com/myshow/client/" // default env
-#define REQUEST_DOMAIN @"http://tplus.api.591ku.com/"     //真实环境服务器
+//#define REQUEST_DOMAIN @"http://tplus.api.591ku.com/"     //真实环境服务器
 
-//#define REQUEST_DOMAIN @"http://test.api.591ku.com/"        //测试服务器
+#define REQUEST_DOMAIN @"http://test.api.591ku.com/"        //测试服务器
 
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
