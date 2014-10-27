@@ -477,11 +477,11 @@
 - (void)handleShareButtonEvent:(UIButton *)sender
 {
     TagModel *tm = [_titleArray objectAtIndex:_selectedIndex];
-    NSArray *sourceArray = [_sourceDic objectForKey:tm.type];
+    NSArray *sourceArray = [_sourceDic objectForKey:self.currentKey];
     ItemModel *im = sourceArray[sender.tag];
-    ImgsModel *imageModel = [im.publish.imgsArray objectAtIndex:0];
+    ImgsModel *imageModel = [im.atlas.imgsArray objectAtIndex:0];
 
-    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"share?imgId=%@", imageModel.ID]]];
+    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"share/view?imageId=%@", imageModel.ID]]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
     NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
