@@ -13,7 +13,6 @@
 @interface HomeRecommendCell()
 {
     CABasicAnimation *_fadeAnimation;
-    CAKeyframeAnimation *_scaleAnimation;
 }
 
 @end
@@ -32,13 +31,6 @@
         _fadeAnimation.toValue = [NSNumber numberWithFloat:1.f];
         _fadeAnimation.removedOnCompletion = NO;
         _fadeAnimation.fillMode = kCAFillModeForwards;
-
-        _scaleAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
-        _scaleAnimation.duration = 0.3f;
-        NSMutableArray *values = [NSMutableArray array];
-        [values addObject:[NSNumber numberWithFloat:0.9]];
-        [values addObject:[NSNumber numberWithFloat:1]];
-        [_scaleAnimation setValues:values];
 
     }
     return self;
@@ -199,7 +191,7 @@
 {
     [_portraitImageView setImageWithURL:[NSURL URLWithString:_itemModel.user.headUrl] placeholderImage:nil];
     _usernameLabel.text = _itemModel.user.nickname;
-    _timeLabel.text = [NSDate timeStringWithInterval:[_itemModel.publish.createTime doubleValue] / 1000];
+    _timeLabel.text = [NSDate timeStringWithInterval:[_itemModel.atlas.createDate doubleValue] / 1000];
 
     [_usernameLabel sizeToFit];
     [_timeLabel sizeToFit];
@@ -322,8 +314,6 @@
 
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     __block UIImageView *imageView = iv;
-
-    [self.layer addAnimation:_scaleAnimation forKey:nil];
 
     [iv setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         if (request && response && image) {

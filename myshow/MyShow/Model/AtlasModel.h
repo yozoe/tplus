@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSString *location;
 @property (strong, nonatomic) NSString *content;
 @property (strong, nonatomic) NSMutableArray *imgsArray;
+@property (strong, nonatomic) NSString *createDate;
 
 - (void)addImg:(ImgsModel *)imgModel;
 - (NSInteger)imgCount;

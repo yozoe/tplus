@@ -27,6 +27,7 @@
              ,@"shareNum" : @"shareNum"
              ,@"location" : @"location"
              ,@"content" : @"content"
+             ,@"createDate" : @"createDate"
              };
 
 }

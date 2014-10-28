@@ -410,10 +410,9 @@
         cell.itemModel = im;
 
         cell.incrementHeight = [heightArray[indexPath.row] integerValue];
-        if (cell.itemModel.atlas.imageNum > 0) {
+        if (cell.itemModel.atlas.imageNum > 0 && im.atlas.imgsArray.count == 0) {
             [self requestPublishImgsWithPulishModel:cell.itemModel.atlas index:indexPath.row onFinished:^(NSArray *imgsArray) {
                 if (imgsArray) {
-                    [cell.itemModel.atlas.imgsArray removeAllObjects];
                     [cell.itemModel.atlas.imgsArray addObjectsFromArray:imgsArray];
                     [cell refresh];
                 }
@@ -547,27 +546,13 @@
     }];
 }
 
-#pragma mark - 请求喜欢和不喜欢
-//- (void)detailLikeWithPublishID:(NSString *)pid action:(BOOL *)action completion:(void (^)(BOOL finished, NSString *actionResult))completion
-//{
-//    NSDictionary *parameter = @{@"pubId" : pid, @"action" : action};
-//
-//    [DetailLikeRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
-//        if ([[request.handleredResult objectForKey:@"respResult"] integerValue] == 1) {
-//            completion(YES, @"1");
-//        } else {
-//            completion(YES, @"0");
-//        }
-//    }];
-//}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_selectedIndex == 0) {
         return;
     }
-    TagModel *tm = [_titleArray objectAtIndex:_selectedIndex];
-    NSArray *sourceArray = [_sourceDic objectForKey:tm.type];
+
+    NSArray *sourceArray = [_sourceDic objectForKey:self.currentKey];
 
     if (!_photoModelArray) {
         _photoModelArray = [[NSMutableArray alloc] init];
@@ -588,7 +573,7 @@
 
 
     } else {
-        for (ImgsModel *imgModel in im.publish.imgsArray) {
+        for (ImgsModel *imgModel in im.atlas.imgsArray) {
             MWPhoto *mp = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:imgModel.url]];
             [_photoModelArray addObject:mp];
         }
