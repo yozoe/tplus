@@ -19,7 +19,7 @@
 
 @property (nonatomic, strong) NSArray * tagsArray;
 @property (nonatomic, strong) NSMutableArray * selectedArray;
-@property (nonatomic, strong) NSMutableArray * selectedID;
+@property (nonatomic, strong) NSMutableArray * selectedNames;
 @property (nonatomic, strong) NSMutableDictionary * stateDict;
 @property (nonatomic, assign) int homeTagIndex;
 

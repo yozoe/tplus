@@ -206,10 +206,10 @@
                                                   
                                                   NSDictionary * params = @{@"uid":model.uid,@"nickname":model.nickname,@"headUrl":model.headUrl,@"type":type};
                                                   
-                                                  NSLog(@"查看请求头数据对不对location:%@",DATA_ENV.location);
-                                                  NSLog(@"查看请求头数据对不对did:%@",DATA_ENV.did);
-                                                  NSLog(@"查看请求头数据对不对brand:%@",DATA_ENV.platformString);
-                                                  NSLog(@"查看请求头数据对不对ll:%@*%@",DATA_ENV.longitude, DATA_ENV.latitude);
+//                                                  NSLog(@"查看请求头数据对不对location:%@",DATA_ENV.location);
+//                                                  NSLog(@"查看请求头数据对不对did:%@",DATA_ENV.did);
+//                                                  NSLog(@"查看请求头数据对不对brand:%@",DATA_ENV.platformString);
+//                                                  NSLog(@"查看请求头数据对不对ll:%@*%@",DATA_ENV.longitude, DATA_ENV.latitude);
                                                   [self startRegisterWithParams:params];
                                               }
                                               else

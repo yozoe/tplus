@@ -22,7 +22,7 @@
 
     NSMutableArray *homeTagModelArray = [NSMutableArray array];
 
-    for (NSDictionary *dic in [self.handleredResult objectForKey:@"resp"]) {
+    for (NSDictionary *dic in [[self.handleredResult objectForKey:@"resp"] objectForKey:@"labels"]) {
         [homeTagModelArray addObject:[[TagModel alloc] initWithDataDic:dic]];
     }
 
@@ -35,3 +35,29 @@
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

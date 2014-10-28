@@ -36,7 +36,7 @@
     if (self) {
         // Custom initialization
         _selectedArray = [NSMutableArray array];
-        _selectedID = [NSMutableArray array];
+        _selectedNames = [NSMutableArray array];
         _stateDict = [NSMutableDictionary dictionary];
     }
     return self;
@@ -140,10 +140,10 @@
     NSString *zipFile = [documentsPath stringByAppendingPathComponent:@"imgfiles.zip"];
 
 //    真实环境
-    NSURL * url = [NSURL URLWithString:@"http://show.591ku.com/myshow/client/user/atlas/add"];
+//    NSURL * url = [NSURL URLWithString:@"http://show.591ku.com/myshow/client/user/atlas/add"];
     
     //测试环境
-//    NSURL * url = [NSURL URLWithString:@"http://show.591ku.com:8080/myshow/client/user/publish"];
+    NSURL * url = [NSURL URLWithString:@"http://test.api.591ku.com/user/atlas/add"];
     
     
     
@@ -153,20 +153,57 @@
     [request setDelegate:self];
     
     
-    //uid
+//    //uid
+//    [request addRequestHeader:@"uid" value:DATA_ENV.userUid];
+//    //手机信息
+//    [request addRequestHeader:@"brand" value:[DATA_ENV.platformString encodeUrl]];
+//    //token
+//    [request addRequestHeader:@"token" value:DATA_ENV.token];
+//    //位置
+//    [request addRequestHeader:@"location" value:[DATA_ENV.location encodeUrl]];
+//    //经度
+//    [request addRequestHeader:@"longtitude" value:DATA_ENV.longitude];
+//    //纬度
+//    [request addRequestHeader:@"latitude" value:DATA_ENV.latitude];
+    
+
+    
+    //用户id
     [request addRequestHeader:@"uid" value:DATA_ENV.userUid];
     //手机信息
     [request addRequestHeader:@"brand" value:[DATA_ENV.platformString encodeUrl]];
-    //token
-    [request addRequestHeader:@"token" value:DATA_ENV.token];
     //位置
     [request addRequestHeader:@"location" value:[DATA_ENV.location encodeUrl]];
     //经度
     [request addRequestHeader:@"longtitude" value:DATA_ENV.longitude];
     //纬度
     [request addRequestHeader:@"latitude" value:DATA_ENV.latitude];
+    //用户头像
+    [request addRequestHeader:@"headurl" value:DATA_ENV.userInfo.headUrl];
+    //用户昵称
+    [request addRequestHeader:@"nickname" value:[DATA_ENV.userInfo.nickname encodeUrl]];
+    //UUID    新添加字段
+    [request addRequestHeader:@"did" value:DATA_ENV.did];
+    //TOKEN   新添加字段
+    [request addRequestHeader:@"token" value:DATA_ENV.token];
     
-
+    //以下数据测试用
+    if (!DATA_ENV.longitude) {
+        DATA_ENV.longitude = @"37.785834";
+    }
+    
+    if (!DATA_ENV.latitude) {
+        DATA_ENV.latitude = @"122.406417";
+    }
+    
+    if (!DATA_ENV.location) {
+        DATA_ENV.location = @"北京市朝阳区";
+    }
+    
+    //经纬度   新添加字段
+    [request addRequestHeader:@"ll" value:[NSString stringWithFormat:@"%@*%@", DATA_ENV.longitude, DATA_ENV.latitude]];
+    
+    
     
     
     //文字说明
@@ -261,7 +298,7 @@
             {
                 if ([m.name isEqualToString:name]) {
                     [_selectedArray addObject:m];
-                    [_selectedID addObject:m.ID];
+                    [_selectedNames addObject:m.name];
                 }
             }
         }else{
@@ -273,11 +310,11 @@
             {
                 if ([m.name isEqualToString:name]) {
                     [_selectedArray removeObject:m];
-                    [_selectedID removeObject:m.ID];
+                    [_selectedNames removeObject:m.name];
                 }
             }
         }
-        _uploadTags = _selectedID;
+        _uploadTags = _selectedNames;
         [self refreshTagsState];
 	}];
     
@@ -295,14 +332,14 @@
         }
     }
     NSLog(@"选中状态:%@",_stateDict);
-    NSLog(@"选中tagView合集:%@",_selectedID);
+    NSLog(@"选中tagView合集:%@",_selectedNames);
 
 }
 
 #pragma mark - 请求标签
 - (void)requestTitleSegmentedViewTitle
 {
-    [HomeTagRequest requestWithParameters:@{@"type" : DEFAULT_DISTRIBUTE_TAG} withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    [HomeTagRequest requestWithParameters:nil withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
         
     } onRequestFinished:^(ITTBaseDataRequest *request) {
         _tagsArray = [[request.handleredResult objectForKey:@"models"] copy];

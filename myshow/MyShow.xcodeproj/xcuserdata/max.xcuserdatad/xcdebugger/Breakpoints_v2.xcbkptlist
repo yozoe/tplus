@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MyShow/PersonalHomePageViewController.m"
-            timestampString = "436112635.896043"
+            filePath = "MyShow/TagsViewController.m"
+            timestampString = "436159403.166301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
-            landmarkName = "-reloadData"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "-requestFinished:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
