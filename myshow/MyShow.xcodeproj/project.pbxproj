@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5073CFB519FFE42400BB397F /* LogoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFB419FFE42400BB397F /* LogoutRequest.m */; };
 		6502F78219E694DB00433F71 /* AtlasModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6502F78119E694DB00433F71 /* AtlasModel.m */; };
 		6505812E199A0A3300BDF2C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6505812D199A0A3300BDF2C9 /* CoreLocation.framework */; };
 		65058131199A0A3F00BDF2C9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65058130199A0A3F00BDF2C9 /* MapKit.framework */; };
@@ -286,6 +287,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5073CFB319FFE42400BB397F /* LogoutRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutRequest.h; sourceTree = "<group>"; };
+		5073CFB419FFE42400BB397F /* LogoutRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutRequest.m; sourceTree = "<group>"; };
 		6502F78019E694DB00433F71 /* AtlasModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtlasModel.h; sourceTree = "<group>"; };
 		6502F78119E694DB00433F71 /* AtlasModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtlasModel.m; sourceTree = "<group>"; };
 		6505812D199A0A3300BDF2C9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -952,6 +955,8 @@
 				65C47CB1199B2A43008B8DC4 /* MyFavorateTagClickRequest.m */,
 				657A0B3719A3398C00D66987 /* FeedbackDataRequeat.h */,
 				657A0B3819A3398C00D66987 /* FeedbackDataRequeat.m */,
+				5073CFB319FFE42400BB397F /* LogoutRequest.h */,
+				5073CFB419FFE42400BB397F /* LogoutRequest.m */,
 			);
 			name = NetRequest;
 			sourceTree = "<group>";
@@ -1918,10 +1923,8 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = maxingchuan;
 				TargetAttributes = {
-					E16353A619000D7D0068918E = {
-						DevelopmentTeam = 7H6JCDHBVJ;
-					};
 					E16353C119000D7D0068918E = {
+						DevelopmentTeam = 7H6JCDHBVJ;
 						TestTargetID = E16353A619000D7D0068918E;
 					};
 				};
@@ -2033,6 +2036,7 @@
 				651CAA8E198DE286008D2EA7 /* ImageActionButton.m in Sources */,
 				659C6BF3198C9C0600B2E806 /* ITTDataEnvironment.m in Sources */,
 				65A3A5D71992122C00703B8E /* PSTCollectionViewController.m in Sources */,
+				5073CFB519FFE42400BB397F /* LogoutRequest.m in Sources */,
 				650BA5E2198F5C1800F905DE /* PersonalHomePageViewController.m in Sources */,
 				659E74B5197E557C0062ACE9 /* NSArray+ITTAdditions.m in Sources */,
 				657A0B3F19A33EDE00D66987 /* RXUitils.m in Sources */,
@@ -2343,8 +2347,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: cheng yan (M99LZTCK8N)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: cheng yan (M99LZTCK8N)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: LI XIAO (MK636A256V)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyShow/Support/UMSocial_Sdk_4.0/Renren",
@@ -2373,7 +2377,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "74a27179-97a7-49f2-ba3a-6f35f8d548eb";
+				PROVISIONING_PROFILE = "3a3b3f60-d7a4-4742-948a-f783f7244221";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2386,8 +2390,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: cheng yan (M99LZTCK8N)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: cheng yan (M99LZTCK8N)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: LI XIAO (MK636A256V)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyShow/Support/UMSocial_Sdk_4.0/Renren",
@@ -2415,7 +2419,7 @@
 					"$(PROJECT_DIR)/MyShow/Support/Wechat",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "74a27179-97a7-49f2-ba3a-6f35f8d548eb";
+				PROVISIONING_PROFILE = "3a3b3f60-d7a4-4742-948a-f783f7244221";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2426,6 +2430,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MyShow.app/MyShow";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2439,6 +2445,7 @@
 				);
 				INFOPLIST_FILE = "MyShowTests/MyShowTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -2448,6 +2455,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MyShow.app/MyShow";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2457,6 +2466,7 @@
 				GCC_PREFIX_HEADER = "MyShow/MyShow-Prefix.pch";
 				INFOPLIST_FILE = "MyShowTests/MyShowTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};

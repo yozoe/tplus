@@ -143,9 +143,9 @@
     
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:[arrar objectAtIndex:sender.tag - 33]];
     
-    //如果没有Token,先注册,再登陆
-    if (!DATA_ENV.isHasToken)
-    {
+//    //如果没有Token,先注册,再登陆
+//    if (!DATA_ENV.isHasToken)
+//    {
         snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,
                                       ^(UMSocialResponseEntity *response)
                                       {
@@ -222,13 +222,13 @@
                                           }
                                           
                                       });
-    }else{
-        
-        //如果有Token,直接登陆
-        NSDictionary * loginParames = @{@"uid":DATA_ENV.userUid,@"type":DATA_ENV.type};
-        //登陆
-        [self startLoginWithParams:loginParames];
-    }
+//    }else{
+//        
+//        //如果有Token,直接登陆
+//        NSDictionary * loginParames = @{@"uid":DATA_ENV.userUid,@"type":DATA_ENV.type};
+//        //登陆
+//        [self startLoginWithParams:loginParames];
+//    }
     
 }
 

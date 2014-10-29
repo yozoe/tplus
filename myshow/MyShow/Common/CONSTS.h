@@ -30,6 +30,8 @@
 #define KEY_TOKEN @"KEY_TOKEN"
 #define KEY_TYPE @"KEY_TYPE"
 
+
+#define NOTIFICATION_DISTRIBUTE_SUCCESS @"NOTIFICATION_DISTRIBUTE_SUCCESS"
 //other consts
 typedef enum{
 	kTagWindowIndicatorView = 501,

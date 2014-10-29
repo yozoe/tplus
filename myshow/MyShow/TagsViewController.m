@@ -151,6 +151,8 @@
     
     [request setRequestMethod:@"POST"];
     [request setDelegate:self];
+    request.defaultResponseEncoding = NSUTF8StringEncoding;
+
     
     
 //    //uid
@@ -171,9 +173,9 @@
     //用户id
     [request addRequestHeader:@"uid" value:DATA_ENV.userUid];
     //手机信息
-    [request addRequestHeader:@"brand" value:[DATA_ENV.platformString encodeUrl]];
+    [request addRequestHeader:@"brand" value:DATA_ENV.platformString];
     //位置
-    [request addRequestHeader:@"location" value:[DATA_ENV.location encodeUrl]];
+//    [request addRequestHeader:@"location" value:[DATA_ENV.location encodeUrl]];
     //经度
     [request addRequestHeader:@"longtitude" value:DATA_ENV.longitude];
     //纬度
@@ -202,7 +204,8 @@
     
     //经纬度   新添加字段
     [request addRequestHeader:@"ll" value:[NSString stringWithFormat:@"%@*%@", DATA_ENV.longitude, DATA_ENV.latitude]];
-    
+    //位置
+    [request addRequestHeader:@"location" value:[DATA_ENV.location encodeUrl]];
     
     
     
@@ -210,8 +213,8 @@
     [request setPostValue:[_uploadText encodeUrl] forKey:@"content"];
     
     //标签id
-    for (NSString * stringID in _uploadTags) {
-        [request setPostValue:stringID forKey:@"labelNames"];
+    for (NSString * name in _uploadTags) {
+        [request setPostValue:name forKey:@"labelNames"];
 
     }
     
@@ -229,26 +232,34 @@
 #pragma mark - ASIHTTPRequest-requestFinished
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
+    NSData *jsonData = [request.responseString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary * resultDic = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
     
-    NSLog(@"request.response-----------------:%@",request.responseString);
-    NSLog(@"发布成功了!");
-    NSLog(@"request.responseStatusCode-----------------:%d",request.responseStatusCode);
+    NSLog(@"request.responseString:%@",request.responseString);
     
-    
-    if (_maskActivityView) {
-        [_maskActivityView hide];
-        _maskActivityView = nil;
+    if ([[resultDic objectForKey:@"code"]  isEqual: @20000]) {
+        NSLog(@"发布成功了!");
+        
+        if (_maskActivityView) {
+            [_maskActivityView hide];
+            _maskActivityView = nil;
+        }
+        
+        [self showHUDWithImgWithTitle:@"发布成功." withHiddenDelay:1.0f];
+        [self performSelector:@selector(successAction) withObject:nil afterDelay:1.0f];
     }
     
-    [self showHUDWithImgWithTitle:@"发布成功." withHiddenDelay:1.0f];
-    [self performSelector:@selector(successAction) withObject:nil afterDelay:1.0f];
     
 }
 
 - (void)successAction
 {
     if (_didDistributeSuccess) {
+        //发布图集页面回掉，让其dismiss
         _didDistributeSuccess();
+        
+        //还需要发个全局通知，如果是在个人页面发布的，发布完了需要刷新我发布的图集；如果是首页图集页面，当发布完了，不需要做什么
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISTRIBUTE_SUCCESS object:nil];
     }
 }
 
