@@ -20,7 +20,7 @@
 {
     [super processResult];
 
-    NSLog(@"%@", self.handleredResult);
+    NSLog(@"%@", [self.handleredResult objectForKey:@"msg"]);
 
     NSDictionary *resultDic = [self.handleredResult objectForKey:@"resp"];
     NSMutableArray *itemsArray = [resultDic objectForKey:@"items"];

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 maxingchuan. All rights reserved.
 //
 
-#import "ITTBaseDataRequest.h"
+#import "ITTAFNBaseDataRequest.h"
 
-@interface UserAtlasListAttentionRequest : ITTBaseDataRequest
+@interface UserAtlasListAttentionRequest : ITTAFNBaseDataRequest
 
 @end

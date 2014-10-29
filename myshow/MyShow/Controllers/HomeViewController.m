@@ -178,7 +178,7 @@
 
         NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
         BOOL isAdd = page.integerValue > 1 ? YES : NO;
-        [self fillTalbeViewSourceFromArray:itemsArray type:typeStr isAdd:isAdd];
+        [self fillTalbeViewSourceFromArray:itemsArray isAdd:isAdd];
         [self endLoadingData];
 
     } onRequestCanceled:^(ITTBaseDataRequest *request) {
@@ -186,7 +186,18 @@
     }];
 }
 
-- (void)fillTalbeViewSourceFromArray:(NSArray *)array type:typeStr isAdd:(BOOL)isAdd
+- (void)requestAttentionCellWithPage:(NSString *)page
+{
+    NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE};
+    [UserAtlasListAttentionRequest requestWithParameters:parameter withIndicatorView:nil onRequestFinished:^(ITTBaseDataRequest *request) {
+        NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
+        BOOL isAdd = page.integerValue > 1 ? YES : NO;
+        [self fillTalbeViewSourceFromArray:itemsArray isAdd:isAdd];
+        [self endLoadingData];
+    }];
+}
+
+- (void)fillTalbeViewSourceFromArray:(NSArray *)array isAdd:(BOOL)isAdd
 {
     NSMutableArray *heightArray = [_recommentHeightDic objectForKey:self.currentKey];
     if (!heightArray) {
@@ -249,16 +260,7 @@
                 break;
             case 2:
             {
-                NSDictionary *parameter = @{@"page" : @"1", @"limit" : HOME_PAGE_SIZE};
-                [UserAtlasListAttentionRequest requestWithParameters:nil withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
-
-                } onRequestFinished:^(ITTBaseDataRequest *request) {
-
-                } onRequestCanceled:^(ITTBaseDataRequest *request) {
-
-                } onRequestFailed:^(ITTBaseDataRequest *request) {
-
-                }];
+                [self requestAttentionCellWithPage:@"1"];
             }
                 break;
         }
@@ -485,7 +487,6 @@
 
 - (void)handleShareButtonEvent:(UIButton *)sender
 {
-    TagModel *tm = [_titleArray objectAtIndex:_selectedIndex];
     NSArray *sourceArray = [_sourceDic objectForKey:self.currentKey];
     ItemModel *im = sourceArray[sender.tag];
     ImgsModel *imageModel = [im.atlas.imgsArray objectAtIndex:0];
@@ -689,7 +690,7 @@
             break;
         case 2:
         {
-
+            [self requestAttentionCellWithPage:@"1"];
         }
             break;
     }
@@ -715,11 +716,10 @@
             break;
         case 2:
         {
-
+            [self requestAttentionCellWithPage:[NSString stringWithFormat:@"%d", page]];
         }
             break;
     }
-//    [self requestMainCellWithPageID:pageID andType:pageType andPage:[NSString stringWithFormat:@"%d", page]];
 
 }
 
