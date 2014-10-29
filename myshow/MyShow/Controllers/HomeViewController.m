@@ -31,6 +31,7 @@
 #import "UserPraiseRequest.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
+#import "UserAtlasListAttentionRequest.h"
 
 @interface HomeViewController ()
 {
@@ -125,7 +126,7 @@
     _mainScrollView.delegate = self;
     [self.view addSubview:_mainScrollView];
 
-    _titleArray = @[@"最热", @"最新", @"关注"];
+    _titleArray = @[@"推荐", @"最新", @"关注"];
 
     for (int i = 0; i < _titleArray.count; i++) {
 
@@ -248,7 +249,16 @@
                 break;
             case 2:
             {
-                //请求关注接口
+                NSDictionary *parameter = @{@"page" : @"1", @"limit" : HOME_PAGE_SIZE};
+                [UserAtlasListAttentionRequest requestWithParameters:nil withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+
+                } onRequestFinished:^(ITTBaseDataRequest *request) {
+
+                } onRequestCanceled:^(ITTBaseDataRequest *request) {
+
+                } onRequestFailed:^(ITTBaseDataRequest *request) {
+
+                }];
             }
                 break;
         }
