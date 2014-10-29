@@ -191,7 +191,7 @@
 {
     [_portraitImageView setImageWithURL:[NSURL URLWithString:_itemModel.user.headUrl] placeholderImage:nil];
     _usernameLabel.text = _itemModel.user.nickname;
-    _timeLabel.text = [NSDate timeStringWithInterval:[_itemModel.atlas.createDate doubleValue] / 1000];
+    _timeLabel.text = [NSDate timeStringWithInterval:[_itemModel.atlas.createDate  doubleValue] / 1000];
 
     [_usernameLabel sizeToFit];
     [_timeLabel sizeToFit];

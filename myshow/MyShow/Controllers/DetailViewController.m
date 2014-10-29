@@ -177,7 +177,7 @@
     UIImageView *locationImageView = [[UIImageView alloc] initWithImage:locationImage];
 
     UILabel *locationLabel = [[UILabel alloc] init];
-    locationLabel.text = _item.publish.location;
+    locationLabel.text = _item.atlas.location;
     locationLabel.font = [UIFont systemFontOfSize:12.f];
     [locationLabel sizeToFit];
     locationLabel.right = portraitImageView.left - 8;
@@ -190,7 +190,7 @@
     UILabel *dateLabel = [[UILabel alloc] init];
     dateLabel.textColor = [UIColor whiteColor];
     dateLabel.font = [UIFont systemFontOfSize:11.f];
-    dateLabel.text = [NSDate timeStringWithInterval:[_item.publish.createTime doubleValue] / 1000];
+    dateLabel.text = [NSDate timeStringWithInterval:[_item.atlas.createDate doubleValue] / 1000];
     [dateLabel sizeToFit];
     dateLabel.right = portraitImageView.left - 8;
     dateLabel.bottom = portraitImageView.bottom;
@@ -417,7 +417,7 @@
 
 - (void)updatePhotoIndexViewWithIndex:(NSInteger)index
 {
-    _photoIndexLabel.text = [NSString stringWithFormat:@"%d / %d", index + 1, _item.publish.imagenum.intValue];
+    _photoIndexLabel.text = [NSString stringWithFormat:@"%d / %d", index + 1, _item.atlas.imageNum.intValue];
     [_photoIndexLabel sizeToFit];
     _photoIndexLabel.right = _photoIndexView.width - 3;
 }
@@ -425,7 +425,7 @@
 - (void)shareWithType:(NSString *)type
 {
 
-    ImgsModel *imageModel = [_item.publish.imgsArray objectAtIndex:0];
+    ImgsModel *imageModel = [_item.atlas.imgsArray objectAtIndex:0];
 
     NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"share?imgId=%@", imageModel.ID]]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
