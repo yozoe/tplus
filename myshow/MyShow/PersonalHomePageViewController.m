@@ -143,7 +143,7 @@
 - (void)addNavigationBar
 {
     _navigationBar = [[MyShowNavigationBar alloc] initWithFrame:self.view.frame
-                                                       ColorStr:[NSString stringWithUTF8String:"#F92B51"]];
+                                                       ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
     _navigationBar.titleLabel.text = @"我的主页";
     
     [_navigationBar.rightButton setImage:[UIImage imageNamed:@"Session_Multi_More_HL"] forState:UIControlStateNormal];
@@ -186,7 +186,11 @@
         DATA_ENV.token = [[request.handleredResult objectForKey:@"resp"] objectForKey:@"token"];
         NSLog(@"token:%@",DATA_ENV.token);
         
+        //自动登陆成功加载页面所有数据
         [self reloadData];
+        [self addTitleSegmentedView];
+        [self addMainScrollView];
+        [self initTableView];
         
     } onRequestCanceled:^(ITTBaseDataRequest *request) {
         
@@ -250,8 +254,8 @@
     _segmentedView.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     _segmentedView.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     _segmentedView.scrollEnabled = YES;
-    _segmentedView.selectionIndicatorColor = [MyShowTools hexStringToColor:@"#F92B51"];
-    _segmentedView.selectedTextColor = [MyShowTools hexStringToColor:@"#F92B51"];
+    _segmentedView.selectionIndicatorColor = [MyShowTools hexStringToColor:@"#BD0007"];
+    _segmentedView.selectedTextColor = [MyShowTools hexStringToColor:@"#BD0007"];
     [_segmentedView setFrame:CGRectMake(0, _HeaderView.bottom - 5, self.view.frame.size.width, NAV_HEIGHT)];
     [_segmentedView addTarget:self action:@selector(segmentedCtrlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:_segmentedView];

@@ -108,7 +108,7 @@
 - (void)addNavigationBar
 {
     _navigationBar = [[MyShowNavigationBar alloc] initWithFrame:self.view.frame
-                                                       ColorStr:[NSString stringWithUTF8String:"#F92B51"]];
+                                                       ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
     _navigationBar.titleLabel.text = @"登陆";
     
     [_navigationBar.leftButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];

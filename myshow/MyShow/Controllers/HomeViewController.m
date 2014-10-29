@@ -100,7 +100,7 @@
     self.navigationController.navigationBarHidden = YES;
 
     _navigationBar = [[MyShowNavigationBar alloc] initWithFrame:self.view.frame
-                                                       ColorStr:[NSString stringWithUTF8String:"#F92B51"]];
+                                                       ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
     _navigationBar.titleLabel.text = @"T语言";
 
     [_navigationBar.rightButton setImage:[UIImage imageNamed:@"sousuo.png"] forState:UIControlStateNormal];
@@ -161,8 +161,8 @@
     _titleSegmentedView.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     _titleSegmentedView.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     _titleSegmentedView.scrollEnabled = YES;
-    _titleSegmentedView.selectionIndicatorColor = [MyShowTools hexStringToColor:@"#F92B51"];
-    _titleSegmentedView.selectedTextColor = [MyShowTools hexStringToColor:@"#F92B51"];
+    _titleSegmentedView.selectionIndicatorColor = [MyShowTools hexStringToColor:@"#BD0007"];
+    _titleSegmentedView.selectedTextColor = [MyShowTools hexStringToColor:@"#BD0007"];
     [_titleSegmentedView setFrame:CGRectMake(0, _navigationBar.frame.size.height + _navigationBar.frame.origin.y, self.view.frame.size.width, NAV_HEIGHT)];
     [_titleSegmentedView addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:_titleSegmentedView];

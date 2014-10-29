@@ -19,12 +19,25 @@
 #import "AppDelegate.h"
 #import "MyTabBarViewController.h"
 
+#import "SMTagField.h"
 
 
-@interface TagsViewController () <UIAlertViewDelegate,ASIHTTPRequestDelegate,DataRequestDelegate>
+@interface TagsViewController () <UIAlertViewDelegate,ASIHTTPRequestDelegate,DataRequestDelegate,SMTagFieldDelegate>
+{
+    NSMutableArray * tags;
+}
+
+@property (weak, nonatomic) IBOutlet SMTagField * tagField;
+@property (weak, nonatomic) IBOutlet UIButton * addButton;
+
 
 @property (weak, nonatomic) IBOutlet AMTagListView *tagListView;
 @property (nonatomic, strong) AMTagView * selectedTagView;
+
+@property (strong, nonatomic) UILabel *placeHolder;
+
+- (IBAction)handleAddAction:(id)sender;
+
 
 @end
 
@@ -38,6 +51,7 @@
         _selectedArray = [NSMutableArray array];
         _selectedNames = [NSMutableArray array];
         _stateDict = [NSMutableDictionary dictionary];
+        tags = [NSMutableArray array];
     }
     return self;
 }
@@ -47,16 +61,65 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self addNavigationBar];
-    [self initTags];
-    [self requestTitleSegmentedViewTitle];
+//    [self initTags];
+//    [self requestTitleSegmentedViewTitle];
+    
+    _tagField.tagDelegate = self;
+    _tagField.delegate = self;
+    _tagField.tags = [[NSArray alloc] init];
+    
+    _placeHolder = [[UILabel alloc] initWithFrame:CGRectMake(7, 8, 150, 16)];
+    _placeHolder.font = [UIFont boldSystemFontOfSize:13];
+    _placeHolder.text = @"打个标签吧...";
+    _placeHolder.enabled = NO;
+    _placeHolder.backgroundColor = [UIColor clearColor];
+    [_tagField addSubview:_placeHolder];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTextField)
+//                                                 name:UIKeyboardWillShowNotification object:nil];
 }
+
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+//    if (textField.text.length == 0) {
+//        _placeHolder.text = @"打个标签吧...";
+//    }else{
+        _placeHolder.text = @"";
+//    }
+}
+
+//- (void)resetTextField
+//{
+//    _placeHolder.text = @"";
+//}
+
+
+#pragma mark - SMTagField delegate
+-(void)tagField:(SMTagField *)tagField tagAdded:(NSString *)tag{
+    NSLog(@"tagAdded:%@",tag);
+    [tags addObject:tag];
+}
+
+-(void)tagField:(SMTagField *)tagField tagRemoved:(NSString *)tag{
+    [tags removeObject:tag];
+}
+
+- (void)tagField:(SMTagField *)tagField tagsChanged:(NSArray *)tags
+{
+    if (tagField.text.length == 0) {
+        _placeHolder.text = @"打个标签吧...";
+    }
+}
+
 
 - (void)addNavigationBar
 {
     self.navigationController.navigationBarHidden = YES;
     
     _navigationBar = [[MyShowNavigationBar alloc] initWithFrame:self.view.frame
-                                                       ColorStr:[NSString stringWithUTF8String:"#F92B51"]];
+                                                       ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
     _navigationBar.titleLabel.text = @"添加标签";
     
     [_navigationBar.leftButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
@@ -213,6 +276,7 @@
     [request setPostValue:[_uploadText encodeUrl] forKey:@"content"];
     
     //标签id
+    _uploadTags = [tags copy];
     for (NSString * name in _uploadTags) {
         [request setPostValue:name forKey:@"labelNames"];
 
@@ -287,6 +351,8 @@
     }
 }
 
+
+/*
 #pragma mark - initTags
 - (void)initTags
 {
@@ -368,7 +434,7 @@
         
     }];
 }
-
+*/
 
 - (void)didReceiveMemoryWarning
 {
@@ -376,4 +442,6 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)handleAddAction:(id)sender {
+}
 @end
