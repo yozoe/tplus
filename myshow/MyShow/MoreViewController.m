@@ -10,6 +10,7 @@
 #import "AboutUsViewController.h"
 #import "MyDownLoadViewController.h"
 #import "MobClick.h"
+#import "LogoutRequest.h"
 
 @interface MoreViewController ()
 - (IBAction)buttonClickAction:(id)sender;
@@ -151,12 +152,28 @@
 }
 
 - (IBAction)logoutAction:(id)sender {
-    [DATA_ENV clearDiskCache];
-    if (_didLogoutSuccess) {
-        _didLogoutSuccess();
-    }
+    //退出登陆
+    [LogoutRequest requestWithParameters:nil withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+        
+    } onRequestFinished:^(ITTBaseDataRequest *request) {
+        
+        NSLog(@"退出登陆返回数据:%@",request.handleredResult);
+        
+        [DATA_ENV clearDiskCache];
+        if (_didLogoutSuccess) {
+            _didLogoutSuccess();
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } onRequestCanceled:^(ITTBaseDataRequest *request) {
+        
+    } onRequestFailed:^(ITTBaseDataRequest *request) {
+        
+    }];
     
-    [self.navigationController popViewControllerAnimated:YES];
-    NSLog(@"退出登陆");
+    
+    
+    
+
 }
 @end
