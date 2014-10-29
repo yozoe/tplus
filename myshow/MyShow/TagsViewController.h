@@ -11,7 +11,7 @@
 #import "BaseViewController.h"
 #import "ITTMaskActivityView.h"
 
-@interface TagsViewController : BaseViewController<NavigationBarDelegate>
+@interface TagsViewController : BaseViewController<NavigationBarDelegate,UITextFieldDelegate>
 {
     MyShowNavigationBar * _navigationBar;
     ITTMaskActivityView * _maskActivityView;

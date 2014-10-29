@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5073CFB519FFE42400BB397F /* LogoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFB419FFE42400BB397F /* LogoutRequest.m */; };
+		5073CFBC1A00C36900BB397F /* SMTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFB81A00C36900BB397F /* SMTag.m */; };
+		5073CFBD1A00C36900BB397F /* SMTagField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFBA1A00C36900BB397F /* SMTagField.m */; };
 		6502F78219E694DB00433F71 /* AtlasModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6502F78119E694DB00433F71 /* AtlasModel.m */; };
 		6505812E199A0A3300BDF2C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6505812D199A0A3300BDF2C9 /* CoreLocation.framework */; };
 		65058131199A0A3F00BDF2C9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65058130199A0A3F00BDF2C9 /* MapKit.framework */; };
@@ -290,6 +292,11 @@
 /* Begin PBXFileReference section */
 		5073CFB319FFE42400BB397F /* LogoutRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutRequest.h; sourceTree = "<group>"; };
 		5073CFB419FFE42400BB397F /* LogoutRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutRequest.m; sourceTree = "<group>"; };
+		5073CFB71A00C36900BB397F /* SMTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTag.h; sourceTree = "<group>"; };
+		5073CFB81A00C36900BB397F /* SMTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTag.m; sourceTree = "<group>"; };
+		5073CFB91A00C36900BB397F /* SMTagField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTagField.h; sourceTree = "<group>"; };
+		5073CFBA1A00C36900BB397F /* SMTagField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTagField.m; sourceTree = "<group>"; };
+		5073CFBB1A00C36900BB397F /* SMTagFieldDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTagFieldDelegate.h; sourceTree = "<group>"; };
 		6502F78019E694DB00433F71 /* AtlasModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtlasModel.h; sourceTree = "<group>"; };
 		6502F78119E694DB00433F71 /* AtlasModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtlasModel.m; sourceTree = "<group>"; };
 		6505812D199A0A3300BDF2C9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -838,6 +845,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5073CFB61A00C33E00BB397F /* SMTagField */ = {
+			isa = PBXGroup;
+			children = (
+				5073CFB71A00C36900BB397F /* SMTag.h */,
+				5073CFB81A00C36900BB397F /* SMTag.m */,
+				5073CFB91A00C36900BB397F /* SMTagField.h */,
+				5073CFBA1A00C36900BB397F /* SMTagField.m */,
+				5073CFBB1A00C36900BB397F /* SMTagFieldDelegate.h */,
+			);
+			name = SMTagField;
+			sourceTree = "<group>";
+		};
 		65058132199A0A7600BDF2C9 /* Location */ = {
 			isa = PBXGroup;
 			children = (
@@ -1001,6 +1020,7 @@
 		656309111987755B009CC250 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5073CFB61A00C33E00BB397F /* SMTagField */,
 				65DDA0CC1985E0F500D9C809 /* PhotoViewCell.h */,
 				65DDA0CD1985E0F500D9C809 /* PhotoViewCell.m */,
 				65DDA0CF1985E12000D9C809 /* PhotoViewCell.xib */,
@@ -2122,6 +2142,7 @@
 				659E74DA197E557C0062ACE9 /* DemoModel.m in Sources */,
 				65A3A5CB1992122C00703B8E /* MWGridViewController.m in Sources */,
 				65A5EAF61990E41800532BEC /* BaseViewController.m in Sources */,
+				5073CFBD1A00C36900BB397F /* SMTagField.m in Sources */,
 				659E74F7197E557C0062ACE9 /* ITTDataRequest.m in Sources */,
 				659E74F4197E557C0062ACE9 /* ITTDataRequestManager.m in Sources */,
 				659E74DE197E557C0062ACE9 /* ITTBaseModelObject.m in Sources */,
@@ -2209,6 +2230,7 @@
 				659E7550197E5BAB0062ACE9 /* ITTImageCacheManager.m in Sources */,
 				65A3A6231992145800703B8E /* SDWebImageManager.m in Sources */,
 				659E74F1197E557C0062ACE9 /* ITTAFNBaseDataRequest.m in Sources */,
+				5073CFBC1A00C36900BB397F /* SMTag.m in Sources */,
 				E1B6D47619026B48000B8D6A /* TagTableViewCell.m in Sources */,
 				659E751D197E557C0062ACE9 /* ITTXibView.m in Sources */,
 				657A0B4819A33FBE00D66987 /* ITTHintView.m in Sources */,

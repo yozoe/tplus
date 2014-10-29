@@ -11,6 +11,8 @@
 #import "PersonalHomePageViewController.h"
 #import "MyShowDefine.h"
 #import "DistributeViewController.h"
+#import "MyShowTools.h"
+
 
 @interface MyTabBarViewController ()
 
@@ -59,7 +61,10 @@
     CGRect frame = CGRectMake(0, self.view.frame.size.height - ICON_LENGTH, self.view.frame.size.width, ICON_LENGTH);
     _mainTableBar = [[HeiShowMainTableBar alloc] initWithFrame:frame];
     _mainTableBar.delegate = self;
-    _mainTableBar.backgroundColor = [UIColor blackColor];
+//    _mainTableBar.backgroundColor = [UIColor blackColor];
+    
+    _mainTableBar.backgroundColor  = [MyShowTools hexStringToColor:@"#BD0007"];
+//    _mainTableBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"xiangce.png"]];
     [self.view addSubview:_mainTableBar];
 }
 
