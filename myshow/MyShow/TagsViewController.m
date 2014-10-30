@@ -31,10 +31,11 @@
 @property (weak, nonatomic) IBOutlet UIButton * addButton;
 
 
-@property (weak, nonatomic) IBOutlet AMTagListView *tagListView;
-@property (nonatomic, strong) AMTagView * selectedTagView;
+//@property (weak, nonatomic) IBOutlet AMTagListView *tagListView;
+//@property (nonatomic, strong) AMTagView * selectedTagView;
 
 @property (strong, nonatomic) UILabel *placeHolder;
+@property (weak, nonatomic) IBOutlet UIImageView *textFieldBg;
 
 - (IBAction)handleAddAction:(id)sender;
 
@@ -59,6 +60,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = RGBACOLOR(244, 244, 242, 1);
     // Do any additional setup after loading the view from its nib.
     [self addNavigationBar];
 //    [self initTags];
@@ -75,25 +77,34 @@
     _placeHolder.backgroundColor = [UIColor clearColor];
     [_tagField addSubview:_placeHolder];
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTextField)
-//                                                 name:UIKeyboardWillShowNotification object:nil];
+    
+    
+    _textFieldBg.layer.cornerRadius = 8.0f;
+    _textFieldBg.clipsToBounds = YES;
+    
+    _addButton.layer.cornerRadius = 5.0f;
+    _addButton.clipsToBounds = YES;
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textFieldDidChange:)
+                                                 name:@"UITextFieldTextDidChangeNotification"
+                                               object:nil];
+
 }
 
-
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
+- (void)textFieldDidChange:(NSNotification*)aNotification
 {
-//    if (textField.text.length == 0) {
-//        _placeHolder.text = @"打个标签吧...";
-//    }else{
+    if(self.tagField.text.length == 0 && self.tagField.tags.count == 0){
+        _placeHolder.text = @"打个标签吧...";
+    }else{
         _placeHolder.text = @"";
-//    }
+    }
+
 }
 
-//- (void)resetTextField
-//{
-//    _placeHolder.text = @"";
-//}
+
+
 
 
 #pragma mark - SMTagField delegate
@@ -104,14 +115,15 @@
 
 -(void)tagField:(SMTagField *)tagField tagRemoved:(NSString *)tag{
     [tags removeObject:tag];
-}
-
-- (void)tagField:(SMTagField *)tagField tagsChanged:(NSArray *)tags
-{
-    if (tagField.text.length == 0) {
+    if (tags.count == 0) {
         _placeHolder.text = @"打个标签吧...";
     }
 }
+
+//- (void)tagField:(SMTagField *)tagField tagsChanged:(NSArray *)tags
+//{
+//    _placeHolder.text = @"";
+//}
 
 
 - (void)addNavigationBar
@@ -123,7 +135,7 @@
     _navigationBar.titleLabel.text = @"添加标签";
     
     [_navigationBar.leftButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
-    [_navigationBar.rightButton setTitle:@"发布" forState:UIControlStateNormal];
+    [_navigationBar.rightButton setTitle:@"上传" forState:UIControlStateNormal];
     
     _navigationBar.delegate = self;
     [self.view addSubview:_navigationBar];
@@ -443,5 +455,11 @@
 }
 
 - (IBAction)handleAddAction:(id)sender {
+    if (self.tagField.text.length == 0) {
+        return;
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ADDTAG object:nil];
 }
+
 @end

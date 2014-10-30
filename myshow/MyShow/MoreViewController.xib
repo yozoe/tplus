@@ -63,7 +63,7 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CPq-cS-B34">
                     <rect key="frame" x="17" y="477" width="286" height="47"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                    <state key="normal" title="退出登录" backgroundImage="login_btn.png">
+                    <state key="normal" title="退出登录">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -76,7 +76,6 @@
         </view>
     </objects>
     <resources>
-        <image name="login_btn.png" width="570" height="72"/>
         <image name="setting_btn_bg.png" width="320" height="40"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -32,6 +32,7 @@
 
 
 #define NOTIFICATION_DISTRIBUTE_SUCCESS @"NOTIFICATION_DISTRIBUTE_SUCCESS"
+#define NOTIFICATION_ADDTAG @"NOTIFICATION_ADDTAG"
 //other consts
 typedef enum{
 	kTagWindowIndicatorView = 501,

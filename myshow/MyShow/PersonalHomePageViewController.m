@@ -156,6 +156,8 @@
 {
     _headImage.layer.masksToBounds = YES;
     _headImage.layer.cornerRadius = 23.0f;
+    
+    [_loginButton setBackgroundColor:[MyShowTools hexStringToColor:@"#BD0007"]];
 }
 
 

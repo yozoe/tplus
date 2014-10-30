@@ -11,11 +11,13 @@
 #import "UMSocial.h"
 #import "AppDelegate.h"
 #import "UserFeedbackViewController.h"
+#import "MyShowTools.h"
 
 #define kTagShareEdit 101
 #define kTagSharePost 102
 
 @interface AboutUsViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *feedBackButton;
 
 @end
 
@@ -35,6 +37,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self addNavigationBar];
+    [self.feedBackButton setBackgroundColor:[MyShowTools hexStringToColor:@"#BD0007"]];
 }
 
 - (void)addNavigationBar

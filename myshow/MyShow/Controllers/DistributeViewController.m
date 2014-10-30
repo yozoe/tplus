@@ -42,6 +42,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = RGBACOLOR(244, 244, 242, 1);
     // Do any additional setup after loading the view from its nib.
     [self addNavigationBar];
     [self initCollectionView];
