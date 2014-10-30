@@ -272,6 +272,8 @@
     _mainScrollView.pagingEnabled = YES;
     _mainScrollView.bounces = NO;
     _mainScrollView.delegate = self;
+    _mainScrollView.showsHorizontalScrollIndicator = NO;
+    _mainScrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:_mainScrollView];
     
 }
@@ -310,7 +312,9 @@
 - (void)requestMainCellWithType:(NSString *)typeStr andPage:(NSString *)page
 {
     if ([typeStr isEqualToString:@"发布"]) {
-        NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userUid};
+        NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userInfo.uid};
+        NSLog(@"DATA_ENV.userUid:%@",DATA_ENV.userUid);
+        NSLog(@"DATA_ENV.userInfo.uid:%@",DATA_ENV.userInfo.uid);
         [MyDistributeTagClickRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
             
         } onRequestFinished:^(ITTBaseDataRequest *request) {
