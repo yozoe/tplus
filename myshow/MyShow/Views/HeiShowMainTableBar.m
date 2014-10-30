@@ -44,6 +44,7 @@
         photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.photoButton setTag:self.detailsButton.tag + 1];
         [self.photoButton setImage:[UIImage imageNamed:@"fabu.png"] forState:UIControlStateNormal];
+        [self.photoButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         [self.photoButton addTarget:self action:@selector(tablebarButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.photoButton];
         

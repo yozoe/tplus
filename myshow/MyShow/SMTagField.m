@@ -10,6 +10,7 @@
 @interface SMTagField(){
     UIView              *tagsView;
     UIView              *paddingView;
+    BOOL                isAddAction;
 }
 
 -(void) layoutTags;
@@ -28,6 +29,12 @@
     }
     
     return self;
+}
+
+- (void)hanleAddNotification:(NSNotification *)notification
+{
+    isAddAction = YES;
+    [self textFieldDidChange:notification];
 }
 
 -(id)init{
@@ -59,8 +66,12 @@
     unichar lastChar    = [self.text characterAtIndex: self.text.length - 1];
     
     if(lastChar == ' ' ||
-       lastChar == ','){
-        NSString *txtTag= [self.text substringToIndex: self.text.length - 1];
+       lastChar == ',' || isAddAction){
+        NSString *txtTag = nil;
+        if (isAddAction) {
+            txtTag= [self.text substringToIndex: self.text.length];
+        }else
+            txtTag= [self.text substringToIndex: self.text.length - 1];
         
         if(txtTag.length == 0){
             self.text   = @"";
@@ -80,6 +91,7 @@
         }
         
         self.text       = @"";
+        isAddAction = NO;
     }
 }
 
@@ -115,12 +127,14 @@
 #pragma mark - View Flow
 
 -(void)awakeFromNib{
+    
     [self setupUI];
     [super awakeFromNib];
 }
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_ADDTAG object:nil];
 }
 
 #pragma mark - Private Methods
@@ -150,6 +164,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textFieldDidEndEditing:)
                                                  name:@"UITextFieldTextDidEndEditingNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hanleAddNotification:)
+                                                 name:NOTIFICATION_ADDTAG
                                                object:nil];
     
     // Add tagsView if that didn't happen for some god-awful reason
