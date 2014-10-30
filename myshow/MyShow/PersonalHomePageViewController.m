@@ -39,6 +39,7 @@
 #import "UserPraiseRequest.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
+#import "UserAtlasListAttentionRequest.h"
 
 @interface PersonalHomePageViewController ()
 {
@@ -312,9 +313,7 @@
 - (void)requestMainCellWithType:(NSString *)typeStr andPage:(NSString *)page
 {
     if ([typeStr isEqualToString:@"发布"]) {
-        NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userInfo.uid};
-        NSLog(@"DATA_ENV.userUid:%@",DATA_ENV.userUid);
-        NSLog(@"DATA_ENV.userInfo.uid:%@",DATA_ENV.userInfo.uid);
+        NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userInfo.ID};
         [MyDistributeTagClickRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
             
         } onRequestFinished:^(ITTBaseDataRequest *request) {
@@ -331,7 +330,7 @@
             
         }];
     }else{
-        NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userUid};
+        NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userInfo.ID};
         [MyFavorateTagClickRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
             
         } onRequestFinished:^(ITTBaseDataRequest *request) {
@@ -349,6 +348,18 @@
     }
     
 }
+
+//- (void)requestAttentionCellWithPage:(NSString *)page
+//{
+//    NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE};
+//    [UserAtlasListAttentionRequest requestWithParameters:parameter withIndicatorView:nil onRequestFinished:^(ITTBaseDataRequest *request) {
+//        NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
+//        BOOL isAdd = page.integerValue > 1 ? YES : NO;
+//        [self fillTalbeViewSourceFromArray:itemsArray isAdd:isAdd];
+//        [self endLoadingData];
+//    }];
+//}
+
 
 - (void)fillTalbeViewSourceFromArray:(NSArray *)array type:typeStr isAdd:(BOOL)isAdd
 {
