@@ -92,7 +92,7 @@
     
     float length = self.frame.size.height - SPACE;
     
-    self.photoButton.frame = CGRectMake((self.frame.size.width - self.frame.size.height) / 2, - SPACE, self.frame.size.height, self.frame.size.height);
+    self.photoButton.frame = CGRectMake((self.frame.size.width - self.frame.size.height) / 2, - 8, 50, 50);
     
     self.detailsButton.frame = CGRectMake(((self.frame.size.width - self.photoButton.frame.size.width) / 2 - length) / 2,
                                           (self.frame.size.height - length) / 2,

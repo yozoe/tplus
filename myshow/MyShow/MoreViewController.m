@@ -11,6 +11,7 @@
 #import "MyDownLoadViewController.h"
 #import "MobClick.h"
 #import "LogoutRequest.h"
+#import "MyShowTools.h"
 
 @interface MoreViewController ()
 - (IBAction)buttonClickAction:(id)sender;
@@ -34,6 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self addNavigationBar];
+    [self.logoutBtn setBackgroundColor:[MyShowTools hexStringToColor:@"#BD0007"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *messageBtn;
 @property (weak, nonatomic) IBOutlet UIView *noLoginView;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
 
 
