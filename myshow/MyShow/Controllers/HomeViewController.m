@@ -489,9 +489,9 @@
 {
     NSArray *sourceArray = [_sourceDic objectForKey:self.currentKey];
     ItemModel *im = sourceArray[sender.tag];
-    ImgsModel *imageModel = [im.atlas.imgsArray objectAtIndex:0];
+    CoverKeyModel *coverKeyModel = [im.coverKeyArray objectAtIndex:0];
 
-    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", imageModel.ID]]];
+    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
     NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
@@ -508,7 +508,7 @@
                      [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
                      [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
                      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageModel.url]]];
+                         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
                          dispatch_async(dispatch_get_main_queue(), ^{
                              [UMSocialSnsService presentSnsIconSheetView:self
                                                                   appKey:UMENG_SDKKEY
