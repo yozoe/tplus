@@ -185,6 +185,7 @@
 		65B27A3D19813D6400AADAD4 /* LinksModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B27A3C19813D6400AADAD4 /* LinksModel.m */; };
 		65B27A4019813D7200AADAD4 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B27A3F19813D7200AADAD4 /* UserModel.m */; };
 		65B39A3C19931353008C31B2 /* ITTMaskActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65B39A3B19931353008C31B2 /* ITTMaskActivityView.xib */; };
+		65B5A9A71A013A8B00D6899C /* UserAtlasListAttentionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65B5A9A61A013A8B00D6899C /* UserAtlasListAttentionRequest.m */; };
 		65BD1681197F3E8200147BD6 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BD167F197F3E8200147BD6 /* HomeViewController.m */; };
 		65BD16A6197F419E00147BD6 /* loginBackground@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 65BD168E197F419E00147BD6 /* loginBackground@2x.jpg */; };
 		65C47CAF199B2A2E008B8DC4 /* MyDistributeTagClickRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C47CAE199B2A2E008B8DC4 /* MyDistributeTagClickRequest.m */; };
@@ -645,6 +646,8 @@
 		65B27A3F19813D7200AADAD4 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		65B27A41198143BC00AADAD4 /* ItemHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemHeader.h; sourceTree = "<group>"; };
 		65B39A3B19931353008C31B2 /* ITTMaskActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ITTMaskActivityView.xib; sourceTree = "<group>"; };
+		65B5A9A51A013A8B00D6899C /* UserAtlasListAttentionRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAtlasListAttentionRequest.h; sourceTree = "<group>"; };
+		65B5A9A61A013A8B00D6899C /* UserAtlasListAttentionRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAtlasListAttentionRequest.m; sourceTree = "<group>"; };
 		65BD167E197F3E8200147BD6 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		65BD167F197F3E8200147BD6 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		65BD168E197F419E00147BD6 /* loginBackground@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "loginBackground@2x.jpg"; sourceTree = "<group>"; };
@@ -923,6 +926,8 @@
 				653B07B7199ADD1100DB4578 /* UserCommentAddRequest.m */,
 				65FA317819A5B9AE009DA536 /* UserPraiseRequest.h */,
 				65FA317919A5B9AE009DA536 /* UserPraiseRequest.m */,
+				65B5A9A51A013A8B00D6899C /* UserAtlasListAttentionRequest.h */,
+				65B5A9A61A013A8B00D6899C /* UserAtlasListAttentionRequest.m */,
 			);
 			name = NetRequest;
 			sourceTree = "<group>";
@@ -2067,6 +2072,7 @@
 				659E74DF197E557C0062ACE9 /* ITTFileModel.m in Sources */,
 				65A3A5CD1992122C00703B8E /* MWPhotoBrowser.m in Sources */,
 				E16353E61900183C0068918E /* MyShowNavigationBar.m in Sources */,
+				65B5A9A71A013A8B00D6899C /* UserAtlasListAttentionRequest.m in Sources */,
 				65DB0DAA19936F6000B984D8 /* ASIDataCompressor.m in Sources */,
 				658C4A081995B01200F0016E /* DetailCommentView.m in Sources */,
 				65A3A5D41992122C00703B8E /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
