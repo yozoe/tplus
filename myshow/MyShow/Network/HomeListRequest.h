@@ -8,6 +8,6 @@
 
 #import "ITTAFNBaseDataRequest.h"
 
-@interface HomeTagClickRequest : ITTAFNBaseDataRequest
+@interface HomeListRequest : ITTAFNBaseDataRequest
 
 @end

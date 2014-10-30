@@ -30,11 +30,11 @@
 #import "UIImageView+WebCache.h"
 #import "HomeTagRequest.h"
 #import "TagModel.h"
-#import "HomeTagClickRequest.h"
+#import "HomeListRequest.h"
 #import "DistributeViewController.h"
 #import "CTAssetsPickerController.h"
 #import "HomeRecommendCell.h"
-#import "DetailImgListRequest.h"
+#import "ImageListRequest.h"
 #import "PersonalHomePageViewController.h"
 #import "UserPraiseRequest.h"
 #import "UMSocialWechatHandler.h"
@@ -512,7 +512,7 @@
 - (void)requestPublishImgsWithPulishModel:(PublishModel *)publishModel index:(NSInteger)index onFinished:(void(^)(NSArray *imgsArray))finishedBlock
 {
     
-    [DetailImgListRequest requestWithParameters:@{@"atlasId" : publishModel.ID} withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    [ImageListRequest requestWithParameters:@{@"atlasId" : publishModel.ID} withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
         
     } onRequestFinished:^(ITTBaseDataRequest *request) {
         

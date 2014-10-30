@@ -21,11 +21,11 @@
 #import "UIImageView+WebCache.h"
 #import "HomeTagRequest.h"
 #import "TagModel.h"
-#import "HomeTagClickRequest.h"
+#import "HomeListRequest.h"
 #import "DistributeViewController.h"
 #import "CTAssetsPickerController.h"
 #import "HomeRecommendCell.h"
-#import "DetailImgListRequest.h"
+#import "ImageListRequest.h"
 #import "PersonalHomePageViewController.h"
 #import "SearchViewController.h"
 #import "UserPraiseRequest.h"
@@ -173,7 +173,7 @@
 - (void)requestMainCellWithType:(NSString *)typeStr andPage:(NSString *)page
 {
     NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"type" : typeStr};
-    [HomeTagClickRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    [HomeListRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
     } onRequestFinished:^(ITTBaseDataRequest *request) {
 
         NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
@@ -351,7 +351,7 @@
 - (void)requestPublishImgsWithPulishModel:(AtlasModel *)publishModel index:(NSInteger)index onFinished:(void(^)(NSArray *imgsArray))finishedBlock
 {
 
-    [DetailImgListRequest requestWithParameters:@{@"atlasId" : publishModel.ID} withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    [ImageListRequest requestWithParameters:@{@"atlasId" : publishModel.ID} withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
 
     } onRequestFinished:^(ITTBaseDataRequest *request) {
 
@@ -491,7 +491,7 @@
     ItemModel *im = sourceArray[sender.tag];
     ImgsModel *imageModel = [im.atlas.imgsArray objectAtIndex:0];
 
-    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"share/view?imageId=%@", imageModel.ID]]];
+    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", imageModel.ID]]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
     NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];

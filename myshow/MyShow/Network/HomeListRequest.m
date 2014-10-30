@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 maxingchuan. All rights reserved.
 //
 
-#import "HomeTagClickRequest.h"
+#import "HomeListRequest.h"
 #import "ItemModel.h"
 
-@implementation HomeTagClickRequest
+@implementation HomeListRequest
 
 - (NSString*)getRequestUrl
 {

@@ -8,7 +8,7 @@
 
 #import "SearchTagListViewController.h"
 #import "MyShowNavigationBar.h"
-#import "HomeTagClickRequest.h"
+#import "HomeListRequest.h"
 #import "MyShowDefine.h"
 #import "CommodityClassificationScrollView.h"
 #import "HomeItemCell.h"
@@ -22,11 +22,11 @@
 #import "UIImageView+WebCache.h"
 #import "HomeTagRequest.h"
 #import "TagModel.h"
-#import "HomeTagClickRequest.h"
+#import "HomeListRequest.h"
 #import "DistributeViewController.h"
 #import "CTAssetsPickerController.h"
 #import "HomeRecommendCell.h"
-#import "DetailImgListRequest.h"
+#import "ImageListRequest.h"
 #import "PersonalHomePageViewController.h"
 #import "SearchViewController.h"
 #import "UserPraiseRequest.h"
@@ -113,7 +113,7 @@
 - (void)requestMainCellWithPageID:(NSString *)cidStr andType:(NSString *)typeStr andPage:(NSString *)page
 {
     NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"type" : typeStr, @"cid" : cidStr};
-    [HomeTagClickRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    [HomeListRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
         
     } onRequestFinished:^(ITTBaseDataRequest *request) {
         
@@ -240,7 +240,7 @@
 
 - (void)requestPublishImgsWithPulishModel:(AtlasModel *)publishModel index:(NSInteger)index onFinished:(void(^)(NSArray *imgsArray))finishedBlock
 {
-    [DetailImgListRequest requestWithParameters:@{@"atlasId" : publishModel.ID} withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    [ImageListRequest requestWithParameters:@{@"atlasId" : publishModel.ID} withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
         
     } onRequestFinished:^(ITTBaseDataRequest *request) {
         
