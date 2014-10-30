@@ -9,7 +9,6 @@
             <connections>
                 <outlet property="addButton" destination="MTK-Bq-m7y" id="aGZ-IR-UOe"/>
                 <outlet property="tagField" destination="88g-o8-VZp" id="pCP-dA-OVN"/>
-                <outlet property="tagListView" destination="fKQ-2H-PvH" id="mu3-mB-qyM"/>
                 <outlet property="textFieldBg" destination="VtU-2Z-z0F" id="sV8-tM-PMh"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -22,7 +21,7 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="VtU-2Z-z0F">
                     <rect key="frame" x="9" y="84" width="302" height="41"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="backgroundColor" red="0.83396464646464641" green="0.83396464646464641" blue="0.83396464646464641" alpha="1" colorSpace="calibratedRGB"/>
                 </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="88g-o8-VZp" customClass="SMTagField">
                     <rect key="frame" x="16" y="90" width="288" height="30"/>
@@ -30,11 +29,6 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <view contentMode="scaleToFill" id="fKQ-2H-PvH" customClass="AMTagListView">
-                    <rect key="frame" x="15" y="397" width="290" height="171"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MTK-Bq-m7y">
                     <rect key="frame" x="254" y="143" width="50" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

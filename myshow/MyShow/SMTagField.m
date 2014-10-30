@@ -143,6 +143,8 @@
     self.opaque                 = NO;
     self.autocorrectionType     = UITextAutocorrectionTypeNo;
     self.borderStyle            = UITextBorderStyleNone;
+    self.layer.cornerRadius = 5.0f;
+    self.clipsToBounds = YES;
     
     tags                        = @[];
     

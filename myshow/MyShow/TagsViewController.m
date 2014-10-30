@@ -31,8 +31,8 @@
 @property (weak, nonatomic) IBOutlet UIButton * addButton;
 
 
-@property (weak, nonatomic) IBOutlet AMTagListView *tagListView;
-@property (nonatomic, strong) AMTagView * selectedTagView;
+//@property (weak, nonatomic) IBOutlet AMTagListView *tagListView;
+//@property (nonatomic, strong) AMTagView * selectedTagView;
 
 @property (strong, nonatomic) UILabel *placeHolder;
 @property (weak, nonatomic) IBOutlet UIImageView *textFieldBg;
@@ -60,6 +60,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor = RGBACOLOR(244, 244, 242, 1);
     // Do any additional setup after loading the view from its nib.
     [self addNavigationBar];
 //    [self initTags];
@@ -78,7 +79,7 @@
     
     
     
-    _textFieldBg.layer.cornerRadius = 5.0f;
+    _textFieldBg.layer.cornerRadius = 8.0f;
     _textFieldBg.clipsToBounds = YES;
     
     _addButton.layer.cornerRadius = 5.0f;
@@ -454,6 +455,10 @@
 }
 
 - (IBAction)handleAddAction:(id)sender {
+    if (self.tagField.text.length == 0) {
+        return;
+    }
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_ADDTAG object:nil];
 }
 

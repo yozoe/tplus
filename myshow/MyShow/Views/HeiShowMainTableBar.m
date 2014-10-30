@@ -8,6 +8,7 @@
 
 #import "HeiShowMainTableBar.h"
 #import "MyShowDefine.h"
+#import "MyShowTools.h"
 
 @implementation HeiShowMainTableBar
 @synthesize detailsButton;
@@ -44,7 +45,13 @@
         photoButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [self.photoButton setTag:self.detailsButton.tag + 1];
         [self.photoButton setImage:[UIImage imageNamed:@"fabu.png"] forState:UIControlStateNormal];
-        [self.photoButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        
+        self.photoButton.layer.cornerRadius = 25.0f;
+        self.photoButton.layer.borderWidth = 7.0f;
+        self.photoButton.layer.borderColor = [MyShowTools hexStringToColor:@"#BD0007"].CGColor;
+        self.photoButton.clipsToBounds = YES;
+        
+        
         [self.photoButton addTarget:self action:@selector(tablebarButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.photoButton];
         
