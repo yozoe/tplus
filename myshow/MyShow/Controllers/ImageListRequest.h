@@ -8,6 +8,6 @@
 
 #import "ITTAFNBaseDataRequest.h"
 
-@interface DetailImgListRequest : ITTAFNBaseDataRequest
+@interface ImageListRequest : ITTAFNBaseDataRequest
 
 @end

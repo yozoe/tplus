@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 maxingchuan. All rights reserved.
 //
 
-#import "DetailImgListRequest.h"
+#import "ImageListRequest.h"
 #import "ImgsModel.h"
 
-@implementation DetailImgListRequest
+@implementation ImageListRequest
 
 - (NSString*)getRequestUrl
 {

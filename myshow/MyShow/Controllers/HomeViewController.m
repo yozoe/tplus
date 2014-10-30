@@ -21,11 +21,11 @@
 #import "UIImageView+WebCache.h"
 #import "HomeTagRequest.h"
 #import "TagModel.h"
-#import "HomeTagClickRequest.h"
+#import "HomeListRequest.h"
 #import "DistributeViewController.h"
 #import "CTAssetsPickerController.h"
 #import "HomeRecommendCell.h"
-#import "DetailImgListRequest.h"
+#import "ImageListRequest.h"
 #import "PersonalHomePageViewController.h"
 #import "SearchViewController.h"
 #import "UserPraiseRequest.h"
@@ -173,7 +173,7 @@
 - (void)requestMainCellWithType:(NSString *)typeStr andPage:(NSString *)page
 {
     NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"type" : typeStr};
-    [HomeTagClickRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    [HomeListRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
     } onRequestFinished:^(ITTBaseDataRequest *request) {
 
         NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
@@ -351,7 +351,7 @@
 - (void)requestPublishImgsWithPulishModel:(AtlasModel *)publishModel index:(NSInteger)index onFinished:(void(^)(NSArray *imgsArray))finishedBlock
 {
 
-    [DetailImgListRequest requestWithParameters:@{@"atlasId" : publishModel.ID} withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    [ImageListRequest requestWithParameters:@{@"atlasId" : publishModel.ID} withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
 
     } onRequestFinished:^(ITTBaseDataRequest *request) {
 
@@ -489,9 +489,9 @@
 {
     NSArray *sourceArray = [_sourceDic objectForKey:self.currentKey];
     ItemModel *im = sourceArray[sender.tag];
-    ImgsModel *imageModel = [im.atlas.imgsArray objectAtIndex:0];
+    CoverKeyModel *coverKeyModel = [im.coverKeyArray objectAtIndex:0];
 
-    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"share/view?imageId=%@", imageModel.ID]]];
+    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
     NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
@@ -508,7 +508,7 @@
                      [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
                      [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
                      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageModel.url]]];
+                         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
                          dispatch_async(dispatch_get_main_queue(), ^{
                              [UMSocialSnsService presentSnsIconSheetView:self
                                                                   appKey:UMENG_SDKKEY

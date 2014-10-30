@@ -425,9 +425,9 @@
 - (void)shareWithType:(NSString *)type
 {
 
-    ImgsModel *imageModel = [_item.atlas.imgsArray objectAtIndex:0];
+    CoverKeyModel *coverKeyModel = [_item.atlas.imgsArray objectAtIndex:0];
 
-    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"share?imgId=%@", imageModel.ID]]];
+    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"share?imgId=%@", coverKeyModel.ID]]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
     NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
@@ -443,7 +443,7 @@
                                            [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
                                            [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
                                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                               UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageModel.url]]];
+                                               UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
                                                dispatch_async(dispatch_get_main_queue(), ^{
                                                    [[UMSocialControllerService defaultControllerService] setShareText:_item.publish.publistext shareImage:image socialUIDelegate:self];
                                                    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:type];

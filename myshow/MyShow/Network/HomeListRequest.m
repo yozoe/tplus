@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 maxingchuan. All rights reserved.
 //
 
-#import "HomeTagClickRequest.h"
+#import "HomeListRequest.h"
 #import "ItemModel.h"
 
-@implementation HomeTagClickRequest
+@implementation HomeListRequest
 
 - (NSString*)getRequestUrl
 {
@@ -29,7 +29,6 @@
 
     for (NSDictionary *dic in itemsArray) {
         ItemModel *itemModel = [[ItemModel alloc] initWithDataDic:dic];
-//        [itemModel configKeyPath:@"publish" fromSource:[dic objectForKey:@"publish"]];
         [itemModel configKeyPath:@"atlas" fromSource:[dic objectForKey:@"atlas"]];
         [itemModel configKeyPath:@"dynamic" fromSource:[dic objectForKey:@"dynamic"]];
         [itemModel configKeyPath:@"user" fromSource:[dic objectForKey:@"user"]];
