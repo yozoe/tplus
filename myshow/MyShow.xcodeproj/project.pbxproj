@@ -37,6 +37,14 @@
 		653395931997E0EB008F62A2 /* UIView+AnimationOptionsForCurve.m in Sources */ = {isa = PBXBuildFile; fileRef = 653395921997E0EB008F62A2 /* UIView+AnimationOptionsForCurve.m */; };
 		653B07B8199ADD1100DB4578 /* UserCommentAddRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 653B07B7199ADD1100DB4578 /* UserCommentAddRequest.m */; };
 		653D941F199732A200781942 /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 653D941E199732A200781942 /* CommentModel.m */; };
+		655D57C91A03F90E00FB08EA /* share_douban@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 655D57C11A03F90E00FB08EA /* share_douban@2x.png */; };
+		655D57CA1A03F90E00FB08EA /* share_q@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 655D57C21A03F90E00FB08EA /* share_q@2x.png */; };
+		655D57CB1A03F90E00FB08EA /* share_qq@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 655D57C31A03F90E00FB08EA /* share_qq@2x.png */; };
+		655D57CC1A03F90E00FB08EA /* share_qzone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 655D57C41A03F90E00FB08EA /* share_qzone@2x.png */; };
+		655D57CD1A03F90E00FB08EA /* share_renren@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 655D57C51A03F90E00FB08EA /* share_renren@2x.png */; };
+		655D57CE1A03F90E00FB08EA /* share_sina@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 655D57C61A03F90E00FB08EA /* share_sina@2x.png */; };
+		655D57CF1A03F90E00FB08EA /* share_wechat_timeline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 655D57C71A03F90E00FB08EA /* share_wechat_timeline@2x.png */; };
+		655D57D01A03F90E00FB08EA /* share_wechat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 655D57C81A03F90E00FB08EA /* share_wechat@2x.png */; };
 		6563091B19879A4B009CC250 /* AMTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6563091819879A4B009CC250 /* AMTagListView.m */; };
 		6563091C19879A4B009CC250 /* AMTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6563091A19879A4B009CC250 /* AMTagView.m */; };
 		656309611988F7FB009CC250 /* DistributeUploadRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 656309601988F7FB009CC250 /* DistributeUploadRequest.m */; };
@@ -353,6 +361,14 @@
 		653B07B7199ADD1100DB4578 /* UserCommentAddRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCommentAddRequest.m; sourceTree = "<group>"; };
 		653D941D199732A200781942 /* CommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
 		653D941E199732A200781942 /* CommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
+		655D57C11A03F90E00FB08EA /* share_douban@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_douban@2x.png"; sourceTree = "<group>"; };
+		655D57C21A03F90E00FB08EA /* share_q@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_q@2x.png"; sourceTree = "<group>"; };
+		655D57C31A03F90E00FB08EA /* share_qq@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_qq@2x.png"; sourceTree = "<group>"; };
+		655D57C41A03F90E00FB08EA /* share_qzone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_qzone@2x.png"; sourceTree = "<group>"; };
+		655D57C51A03F90E00FB08EA /* share_renren@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_renren@2x.png"; sourceTree = "<group>"; };
+		655D57C61A03F90E00FB08EA /* share_sina@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_sina@2x.png"; sourceTree = "<group>"; };
+		655D57C71A03F90E00FB08EA /* share_wechat_timeline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_wechat_timeline@2x.png"; sourceTree = "<group>"; };
+		655D57C81A03F90E00FB08EA /* share_wechat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share_wechat@2x.png"; sourceTree = "<group>"; };
 		6563091719879A4B009CC250 /* AMTagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMTagListView.h; sourceTree = "<group>"; };
 		6563091819879A4B009CC250 /* AMTagListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMTagListView.m; sourceTree = "<group>"; };
 		6563091919879A4B009CC250 /* AMTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMTagView.h; sourceTree = "<group>"; };
@@ -1625,6 +1641,14 @@
 		65BD1683197F419E00147BD6 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				655D57C11A03F90E00FB08EA /* share_douban@2x.png */,
+				655D57C21A03F90E00FB08EA /* share_q@2x.png */,
+				655D57C31A03F90E00FB08EA /* share_qq@2x.png */,
+				655D57C41A03F90E00FB08EA /* share_qzone@2x.png */,
+				655D57C51A03F90E00FB08EA /* share_renren@2x.png */,
+				655D57C61A03F90E00FB08EA /* share_sina@2x.png */,
+				655D57C71A03F90E00FB08EA /* share_wechat_timeline@2x.png */,
+				655D57C81A03F90E00FB08EA /* share_wechat@2x.png */,
 				E1B6D46F190240FD000B8D6A /* demo@2x.jpg */,
 				65BD168E197F419E00147BD6 /* loginBackground@2x.jpg */,
 			);
@@ -2027,6 +2051,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				655D57CB1A03F90E00FB08EA /* share_qq@2x.png in Resources */,
 				659E7560197E5BAB0062ACE9 /* Localizable.strings in Resources */,
 				65A3A6191992145800703B8E /* LICENSE in Resources */,
 				65DB0E641994A3E500B984D8 /* UMSCommentDetailController.xib in Resources */,
@@ -2034,12 +2059,15 @@
 				65E223E419873BEE00687665 /* ImageDisplayViewController.xib in Resources */,
 				E1B6D470190240FD000B8D6A /* demo@2x.jpg in Resources */,
 				65A5EAE019908B7000532BEC /* MoreViewController.xib in Resources */,
+				655D57CD1A03F90E00FB08EA /* share_renren@2x.png in Resources */,
 				65F6F51A19AE0C2700D6902D /* SearchTagListViewController.xib in Resources */,
 				65185D341983884B00069B4B /* DistributeViewController.xib in Resources */,
 				650BA5E3198F5C1800F905DE /* PersonalHomePageViewController.xib in Resources */,
 				65F6F51519AE010700D6902D /* SearchViewController.xib in Resources */,
 				65DDA0D01985E12000D9C809 /* PhotoViewCell.xib in Resources */,
 				658735D41983AF8B00D86956 /* Images.xcassets in Resources */,
+				655D57D01A03F90E00FB08EA /* share_wechat@2x.png in Resources */,
+				655D57CE1A03F90E00FB08EA /* share_sina@2x.png in Resources */,
 				657A0B2D19A334F500D66987 /* MyDownLoadViewController.xib in Resources */,
 				657A0B4919A33FBE00D66987 /* ITTHintView.xib in Resources */,
 				65A3A5F21992122C00703B8E /* MWPhotoBrowser.bundle in Resources */,
@@ -2049,6 +2077,7 @@
 				65DB0E6B1994A3E500B984D8 /* UMSShareListController.xib in Resources */,
 				65A3A5D31992122C00703B8E /* README.mdown in Resources */,
 				65DB0E651994A3E500B984D8 /* UMSCommentInputController.xib in Resources */,
+				655D57CF1A03F90E00FB08EA /* share_wechat_timeline@2x.png in Resources */,
 				65DB0E691994A3E500B984D8 /* UMSLoginViewController.xib in Resources */,
 				65DB0E681994A3E500B984D8 /* UMShareEditViewControlleriPad.xib in Resources */,
 				65DB0E661994A3E500B984D8 /* UMSCommentInputControlleriPad.xib in Resources */,
@@ -2056,10 +2085,13 @@
 				65DB0EA81994B63D00B984D8 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				65BD16A6197F419E00147BD6 /* loginBackground@2x.jpg in Resources */,
 				65DB0E6A1994A3E500B984D8 /* UMSnsAccountViewController.xib in Resources */,
+				655D57C91A03F90E00FB08EA /* share_douban@2x.png in Resources */,
 				65DB0E671994A3E500B984D8 /* UMShareEditViewController.xib in Resources */,
 				5087DF461A0386EB0088FBC2 /* defaultTagCollectionViewCell.xib in Resources */,
+				655D57CA1A03F90E00FB08EA /* share_q@2x.png in Resources */,
 				65E028D3198632730062EE0E /* TagsViewController.xib in Resources */,
 				65B39A3C19931353008C31B2 /* ITTMaskActivityView.xib in Resources */,
+				655D57CC1A03F90E00FB08EA /* share_qzone@2x.png in Resources */,
 				E16353B519000D7D0068918E /* InfoPlist.strings in Resources */,
 				657A0B4419A33F8900D66987 /* ITTSlienceHintView.xib in Resources */,
 				E16353BD19000D7D0068918E /* Images.xcassets in Resources */,
