@@ -23,7 +23,11 @@
 	<key>CFBundleIcons~ipad</key>
 	<dict/>
 	<key>CFBundleIdentifier</key>
+<<<<<<< HEAD
 	<string>com.renminwang.live</string>
+=======
+	<string>com.syswinPush.yuanxin</string>
+>>>>>>> e112078b642926fe7be2a0dc714b9329aae632fc
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
