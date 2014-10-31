@@ -401,20 +401,6 @@ int static drawerHeaderViewHeight = 40;
             }
         }];
     }
-
-//    [self detailLikeWithPublishID:_item.atlas.ID action:action completion:^(BOOL finished, NSString *actionResult) {
-//        if (finished) {
-//            _item.isLike = actionResult;
-//            NSString *favourImageName;
-//            if (_item.isLike.intValue) {
-//                favourImageName = @"xihuan_select";
-//            } else {
-//                favourImageName = @"xihuan";
-//            }
-//            [_favourButton setNumberText:_item.dynamic.favnum];
-//             [_favourButton setImage:[UIImage imageNamed:favourImageName] forState:UIControlStateNormal];
-//        }
-//    }];
 }
 
 - (void)praiseAddWithAtlasID:(NSString *)atlasID completion:(void (^)(BOOL finished, NSString *result))completion
