@@ -10,6 +10,7 @@
 #import "DefaultTagModel.h"
 #import "CoverImageModel.h"
 #import "ThumbModel.h"
+#import "CoverImageModel.h"
 
 @implementation SearchTagListDefaultRequest
 
@@ -36,7 +37,13 @@
         tagModel.coverImage = [[CoverImageModel alloc] initWithDataDic:[dic objectForKey:@"coverImage"]];
         tagModel.coverImage.thumb = [[ThumbModel alloc] initWithDataDic:[[dic objectForKey:@"coverImage"] objectForKey:@"thumb"]];
 
-        [tagModel configKeyPath:@"atlasImagesArray" fromSource:[dic objectForKey:@"atlasImages"]];
+        tagModel.atlasImagesArray = [NSMutableArray array];
+
+        for (NSDictionary *imageDic in [dic objectForKey:@"atlasImages"]) {
+            CoverImageModel *img = [[CoverImageModel alloc] initWithDataDic:imageDic];
+            img.thumb = [[ThumbModel alloc] initWithDataDic:[imageDic objectForKey:@"thumb"]];
+            [tagModel.atlasImagesArray addObject:img];
+        }
 
         [itemModelArray addObject:tagModel];
     }
