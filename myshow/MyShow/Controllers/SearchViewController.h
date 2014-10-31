@@ -9,10 +9,11 @@
 #import "BaseViewController.h"
 #import "MyShowNavigationBar.h"
 
-@interface SearchViewController : BaseViewController<NavigationBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface SearchViewController : BaseViewController<NavigationBarDelegate>
 {
     MyShowNavigationBar * _navigationBar;
 }
 
+@property (nonatomic, strong) NSArray * tagsArray;
 
 @end

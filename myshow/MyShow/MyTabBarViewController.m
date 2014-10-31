@@ -44,15 +44,7 @@
 {
     HomeViewController * homeVC = [[HomeViewController alloc] init];
     UINavigationController * homeNav = [[UINavigationController alloc] initWithRootViewController:homeVC];
-//    homeNav.navigationBarHidden = YES;
-    [homeNav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationBg.png"] forBarMetrics:UIBarMetricsDefault];
-
-    [homeNav.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                     [UIColor whiteColor], UITextAttributeTextColor,
-                                                                     [UIColor whiteColor], UITextAttributeTextShadowColor,
-//                                                                     [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset,
-//                                                                     [UIFont fontWithName:@"Arial-Bold" size:0.0], UITextAttributeFont,
-                                                                     nil]];
+    homeNav.navigationBarHidden = YES;
     homeNav.delegate = self;
     
     PersonalHomePageViewController * personHomePageVC = [[PersonalHomePageViewController alloc] init];
@@ -69,8 +61,10 @@
     CGRect frame = CGRectMake(0, self.view.frame.size.height - ICON_LENGTH, self.view.frame.size.width, ICON_LENGTH);
     _mainTableBar = [[HeiShowMainTableBar alloc] initWithFrame:frame];
     _mainTableBar.delegate = self;
+//    _mainTableBar.backgroundColor = [UIColor blackColor];
     
     _mainTableBar.backgroundColor  = [MyShowTools hexStringToColor:@"#BD0007"];
+//    _mainTableBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"xiangce.png"]];
     [self.view addSubview:_mainTableBar];
 }
 

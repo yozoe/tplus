@@ -81,13 +81,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)initViews
 {
-//    [self addNavigationBar];
-    [self initNavigationBar];
+    [self addNavigationBar];
     [self addTitleSegmentedView];
     [self addMainScrollView];
 }
@@ -98,41 +96,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-//- (void)addNavigationBar
-//{
-//    self.navigationController.navigationBarHidden = YES;
-//
-//    _navigationBar = [[MyShowNavigationBar alloc] initWithFrame:self.view.frame
-//                                                       ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
-//    _navigationBar.titleLabel.text = @"T语言";
-//
-//    [_navigationBar.rightButton setImage:[UIImage imageNamed:@"sousuo.png"] forState:UIControlStateNormal];
-//    _navigationBar.leftButton = nil;
-//    _navigationBar.delegate = self;
-//    [self.view addSubview:_navigationBar];
-//}
-
-- (void)initNavigationBar
+- (void)addNavigationBar
 {
-    UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 86, 32)];
-    imageView.image = [UIImage imageNamed:@"ttitle.png"];
-    self.navigationItem.titleView = imageView;
-    
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"sousuo.png"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(handleSearchAction:) forControlEvents:UIControlEventTouchUpInside];
-    button.frame = CGRectMake(0, 0, 32, 32);
-    //创建搜索按钮
-    UIBarButtonItem *rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-    self.navigationItem.rightBarButtonItem = rightBarButtonItem;
-    
-    
-    
+    self.navigationController.navigationBarHidden = YES;
+
+    _navigationBar = [[MyShowNavigationBar alloc] initWithFrame:self.view.frame
+                                                       ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
+    _navigationBar.titleLabel.text = @"T语言";
+
+    [_navigationBar.rightButton setImage:[UIImage imageNamed:@"sousuo.png"] forState:UIControlStateNormal];
+    _navigationBar.leftButton = nil;
+    _navigationBar.delegate = self;
+    [self.view addSubview:_navigationBar];
 }
 
 
-- (void)handleSearchAction:(UIButton *)button
+- (void)rightButtonClick
 {
     SearchViewController * searchVC = [[SearchViewController alloc] init];
     [self.navigationController pushViewController:searchVC animated:YES];

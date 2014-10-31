@@ -31,17 +31,11 @@
 #import "SearchViewController.h"
 #import "UserPraiseRequest.h"
 #import "AtlasModel.h"
-#import "SearchTagListRequest.h"
-
-#import "UMSocialWechatHandler.h"
-#import "UMSocialQQHandler.h"
-#import "UserAtlasListAttentionRequest.h"
 
 @interface SearchTagListViewController ()
 {
     NSMutableArray * _sourceArray;
-
-    NSMutableArray * _heightArray;
+    NSMutableDictionary *_recommentHeightDic;
     NSMutableArray *_photoModelArray;
     int _pageIndex;
 }
@@ -56,7 +50,7 @@
         // Custom initialization
         _tableViewDataSource = [NSMutableArray array];
         _sourceArray = [NSMutableArray array];
-        _heightArray = [NSMutableArray array];
+        _recommentHeightDic = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -65,37 +59,32 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self initNavigationBar];
-    
+    [self addNavigationBar];
     [self addTableView];
 }
 
 
-
-//- (void)addNavigationBar
-//{
-//    self.navigationController.navigationBarHidden = YES;
-//    
-//    _navigationBar = [[MyShowNavigationBar alloc] initWithFrame:self.view.frame
-//                                                       ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
-//    
-//    [_navigationBar.leftButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
-//    _navigationBar.rightButton = nil;
-//    _navigationBar.delegate = self;
-//    [self.view addSubview:_navigationBar];
-//}
-- (void)initNavigationBar
+- (void)viewWillAppear:(BOOL)animated
 {
-    //初始化返回按钮
-    UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(0, 0, 24, 24);
-    [backButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem = backItem;
+    [super viewWillAppear:animated];
+    _navigationBar.titleLabel.text = _model.name;
 }
 
-- (void)backAction:(UIButton *)button
+
+- (void)addNavigationBar
+{
+    self.navigationController.navigationBarHidden = YES;
+    
+    _navigationBar = [[MyShowNavigationBar alloc] initWithFrame:self.view.frame
+                                                       ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
+    
+    [_navigationBar.leftButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
+    _navigationBar.rightButton = nil;
+    _navigationBar.delegate = self;
+    [self.view addSubview:_navigationBar];
+}
+
+- (void)leftButtonClick
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -115,22 +104,22 @@
         
     _pageIndex = 1;
 
-    NSString *pageID = _tagModel.ID;
-    [self requestMainCellWithPageID:pageID andPage:@"1"];
+    NSString *pageID = _model.ID;
+    NSString *pageType = _model.type;
+    [self requestMainCellWithPageID:pageID andType:pageType andPage:@"1"];
 }
 
 #pragma mark - 请求item
-- (void)requestMainCellWithPageID:(NSString *)pageID andPage:(NSString *)page
+- (void)requestMainCellWithPageID:(NSString *)cidStr andType:(NSString *)typeStr andPage:(NSString *)page
 {
-    NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"labelId" : pageID};
-    [SearchTagListRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"type" : typeStr, @"cid" : cidStr};
+    [HomeListRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
         
     } onRequestFinished:^(ITTBaseDataRequest *request) {
         
         NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
         BOOL isAdd = page.integerValue > 1 ? YES : NO;
-        [self fillTalbeViewSourceFromArray:itemsArray isAdd:isAdd];
-        
+        [self fillTalbeViewSourceFromArray:itemsArray type:typeStr isAdd:isAdd];
         [self endLoadingData];
         
     } onRequestCanceled:^(ITTBaseDataRequest *request) {
@@ -140,22 +129,23 @@
     }];
 }
 
-- (void)fillTalbeViewSourceFromArray:(NSArray *)array isAdd:(BOOL)isAdd
+- (void)fillTalbeViewSourceFromArray:(NSArray *)array type:typeStr isAdd:(BOOL)isAdd
 {
-    if (!_heightArray) {
-        _heightArray = [[NSMutableArray alloc] initWithArray:array];
-    }else{
+    NSMutableArray *heightArray = [_recommentHeightDic objectForKey:typeStr];
+    if (!heightArray) {
+        heightArray = [[NSMutableArray alloc] init];
+    } else {
         if (!isAdd) {
-            [_heightArray removeAllObjects];
+            [heightArray removeAllObjects];
         }
     }
-    
     
     for (int i = 0; i < array.count; i++) {
         ItemModel *im = array[i];
         CGSize  size = [im.atlas.content sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-        [_heightArray addObject:@((int)size.height + 16)];
+        [heightArray addObject:@((int)size.height + 16)];
     }
+    [_recommentHeightDic setObject:heightArray forKey:typeStr];
     
 
     if (!_sourceArray) {
@@ -189,11 +179,13 @@
 
 - (CGFloat)calculateRecommendCellHeightWithItemModel:(ItemModel *)itemModel indexPath:(NSIndexPath *)indexPath tagModel:(TagModel *)tagModel
 {
-    NSInteger textHeight = [_heightArray[indexPath.row] integerValue];
+    NSArray *heightArray = [_recommentHeightDic objectForKey:tagModel.type];
+    
+    NSInteger textHeight = [heightArray[indexPath.row] integerValue];
     CGFloat headerHeight = 60.f;
     CGFloat bodyHeight = 0.f;
     CGFloat footerHeight = HOME_CELL_FOOT_HEIGHT;
-    int imageCount = itemModel.atlas.imageNum.integerValue;
+    int imageCount = itemModel.atlas.imageNum;
     if (imageCount > 6){
         imageCount = 6;
     }
@@ -223,10 +215,11 @@
 {
     CoverKeyModel *ckm = [itemModel.coverKeyArray lastObject];
     NSArray *sizeArray = [ckm.size componentsSeparatedByString:@"*"];
-    CGFloat width = [sizeArray[0] floatValue];
-    CGFloat height = [sizeArray[1] floatValue];
+    NSInteger width = [sizeArray[0] integerValue];
+    NSInteger height = [sizeArray[1] integerValue];
     
-    NSInteger textHeight = [_heightArray[indexPath.row] integerValue];
+    NSArray *heightArray = [_recommentHeightDic objectForKey:tagModel.type];
+    NSInteger textHeight = [heightArray[indexPath.row] integerValue];
     
     NSInteger imageHeight;
     
@@ -265,7 +258,7 @@
 {
     static NSString *itemIdentifier = @"HomeItemCell";
     
-
+    NSArray *heightArray = [_recommentHeightDic objectForKey:_model.type];
     ItemModel *im = _sourceArray[indexPath.row];
     
 
@@ -285,130 +278,36 @@
     
     __block HomeItemCell *itemCell = cell;
     cell.favourBlock = ^() {
-        
-        if (im.isLike.integerValue) {
-            
-            [self praiseCancelWithAtlasID:im.atlas.ID completion:^(BOOL finished, NSString *result) {
-                if (finished) {
-                    im.isLike = @"0";
-                    [itemCell refresh];
-                }
-            }];
-            
-        } else {
-            [self praiseAddWithAtlasID:im.atlas.ID completion:^(BOOL finished, NSString *result) {
-                if (finished) {
-                    if ([result isEqualToString:@"selfSuccess"]) {
-                        im.isLike = @"1";
-                    }
-                    im.atlas.praiseNum = [NSString stringWithFormat:@"%d", im.atlas.praiseNum.integerValue + 1];
-                    [itemCell refresh];
-                }
-            }];
-        }
+        NSString *action = im.isLike.intValue ? @"false" : @"true";
+        [self detailLikeWithPublishID:im.atlas.ID action:action completion:^(BOOL finished, NSString *actionResult) {
+            if (finished) {
+                im.isLike = actionResult;
+                [itemCell refresh];
+            }
+        }];
     };
     cell.itemModel = im;
-    cell.incrementHeight = [_heightArray[indexPath.row] integerValue];
+    cell.incrementHeight = [heightArray[indexPath.row] integerValue];
     [cell refresh];
-    cell.shareButton.tag = indexPath.row;
-    [cell.shareButton addTarget:self action:@selector(handleShareButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
-
     
 }
 
-
-- (void)handleShareButtonEvent:(UIButton *)sender
+#pragma mark - 请求喜欢和不喜欢
+- (void)detailLikeWithPublishID:(NSString *)pid action:(NSString *)action completion:(void (^)(BOOL finished, NSString *actionResult))completion
 {
-
-    ItemModel *im = _sourceArray[sender.tag];
-    CoverKeyModel *coverKeyModel = [im.coverKeyArray objectAtIndex:0];
-    
-    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
-    NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:operationQueue
-                           completionHandler:^(NSURLResponse*urlResponce,NSData*data,NSError*error) {
-                               if(!error) {
-                                   NSString *responseString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                                   NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?" options:0 error:&error];
-                                   
-                                   if (regex != nil) {
-                                       NSTextCheckingResult *firstMatch = [regex firstMatchInString:responseString options:0 range:NSMakeRange(0, [responseString length])];
-                                       if (firstMatch) {
-                                           [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
-                                           [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
-                                           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                               UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
-                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                   [UMSocialSnsService presentSnsIconSheetView:self
-                                                                                        appKey:UMENG_SDKKEY
-                                                                                     shareText:im.publish.publistext
-                                                                                    shareImage:image
-                                                                               shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatTimeline,UMShareToQQ,UMShareToWechatSession,UMShareToQzone,UMShareToRenren,UMShareToDouban,nil]
-                                                                                      delegate:nil];
-                                               });
-                                           });
-                                       }
-                                   }
-                               }
-                           }];
-}
-
-- (void)praiseAddWithAtlasID:(NSString *)atlasID completion:(void (^)(BOOL finished, NSString *result))completion
-{
-    BOOL selfPraise = NO;
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:atlasID forKey:@"atlasId"];
-    if (DATA_ENV.userInfo) {
-        [parameters setObject:DATA_ENV.userInfo.ID forKey:@"userId"];
-        selfPraise = YES;
-    }
-    [UserPraiseAddRequest requestWithParameters:parameters withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
-        
-    } onRequestFinished:^(ITTBaseDataRequest *request) {
-        if ([[request.handleredResult objectForKey:@"code"] integerValue] == 20000) {
-            if (selfPraise) {
-                completion(YES, @"selfSuccess");
-            } else {
-                completion(YES, @"customerSuccess");
-            }
+    NSDictionary *parameter = @{@"pubId" : pid, @"action" : action};
+    [UserPraiseAddRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
+        if ([[request.handleredResult objectForKey:@"respResult"] integerValue] == 1) {
+            completion(YES, @"1");
+        } else {
+            completion(YES, @"0");
         }
-    } onRequestCanceled:^(ITTBaseDataRequest *request) {
-        
-    } onRequestFailed:^(ITTBaseDataRequest *request) {
-        
     }];
 }
-
-
-- (void)praiseCancelWithAtlasID:(NSString *)atlasID completion:(void (^)(BOOL finished, NSString *result))completion
-{
-    [UserPraiseCancelRequest requestWithParameters:@{@"atlasId" : atlasID} withIndicatorView:nil withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
-        completion(YES, @"");
-    }];
-}
-
-
-
-//#pragma mark - 请求喜欢和不喜欢
-//- (void)detailLikeWithPublishID:(NSString *)pid action:(NSString *)action completion:(void (^)(BOOL finished, NSString *actionResult))completion
-//{
-//    NSDictionary *parameter = @{@"pubId" : pid, @"action" : action};
-//    [UserPraiseAddRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
-//        if ([[request.handleredResult objectForKey:@"respResult"] integerValue] == 1) {
-//            completion(YES, @"1");
-//        } else {
-//            completion(YES, @"0");
-//        }
-//    }];
-//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (!_photoModelArray) {
         _photoModelArray = [[NSMutableArray alloc] init];
     }
@@ -416,7 +315,7 @@
     [_photoModelArray removeAllObjects];
     
     ItemModel *im = _sourceArray[indexPath.row];
-    if (!im.publish.imgsArray.count) {
+    if (!im.atlas.imageNum) {
         
         [self requestPublishImgsWithPulishModel:im.atlas index:indexPath.row onFinished:^(NSArray *imgsArray) {
             for (ImgsModel *imgModel in imgsArray) {
@@ -428,10 +327,10 @@
         
         
     } else {
-        for (ImgsModel *imgModel in im.atlas.imgsArray) {
-            MWPhoto *mp = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:imgModel.url]];
-            [_photoModelArray addObject:mp];
-        }
+//        for (ImgsModel *imgModel in im.publish.imgsArray) {
+//            MWPhoto *mp = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:imgModel.url]];
+//            [_photoModelArray addObject:mp];
+//        }
         [self goToDetailViewWith:im imageIndex:0 showView:0];
     }
     
@@ -446,21 +345,21 @@
     [_photoModelArray removeAllObjects];
     
     ItemModel *im = _sourceArray[indexPath.row];
-    if (!im.atlas.imgsArray.count) {
-        [self requestPublishImgsWithPulishModel:im.atlas index:indexPath.row onFinished:^(NSArray *imgsArray) {
-            for (ImgsModel *imgModel in imgsArray) {
-                MWPhoto *mp = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:imgModel.url]];
-                [_photoModelArray addObject:mp];
-            }
-            [self goToDetailViewWith:im imageIndex:imageIndex showView:viewType];
-        }];
-    } else {
-        for (ImgsModel *imgModel in im.atlas.imgsArray) {
-            MWPhoto *mp = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:imgModel.url]];
-            [_photoModelArray addObject:mp];
-        }
-        [self goToDetailViewWith:im imageIndex:imageIndex showView:viewType];
-    }
+//    if (!im.publish.imgsArray.count) {
+//        [self requestPublishImgsWithPulishModel:im.publish index:indexPath.row onFinished:^(NSArray *imgsArray) {
+//            for (ImgsModel *imgModel in imgsArray) {
+//                MWPhoto *mp = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:imgModel.url]];
+//                [_photoModelArray addObject:mp];
+//            }
+//            [self goToDetailViewWith:im imageIndex:imageIndex showView:viewType];
+//        }];
+//    } else {
+//        for (ImgsModel *imgModel in im.publish.imgsArray) {
+//            MWPhoto *mp = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:imgModel.url]];
+//            [_photoModelArray addObject:mp];
+//        }
+//        [self goToDetailViewWith:im imageIndex:imageIndex showView:viewType];
+//    }
     _selectedItemIndex = indexPath.row;
 }
 
@@ -508,7 +407,8 @@
 - (void)pullTableViewDidTriggerRefresh:(ITTPullTableView*)pullTableView
 {
     NSString *pageID = _model.ID;
-    [self requestMainCellWithPageID:pageID andPage:@"1"];
+    NSString *pageType = _model.type;
+    [self requestMainCellWithPageID:pageID andType:pageType andPage:@"1"];
 }
 
 - (void)pullTableViewDidTriggerLoadMore:(ITTPullTableView*)pullTableView
@@ -517,7 +417,8 @@
     page++;
     _pageIndex = page;
     NSString *pageID = _model.ID;
-    [self requestMainCellWithPageID:pageID andPage:[NSString stringWithFormat:@"%d", page]];
+    NSString *pageType = _model.type;
+    [self requestMainCellWithPageID:pageID andType:pageType andPage:[NSString stringWithFormat:@"%d", page]];
 }
 
 - (void)endLoadingData
@@ -531,11 +432,11 @@
 }
 
 
-- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
-{
-    ItemModel *im = _sourceArray[_selectedItemIndex];
-    return im.atlas.imgsArray.count ? im.atlas.imgsArray.count : _photoModelArray.count;
-}
+//- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
+//{
+//    ItemModel *im = _sourceArray[_selectedItemIndex];
+//    return im.publish.imgsArray.count ? im.publish.imgsArray.count : _photoModelArray.count;
+//}
 
 - (id <MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index
 {
@@ -546,7 +447,6 @@
 {
     [photoBrowser updatePhotoIndexViewWithIndex:index];
 }
-
 
 - (void)didReceiveMemoryWarning
 {

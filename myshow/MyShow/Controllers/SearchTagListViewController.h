@@ -11,7 +11,6 @@
 #import "MyShowNavigationBar.h"
 #import "ITTPullTableView.h"
 #import "MWPhotoBrowser.h"
-#import "DefaultTagModel.h"
 
 @interface SearchTagListViewController : BaseViewController <NavigationBarDelegate,UITableViewDelegate, UITableViewDataSource, ITTPullTableViewDelegate, UIScrollViewDelegate, MWPhotoBrowserDelegate>
 {
@@ -21,7 +20,5 @@
     NSMutableArray * _tableViewDataSource;
     NSInteger _selectedItemIndex;
 }
-
 @property (nonatomic, strong)TagModel * model;
-@property (nonatomic, strong)DefaultTagModel * tagModel;
 @end
