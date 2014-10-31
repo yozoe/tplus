@@ -381,31 +381,72 @@ int static drawerHeaderViewHeight = 40;
 
 - (void)handleFavourButtonAction:(UIButton *)sender
 {
-    NSString *action = _item.isLike.intValue ? @"false" : @"true";
-    [self detailLikeWithPublishID:_item.publish.ID action:action completion:^(BOOL finished, NSString *actionResult) {
-        if (finished) {
-            _item.isLike = actionResult;
-            NSString *favourImageName;
-            if (_item.isLike.intValue) {
-                favourImageName = @"xihuan_select";
-            } else {
-                favourImageName = @"xihuan";
+
+    if (_item.isLike.integerValue) {
+
+        [self praiseCancelWithAtlasID:_item.atlas.ID completion:^(BOOL finished, NSString *result) {
+            if (finished) {
+                _item.isLike = @"0";
+                [_favourButton setImage:[UIImage imageNamed:@"xihuan"] forState:UIControlStateNormal];
             }
-            [_favourButton setNumberText:_item.dynamic.favnum];
-             [_favourButton setImage:[UIImage imageNamed:favourImageName] forState:UIControlStateNormal];
+        }];
+
+    } else {
+        [self praiseAddWithAtlasID:_item.atlas.ID completion:^(BOOL finished, NSString *result) {
+            if (finished) {
+
+                _item.isLike = @"1";
+                _item.atlas.praiseNum = [NSString stringWithFormat:@"%d", _item.atlas.praiseNum.integerValue + 1];
+                [_favourButton setImage:[UIImage imageNamed:@"xihuan_select"] forState:UIControlStateNormal];
+            }
+        }];
+    }
+
+//    [self detailLikeWithPublishID:_item.atlas.ID action:action completion:^(BOOL finished, NSString *actionResult) {
+//        if (finished) {
+//            _item.isLike = actionResult;
+//            NSString *favourImageName;
+//            if (_item.isLike.intValue) {
+//                favourImageName = @"xihuan_select";
+//            } else {
+//                favourImageName = @"xihuan";
+//            }
+//            [_favourButton setNumberText:_item.dynamic.favnum];
+//             [_favourButton setImage:[UIImage imageNamed:favourImageName] forState:UIControlStateNormal];
+//        }
+//    }];
+}
+
+- (void)praiseAddWithAtlasID:(NSString *)atlasID completion:(void (^)(BOOL finished, NSString *result))completion
+{
+    BOOL selfPraise = NO;
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:atlasID forKey:@"atlasId"];
+    if (DATA_ENV.userInfo) {
+        [parameters setObject:DATA_ENV.userInfo.ID forKey:@"userId"];
+        selfPraise = YES;
+    }
+    [UserPraiseAddRequest requestWithParameters:parameters withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+
+    } onRequestFinished:^(ITTBaseDataRequest *request) {
+        if ([[request.handleredResult objectForKey:@"code"] integerValue] == 20000) {
+            if (selfPraise) {
+                completion(YES, @"selfSuccess");
+            } else {
+                completion(YES, @"customerSuccess");
+            }
         }
+    } onRequestCanceled:^(ITTBaseDataRequest *request) {
+
+    } onRequestFailed:^(ITTBaseDataRequest *request) {
+
     }];
 }
 
-- (void)detailLikeWithPublishID:(NSString *)pid action:(NSString *)action completion:(void (^)(BOOL finished, NSString *actionResult))completion
+- (void)praiseCancelWithAtlasID:(NSString *)atlasID completion:(void (^)(BOOL finished, NSString *result))completion
 {
-    NSDictionary *parameter = @{@"pubId" : pid, @"action" : action};
-    [UserPraiseAddRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
-        if ([[request.handleredResult objectForKey:@"respResult"] integerValue] == 1) {
-            completion(YES, @"1");
-        } else {
-            completion(YES, @"0");
-        }
+    [UserPraiseCancelRequest requestWithParameters:@{@"atlasId" : atlasID} withIndicatorView:nil withCancelSubject:nil onRequestFinished:^(ITTBaseDataRequest *request) {
+        completion(YES, @"");
     }];
 }
 

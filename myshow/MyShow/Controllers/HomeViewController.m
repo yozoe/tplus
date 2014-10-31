@@ -426,9 +426,7 @@
             } else {
                 [self praiseAddWithAtlasID:im.atlas.ID completion:^(BOOL finished, NSString *result) {
                     if (finished) {
-                        if ([result isEqualToString:@"selfSuccess"]) {
-                            im.isLike = @"1";
-                        }
+                        im.isLike = @"1";
                         im.atlas.praiseNum = [NSString stringWithFormat:@"%d", im.atlas.praiseNum.integerValue + 1];
                         [recommendCell refresh];
                     }
