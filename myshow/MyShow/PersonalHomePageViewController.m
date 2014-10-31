@@ -247,6 +247,7 @@
     [self addTitleSegmentedView];
     [self addMainScrollView];
     [self initTableView];
+    [self startLoadMyDistributeImages];
 }
 
 
@@ -303,7 +304,12 @@
     [_mainScrollView setContentSize:CGSizeMake(_titleArray.count * 320, _mainScrollView.height)];
     _segmentedView.sectionTitles = _titleArray;
     _segmentedView.selectedSegmentIndex = 0;
+    [self startLoadMyDistributeImages];
     
+}
+
+- (void)startLoadMyDistributeImages
+{
     NSString *pageType = [self.titleArray objectAtIndex:_selectedIndex];
     
     [self requestMainCellWithType:pageType andPage:@"1"];
@@ -349,16 +355,6 @@
     
 }
 
-//- (void)requestAttentionCellWithPage:(NSString *)page
-//{
-//    NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE};
-//    [UserAtlasListAttentionRequest requestWithParameters:parameter withIndicatorView:nil onRequestFinished:^(ITTBaseDataRequest *request) {
-//        NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
-//        BOOL isAdd = page.integerValue > 1 ? YES : NO;
-//        [self fillTalbeViewSourceFromArray:itemsArray isAdd:isAdd];
-//        [self endLoadingData];
-//    }];
-//}
 
 
 - (void)fillTalbeViewSourceFromArray:(NSArray *)array type:typeStr isAdd:(BOOL)isAdd
@@ -396,27 +392,27 @@
 
 
 
-#pragma mark - HeiShowManagerDelegate
-- (void)homeTitleFinishedWithArray:(NSArray *)array
-{
-    self.titleArray = [array copy];
-    
-    NSMutableArray * sectionArray = [NSMutableArray arrayWithCapacity:0];
-    
-    for (id obj in self.titleArray)
-    {
-        if ([obj isKindOfClass:[NSString class]])
-        {
-            [sectionArray addObject:obj];
-        }
-    }
-    _segmentedView.sectionTitles = sectionArray;
-    
-    NSString * type = [self.titleArray objectAtIndex:_selectedIndex];
-    
-    
-    [self requestMainCellWithType:type andPage:[_pageDic objectForKey:type]];
-}
+//#pragma mark - HeiShowManagerDelegate
+//- (void)homeTitleFinishedWithArray:(NSArray *)array
+//{
+//    self.titleArray = [array copy];
+//    
+//    NSMutableArray * sectionArray = [NSMutableArray arrayWithCapacity:0];
+//    
+//    for (id obj in self.titleArray)
+//    {
+//        if ([obj isKindOfClass:[NSString class]])
+//        {
+//            [sectionArray addObject:obj];
+//        }
+//    }
+//    _segmentedView.sectionTitles = sectionArray;
+//    
+//    NSString * type = [self.titleArray objectAtIndex:_selectedIndex];
+//    
+//    
+//    [self requestMainCellWithType:type andPage:[_pageDic objectForKey:type]];
+//}
 
 
 #pragma mark - 切换标签触发的事件
@@ -437,6 +433,7 @@
     
     NSArray *sourceArray = [_sourceDic objectForKey:type];
     if (!sourceArray) {
+        _currentTableView.pullTableIsRefreshing = YES;
         [self requestMainCellWithType:pageType andPage:@"1"];
     }
 }
@@ -526,7 +523,7 @@
     return 0.f;
 }
 
-- (void)requestPublishImgsWithPulishModel:(PublishModel *)publishModel index:(NSInteger)index onFinished:(void(^)(NSArray *imgsArray))finishedBlock
+- (void)requestPublishImgsWithPulishModel:(AtlasModel *)publishModel index:(NSInteger)index onFinished:(void(^)(NSArray *imgsArray))finishedBlock
 {
     
     [ImageListRequest requestWithParameters:@{@"atlasId" : publishModel.ID} withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
@@ -601,10 +598,9 @@
         cell.itemModel = im;
         
         cell.incrementHeight = [heightArray[indexPath.row] integerValue];
-        if (cell.itemModel.atlas.imageNum > 0) {
+        if (cell.itemModel.atlas.imageNum > 0 && im.atlas.imgsArray.count == 0) {
             [self requestPublishImgsWithPulishModel:cell.itemModel.atlas index:indexPath.row onFinished:^(NSArray *imgsArray) {
                 if (imgsArray) {
-                    [cell.itemModel.atlas.imgsArray removeAllObjects];
                     [cell.itemModel.atlas.imgsArray addObjectsFromArray:imgsArray];
                     [cell refresh];
                 }
@@ -614,6 +610,7 @@
         cell.shareButton.tag = indexPath.row;
         [cell.shareButton addTarget:self action:@selector(handleShareButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
+
     } else {
         HomeItemCell * cell = [tableView dequeueReusableCellWithIdentifier:itemIdentifier];
         if (nil == cell)
@@ -669,12 +666,11 @@
 
 - (void)handleShareButtonEvent:(UIButton *)sender
 {
-    TagModel *tm = [_titleArray objectAtIndex:_selectedIndex];
     NSArray *sourceArray = [_sourceDic objectForKey:self.currentKey];
     ItemModel *im = sourceArray[sender.tag];
-    ImgsModel *imageModel = [im.atlas.imgsArray objectAtIndex:0];
+    CoverKeyModel *coverKeyModel = [im.coverKeyArray objectAtIndex:0];
     
-    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"share/view?imageId=%@", imageModel.ID]]];
+    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]]];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
@@ -691,7 +687,7 @@
                                            [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
                                            [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
                                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                               UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageModel.url]]];
+                                               UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
                                                dispatch_async(dispatch_get_main_queue(), ^{
                                                    [UMSocialSnsService presentSnsIconSheetView:self
                                                                                         appKey:UMENG_SDKKEY
@@ -774,7 +770,7 @@
     ItemModel *im = sourceArray[indexPath.row];
     if (!im.publish.imgsArray.count) {
         
-        [self requestPublishImgsWithPulishModel:im.publish index:indexPath.row onFinished:^(NSArray *imgsArray) {
+        [self requestPublishImgsWithPulishModel:im.atlas index:indexPath.row onFinished:^(NSArray *imgsArray) {
             for (ImgsModel *imgModel in imgsArray) {
                 MWPhoto *mp = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:imgModel.url]];
                 [_photoModelArray addObject:mp];
@@ -784,7 +780,7 @@
         
         
     } else {
-        for (ImgsModel *imgModel in im.publish.imgsArray) {
+        for (ImgsModel *imgModel in im.atlas.imgsArray) {
             MWPhoto *mp = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:imgModel.url]];
             [_photoModelArray addObject:mp];
         }
@@ -806,8 +802,8 @@
     [_photoModelArray removeAllObjects];
     
     ItemModel *im = sourceArray[indexPath.row];
-    if (!im.publish.imgsArray.count) {
-        [self requestPublishImgsWithPulishModel:im.publish index:indexPath.row onFinished:^(NSArray *imgsArray) {
+    if (!im.atlas.imgsArray.count) {
+        [self requestPublishImgsWithPulishModel:im.atlas index:indexPath.row onFinished:^(NSArray *imgsArray) {
             for (ImgsModel *imgModel in imgsArray) {
                 MWPhoto *mp = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:imgModel.url]];
                 [_photoModelArray addObject:mp];
@@ -815,7 +811,7 @@
             [self goToDetailViewWith:im imageIndex:imageIndex showView:viewType];
         }];
     } else {
-        for (ImgsModel *imgModel in im.publish.imgsArray) {
+        for (ImgsModel *imgModel in im.atlas.imgsArray) {
             MWPhoto *mp = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:imgModel.url]];
             [_photoModelArray addObject:mp];
         }

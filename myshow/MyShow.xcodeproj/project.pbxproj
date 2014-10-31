@@ -10,6 +10,13 @@
 		5073CFB519FFE42400BB397F /* LogoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFB419FFE42400BB397F /* LogoutRequest.m */; };
 		5073CFBC1A00C36900BB397F /* SMTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFB81A00C36900BB397F /* SMTag.m */; };
 		5073CFBD1A00C36900BB397F /* SMTagField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFBA1A00C36900BB397F /* SMTagField.m */; };
+		5087DF2B1A03663F0088FBC2 /* SearchTagListRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087DF2A1A03663F0088FBC2 /* SearchTagListRequest.m */; };
+		5087DF321A036B790088FBC2 /* SearchTagListDefaultRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087DF311A036B790088FBC2 /* SearchTagListDefaultRequest.m */; };
+		5087DF351A03749E0088FBC2 /* DefaultTagModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087DF341A03749E0088FBC2 /* DefaultTagModel.m */; };
+		5087DF3E1A03769D0088FBC2 /* ThumbModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087DF3D1A03769D0088FBC2 /* ThumbModel.m */; };
+		5087DF411A0377250088FBC2 /* CoverImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087DF401A0377250088FBC2 /* CoverImageModel.m */; };
+		5087DF451A0386EB0088FBC2 /* defaultTagCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5087DF431A0386EB0088FBC2 /* defaultTagCollectionViewCell.m */; };
+		5087DF461A0386EB0088FBC2 /* defaultTagCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5087DF441A0386EB0088FBC2 /* defaultTagCollectionViewCell.xib */; };
 		6502F78219E694DB00433F71 /* AtlasModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6502F78119E694DB00433F71 /* AtlasModel.m */; };
 		6505812E199A0A3300BDF2C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6505812D199A0A3300BDF2C9 /* CoreLocation.framework */; };
 		65058131199A0A3F00BDF2C9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65058130199A0A3F00BDF2C9 /* MapKit.framework */; };
@@ -297,6 +304,19 @@
 		5073CFB91A00C36900BB397F /* SMTagField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTagField.h; sourceTree = "<group>"; };
 		5073CFBA1A00C36900BB397F /* SMTagField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMTagField.m; sourceTree = "<group>"; };
 		5073CFBB1A00C36900BB397F /* SMTagFieldDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTagFieldDelegate.h; sourceTree = "<group>"; };
+		5087DF291A03663F0088FBC2 /* SearchTagListRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTagListRequest.h; sourceTree = "<group>"; };
+		5087DF2A1A03663F0088FBC2 /* SearchTagListRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTagListRequest.m; sourceTree = "<group>"; };
+		5087DF301A036B790088FBC2 /* SearchTagListDefaultRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchTagListDefaultRequest.h; path = ../../SearchTagListDefaultRequest.h; sourceTree = "<group>"; };
+		5087DF311A036B790088FBC2 /* SearchTagListDefaultRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchTagListDefaultRequest.m; path = ../../SearchTagListDefaultRequest.m; sourceTree = "<group>"; };
+		5087DF331A03749E0088FBC2 /* DefaultTagModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultTagModel.h; sourceTree = "<group>"; };
+		5087DF341A03749E0088FBC2 /* DefaultTagModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultTagModel.m; sourceTree = "<group>"; };
+		5087DF3C1A03769D0088FBC2 /* ThumbModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbModel.h; sourceTree = "<group>"; };
+		5087DF3D1A03769D0088FBC2 /* ThumbModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbModel.m; sourceTree = "<group>"; };
+		5087DF3F1A0377250088FBC2 /* CoverImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoverImageModel.h; sourceTree = "<group>"; };
+		5087DF401A0377250088FBC2 /* CoverImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoverImageModel.m; sourceTree = "<group>"; };
+		5087DF421A0386EB0088FBC2 /* defaultTagCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = defaultTagCollectionViewCell.h; sourceTree = "<group>"; };
+		5087DF431A0386EB0088FBC2 /* defaultTagCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = defaultTagCollectionViewCell.m; sourceTree = "<group>"; };
+		5087DF441A0386EB0088FBC2 /* defaultTagCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = defaultTagCollectionViewCell.xib; sourceTree = "<group>"; };
 		6502F78019E694DB00433F71 /* AtlasModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtlasModel.h; sourceTree = "<group>"; };
 		6502F78119E694DB00433F71 /* AtlasModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtlasModel.m; sourceTree = "<group>"; };
 		6505812D199A0A3300BDF2C9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -920,6 +940,10 @@
 				65958EE5198012D50096FA2F /* HomeTagRequest.m */,
 				658A2AF81980D83500B2E987 /* HomeListRequest.h */,
 				658A2AF91980D83500B2E987 /* HomeListRequest.m */,
+				5087DF301A036B790088FBC2 /* SearchTagListDefaultRequest.h */,
+				5087DF311A036B790088FBC2 /* SearchTagListDefaultRequest.m */,
+				5087DF291A03663F0088FBC2 /* SearchTagListRequest.h */,
+				5087DF2A1A03663F0088FBC2 /* SearchTagListRequest.m */,
 				659606241996753E009C63B5 /* DetailCommentRequest.h */,
 				659606251996753E009C63B5 /* DetailCommentRequest.m */,
 				653B07B6199ADD1000DB4578 /* UserCommentAddRequest.h */,
@@ -1000,6 +1024,9 @@
 				65ED3D0D1998DA14009EB339 /* CommentInputView.m */,
 				65A2341519A2462F00BD1696 /* DetailShareView.h */,
 				65A2341619A2462F00BD1696 /* DetailShareView.m */,
+				5087DF421A0386EB0088FBC2 /* defaultTagCollectionViewCell.h */,
+				5087DF431A0386EB0088FBC2 /* defaultTagCollectionViewCell.m */,
+				5087DF441A0386EB0088FBC2 /* defaultTagCollectionViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1585,6 +1612,12 @@
 				6502F78119E694DB00433F71 /* AtlasModel.m */,
 				65D0999B19E6DDE7009FE1CE /* LabelModel.h */,
 				65D0999C19E6DDE7009FE1CE /* LabelModel.m */,
+				5087DF331A03749E0088FBC2 /* DefaultTagModel.h */,
+				5087DF341A03749E0088FBC2 /* DefaultTagModel.m */,
+				5087DF3F1A0377250088FBC2 /* CoverImageModel.h */,
+				5087DF401A0377250088FBC2 /* CoverImageModel.m */,
+				5087DF3C1A03769D0088FBC2 /* ThumbModel.h */,
+				5087DF3D1A03769D0088FBC2 /* ThumbModel.m */,
 			);
 			name = Items;
 			sourceTree = "<group>";
@@ -2024,6 +2057,7 @@
 				65BD16A6197F419E00147BD6 /* loginBackground@2x.jpg in Resources */,
 				65DB0E6A1994A3E500B984D8 /* UMSnsAccountViewController.xib in Resources */,
 				65DB0E671994A3E500B984D8 /* UMShareEditViewController.xib in Resources */,
+				5087DF461A0386EB0088FBC2 /* defaultTagCollectionViewCell.xib in Resources */,
 				65E028D3198632730062EE0E /* TagsViewController.xib in Resources */,
 				65B39A3C19931353008C31B2 /* ITTMaskActivityView.xib in Resources */,
 				E16353B519000D7D0068918E /* InfoPlist.strings in Resources */,
@@ -2060,9 +2094,11 @@
 				65A3A5D81992122C00703B8E /* PSTCollectionViewData.m in Sources */,
 				651CAA8E198DE286008D2EA7 /* ImageActionButton.m in Sources */,
 				659C6BF3198C9C0600B2E806 /* ITTDataEnvironment.m in Sources */,
+				5087DF351A03749E0088FBC2 /* DefaultTagModel.m in Sources */,
 				65A3A5D71992122C00703B8E /* PSTCollectionViewController.m in Sources */,
 				5073CFB519FFE42400BB397F /* LogoutRequest.m in Sources */,
 				650BA5E2198F5C1800F905DE /* PersonalHomePageViewController.m in Sources */,
+				5087DF3E1A03769D0088FBC2 /* ThumbModel.m in Sources */,
 				659E74B5197E557C0062ACE9 /* NSArray+ITTAdditions.m in Sources */,
 				657A0B3F19A33EDE00D66987 /* RXUitils.m in Sources */,
 				65958EE6198012D50096FA2F /* HomeTagRequest.m in Sources */,
@@ -2077,6 +2113,7 @@
 				658C4A081995B01200F0016E /* DetailCommentView.m in Sources */,
 				65A3A5D41992122C00703B8E /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				65DB0DAC19936F6000B984D8 /* ASIDownloadCache.m in Sources */,
+				5087DF411A0377250088FBC2 /* CoverImageModel.m in Sources */,
 				65A3A6211992145800703B8E /* SDWebImageDownloader.m in Sources */,
 				6563091C19879A4B009CC250 /* AMTagView.m in Sources */,
 				65DB0DA919936F6000B984D8 /* ASIAuthenticationDialog.m in Sources */,
@@ -2180,6 +2217,7 @@
 				652EB170198B1A90003DB235 /* HomeRecommendCell.m in Sources */,
 				65A3A5DD1992122C00703B8E /* PSTGridLayoutInfo.m in Sources */,
 				659E74C0197E557C0062ACE9 /* UILabel+ITTAdditions.m in Sources */,
+				5087DF321A036B790088FBC2 /* SearchTagListDefaultRequest.m in Sources */,
 				E125BACA1928752D00BD6BB9 /* HeiShowMainTableBar.m in Sources */,
 				65A3A6281992145800703B8E /* UIImage+WebP.m in Sources */,
 				65A3A5D01992122C00703B8E /* MWZoomingScrollView.m in Sources */,
@@ -2208,12 +2246,14 @@
 				65E223EC19873C3500687665 /* IntroControll.m in Sources */,
 				65A3A5DA1992122C00703B8E /* PSTCollectionViewItemKey.m in Sources */,
 				E1B6D47319026120000B8D6A /* MyShowSegmentedView.m in Sources */,
+				5087DF2B1A03663F0088FBC2 /* SearchTagListRequest.m in Sources */,
 				65A3A5E01992122C00703B8E /* PSTGridLayoutSection.m in Sources */,
 				659E7501197E557C0062ACE9 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				659E7500197E557C0062ACE9 /* AFJSONRequestOperation.m in Sources */,
 				65F6F51919AE0C2700D6902D /* SearchTagListViewController.m in Sources */,
 				65A3A5D11992122C00703B8E /* DACircularProgressView.m in Sources */,
 				659E754C197E5BAB0062ACE9 /* ITTCacheDao.m in Sources */,
+				5087DF451A0386EB0088FBC2 /* defaultTagCollectionViewCell.m in Sources */,
 				65C47CAF199B2A2E008B8DC4 /* MyDistributeTagClickRequest.m in Sources */,
 				65A3A5CF1992122C00703B8E /* MWTapDetectingView.m in Sources */,
 				659E7505197E557C0062ACE9 /* UIImageView+AFNetworking.m in Sources */,
@@ -2375,8 +2415,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: LI XIAO (MK636A256V)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: zhiqun huang (T874RT6YKZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: zhiqun huang (T874RT6YKZ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyShow/Support/UMSocial_Sdk_4.0/Renren",
@@ -2405,7 +2445,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3a3b3f60-d7a4-4742-948a-f783f7244221";
+				PROVISIONING_PROFILE = "6cd32562-07ba-4977-a9e2-fefdbd2eb3be";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2418,8 +2458,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: LI XIAO (MK636A256V)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: zhiqun huang (T874RT6YKZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: zhiqun huang (T874RT6YKZ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyShow/Support/UMSocial_Sdk_4.0/Renren",
@@ -2447,7 +2487,7 @@
 					"$(PROJECT_DIR)/MyShow/Support/Wechat",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "3a3b3f60-d7a4-4742-948a-f783f7244221";
+				PROVISIONING_PROFILE = "6cd32562-07ba-4977-a9e2-fefdbd2eb3be";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
