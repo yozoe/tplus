@@ -8,6 +8,8 @@
 
 #import "SearchTagListDefaultRequest.h"
 #import "DefaultTagModel.h"
+#import "CoverImageModel.h"
+#import "ThumbModel.h"
 
 @implementation SearchTagListDefaultRequest
 
@@ -29,9 +31,13 @@
     
     for (NSDictionary *dic in itemsArray) {
         DefaultTagModel *tagModel = [[DefaultTagModel alloc] initWithDataDic:dic];
-        
-        [tagModel configKeyPath:@"coverImage" fromSource:[dic objectForKey:@"coverImage"]];
+
+
+        tagModel.coverImage = [[CoverImageModel alloc] initWithDataDic:[dic objectForKey:@"coverImage"]];
+        tagModel.coverImage.thumb = [[ThumbModel alloc] initWithDataDic:[[dic objectForKey:@"coverImage"] objectForKey:@"thumb"]];
+
         [tagModel configKeyPath:@"atlasImagesArray" fromSource:[dic objectForKey:@"atlasImages"]];
+
         [itemModelArray addObject:tagModel];
     }
     
