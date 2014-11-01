@@ -154,14 +154,23 @@
 }
 
 - (IBAction)logoutAction:(id)sender {
+    
     //退出登陆
     [LogoutRequest requestWithParameters:nil withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
         
     } onRequestFinished:^(ITTBaseDataRequest *request) {
         
+        NSString *platformType = [UMSocialSnsPlatformManager getSnsPlatformString:UMSocialSnsTypeSina];
+        [[UMSocialDataService defaultDataService] requestUnOauthWithType:platformType completion:^(UMSocialResponseEntity *response) {
+            NSLog(@"unOauth response is %@",response);
+
+        }];
+        
+        
         NSLog(@"退出登陆返回数据:%@",request.handleredResult);
         
         [DATA_ENV clearDiskCache];
+        
         if (_didLogoutSuccess) {
             _didLogoutSuccess();
         }

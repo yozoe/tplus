@@ -323,8 +323,8 @@
         //获取资源图片的详细资源信息
         ALAssetRepresentation* representation = [asset defaultRepresentation];
         //获取高清图片
-        UIImage * image = [UIImage imageWithCGImage:[representation fullResolutionImage]];
-        [self.imageArray addObject:image];
+        UIImage * hignQualityImage = [UIImage imageWithCGImage:[representation fullResolutionImage]];
+        [self.imageArray addObject:hignQualityImage];
     }
     [self generateFinalImageArrayWithArray:self.imageArray];
     [self removeCameraView];

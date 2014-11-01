@@ -143,93 +143,98 @@
     
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:[arrar objectAtIndex:sender.tag - 33]];
     
-
-        snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,
-                                      ^(UMSocialResponseEntity *response)
+    
+    NSLog(@"snsPlatform:%@",snsPlatform);
+    
+    snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+        
+        
+                                      //新浪微博
+                                      if ([snsPlatform.platformName isEqualToString:UMShareToSina])
                                       {
-                                          //新浪微博
-                                          if ([snsPlatform.platformName isEqualToString:UMShareToSina])
-                                          {
-                                              //如果是授权到新浪微博，SSO之后如果想获取用户的昵称、头像等需要再次获取一次账户信息
-                                              [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *accountResponse)
-                                               {
-                                                   NSLog(@"accountResponse.data:%@",accountResponse.data);
-                                                   NSDictionary * sinaDic = [[accountResponse.data objectForKey:@"accounts"] objectForKey:@"sina"];
+                                          
+                                          //如果是授权到新浪微博，SSO之后如果想获取用户的昵称、头像等需要再次获取一次账户信息
+                                          [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *accountResponse)
+                                           {
+                                               
+
+                                               NSLog(@"accountResponse.data:%@",accountResponse.data);
+                                               NSDictionary * sinaDic = [[accountResponse.data objectForKey:@"accounts"] objectForKey:@"sina"];
+                                               
+                                               //如果直接返回，没获取到任何数据，直接弹出认证失败
+                                               if (nil != sinaDic) {
+                                                   UserModel * model = [[UserModel alloc] init];
+                                                   model.uid = [sinaDic objectForKey:@"usid"];
+                                                   DATA_ENV.userUid = model.uid;
                                                    
-                                                   //如果直接返回，没获取到任何数据，直接弹出认证失败
-                                                   if (nil != sinaDic) {
-                                                       UserModel * model = [[UserModel alloc] init];
-                                                       model.uid = [accountResponse.data objectForKey:@"uid"];
-                                                       DATA_ENV.userUid = model.uid;
-                                                       
-                                                       model.nickname = [sinaDic objectForKey:@"username"];
-                                                       model.headUrl = [sinaDic objectForKey:@"icon"];
-                                                       model.type = @"sina";
-                                                       DATA_ENV.type = model.type;
-                                                       
-                                                       NSDictionary * params = @{@"uid":model.uid,@"nickname":model.nickname,@"headUrl":model.headUrl,@"type":model.type};
-                                                       
-                                                       
-                                                       
-                                                       //                                                   NSLog(@"查看请求头数据对不对location:%@",DATA_ENV.location);
-                                                       //                                                   NSLog(@"查看请求头数据对不对did:%@",DATA_ENV.did);
-                                                       //                                                   NSLog(@"查看请求头数据对不对brand:%@",DATA_ENV.platformString);
-                                                       //                                                   NSLog(@"查看请求头数据对不对ll:%@*%@",DATA_ENV.longitude, DATA_ENV.latitude);
-                                                       
-                                                       [self startRegisterWithParams:params];
-                                                   }else{
-                                                       NSError * error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@认证失败",snsPlatform.platformName]
-                                                                                             code:1
-                                                                                         userInfo:nil];
-                                                       NSLog(@"error:%@",error);
-                                                   }
+                                                   model.nickname = [sinaDic objectForKey:@"username"];
+                                                   model.headUrl = [sinaDic objectForKey:@"icon"];
+                                                   model.type = @"sina";
+                                                   DATA_ENV.type = model.type;
+                                                   
+                                                   NSDictionary * params = @{@"uid":model.uid,@"nickname":model.nickname,@"headUrl":model.headUrl,@"type":model.type};
                                                    
                                                    
-                                               }];
+                                                   
+                                                   //                                                   NSLog(@"查看请求头数据对不对location:%@",DATA_ENV.location);
+                                                   //                                                   NSLog(@"查看请求头数据对不对did:%@",DATA_ENV.did);
+                                                   //                                                   NSLog(@"查看请求头数据对不对brand:%@",DATA_ENV.platformString);
+                                                   //                                                   NSLog(@"查看请求头数据对不对ll:%@*%@",DATA_ENV.longitude, DATA_ENV.latitude);
+                                                   
+                                                   [self startRegisterWithParams:params];
+                                               }else{
+                                                   NSError * error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@认证失败",snsPlatform.platformName]
+                                                                                         code:1
+                                                                                     userInfo:nil];
+                                                   NSLog(@"error:%@",error);
+                                               }
+                                               
+                                               
+                                           }];
+                                      }else{
+                                          
+                                          NSLog(@"response:%@",response);
+                                          //腾讯微博/人人
+                                          NSDictionary * dict = [UMSocialAccountManager socialAccountDictionary];
+                                          NSLog(@"dict:%@",dict);
+                                          UMSocialAccountEntity * entity = [dict valueForKey:snsPlatform.platformName];
+                                          NSLog(@"entity:%@",entity);
+                                          NSString * type = nil;
+                                          if ([entity.platformName isEqualToString:@"tencent"]) {
+                                              type = @"qq";
+                                              DATA_ENV.type = type;
                                           }else{
+                                              type = @"renren";
+                                              DATA_ENV.type = type;
+                                          }
+                                          if (nil != entity.accessToken)
+                                          {
+                                              UserModel * model = [[UserModel alloc] init];
+                                              model.uid = entity.accessToken;
                                               
-                                              NSLog(@"response:%@",response);
-                                              //腾讯微博/人人
-                                              NSDictionary * dict = [UMSocialAccountManager socialAccountDictionary];
-                                              NSLog(@"dict:%@",dict);
-                                              UMSocialAccountEntity * entity = [dict valueForKey:snsPlatform.platformName];
-                                              NSLog(@"entity:%@",entity);
-                                              NSString * type = nil;
-                                              if ([entity.platformName isEqualToString:@"tencent"]) {
-                                                  type = @"qq";
-                                                  DATA_ENV.type = type;
-                                              }else{
-                                                  type = @"renren";
-                                                  DATA_ENV.type = type;
-                                              }
-                                              if (nil != entity.accessToken)
-                                              {
-                                                  UserModel * model = [[UserModel alloc] init];
-                                                  model.uid = entity.accessToken;
-                                                  
-                                                  //uid需要放入请求头去注册
-                                                  DATA_ENV.userUid = model.uid;
-                                                  model.nickname = entity.userName;
-                                                  model.headUrl = entity.iconURL;
-                                                  
-                                                  NSDictionary * params = @{@"uid":model.uid,@"nickname":model.nickname,@"headUrl":model.headUrl,@"type":type};
-                                                  
+                                              //uid需要放入请求头去注册
+                                              DATA_ENV.userUid = model.uid;
+                                              model.nickname = entity.userName;
+                                              model.headUrl = entity.iconURL;
+                                              
+                                              NSDictionary * params = @{@"uid":model.uid,@"nickname":model.nickname,@"headUrl":model.headUrl,@"type":type};
+                                              
 //                                                  NSLog(@"查看请求头数据对不对location:%@",DATA_ENV.location);
 //                                                  NSLog(@"查看请求头数据对不对did:%@",DATA_ENV.did);
 //                                                  NSLog(@"查看请求头数据对不对brand:%@",DATA_ENV.platformString);
 //                                                  NSLog(@"查看请求头数据对不对ll:%@*%@",DATA_ENV.longitude, DATA_ENV.latitude);
-                                                  [self startRegisterWithParams:params];
-                                              }
-                                              else
-                                              {
-                                                  NSError * error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@认证失败",snsPlatform.platformName]
-                                                                                        code:1
-                                                                                    userInfo:nil];
-                                                  NSLog(@"error:%@",error);
-                                              }
+                                              [self startRegisterWithParams:params];
                                           }
-                                          
-                                      });
+                                          else
+                                          {
+                                              NSError * error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@认证失败",snsPlatform.platformName]
+                                                                                    code:1
+                                                                                userInfo:nil];
+                                              NSLog(@"error:%@",error);
+                                          }
+                                      }
+                                      
+                                  });
 
     
 }

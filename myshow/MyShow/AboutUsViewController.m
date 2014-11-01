@@ -12,6 +12,7 @@
 #import "AppDelegate.h"
 #import "UserFeedbackViewController.h"
 #import "MyShowTools.h"
+#import "UMFeedbackViewController.h"
 
 #define kTagShareEdit 101
 #define kTagSharePost 102
@@ -115,9 +116,24 @@
 //}
 
 - (IBAction)feedBackAction:(UIButton *)sender {
-    UserFeedbackViewController * feedbackVC = [[UserFeedbackViewController alloc] init];
-    [self.navigationController pushViewController:feedbackVC animated:YES];
+    
+//    UserFeedbackViewController * feedbackVC = [[UserFeedbackViewController alloc] init];
+//    [self.navigationController pushViewController:feedbackVC animated:YES];
+    
+    
+    [self showNativeFeedbackWithAppkey:UmengAppkey];
 }
+
+
+- (void)showNativeFeedbackWithAppkey:(NSString *)appkey {
+    UMFeedbackViewController *feedbackViewController = [[UMFeedbackViewController alloc] initWithNibName:@"UMFeedbackViewController" bundle:nil];
+    feedbackViewController.appkey = appkey;
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:feedbackViewController];
+    //    navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    //    navigationController.navigationBar.translucent = NO;
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
 
 - (IBAction)shareAction:(UIButton *)sender {
     NSString *shareText = @"Welcome to HeiShow";             //分享内嵌文字
