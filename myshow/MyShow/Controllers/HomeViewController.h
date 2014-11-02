@@ -16,7 +16,7 @@
 
 @class HMSegmentedControl;
 
-@interface HomeViewController : BaseViewController<MyShowSegmentedDelegate, NavigationBarDelegate,UITableViewDelegate, UITableViewDataSource, ITTPullTableViewDelegate, UIScrollViewDelegate, MWPhotoBrowserDelegate>
+@interface HomeViewController : BaseViewController<MyShowSegmentedDelegate, NavigationBarDelegate,UITableViewDelegate, UITableViewDataSource, ITTPullTableViewDelegate, UIScrollViewDelegate, MWPhotoBrowserDelegate, UMSocialDataDelegate>
 {
     MyShowNavigationBar * _navigationBar;
     HMSegmentedControl  * _titleSegmentedView;
