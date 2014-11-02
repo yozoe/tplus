@@ -2665,11 +2665,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-<<<<<<< HEAD
 				PROVISIONING_PROFILE = "4fff4c50-a450-49e3-aa9c-0a68bcc12e3d";
-=======
-				PROVISIONING_PROFILE = "cfb87688-ba73-4fb9-a29b-65e3cc5816d0";
->>>>>>> 94b30c426a5e5406ac21866a1f71d17e99bc35ea
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2712,11 +2708,7 @@
 					"$(PROJECT_DIR)/MyShow",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-<<<<<<< HEAD
 				PROVISIONING_PROFILE = "4fff4c50-a450-49e3-aa9c-0a68bcc12e3d";
-=======
-				PROVISIONING_PROFILE = "cfb87688-ba73-4fb9-a29b-65e3cc5816d0";
->>>>>>> 94b30c426a5e5406ac21866a1f71d17e99bc35ea
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
