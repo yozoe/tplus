@@ -2477,7 +2477,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6cd32562-07ba-4977-a9e2-fefdbd2eb3be";
+				PROVISIONING_PROFILE = "4fff4c50-a450-49e3-aa9c-0a68bcc12e3d";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2519,7 +2519,7 @@
 					"$(PROJECT_DIR)/MyShow/Support/Wechat",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6cd32562-07ba-4977-a9e2-fefdbd2eb3be";
+				PROVISIONING_PROFILE = "4fff4c50-a450-49e3-aa9c-0a68bcc12e3d";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
