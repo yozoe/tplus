@@ -86,6 +86,7 @@
 //}
 - (void)initNavigationBar
 {
+    self.title = _tagModel.name;
     //初始化返回按钮
     UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     backButton.frame = CGRectMake(0, 0, 24, 24);

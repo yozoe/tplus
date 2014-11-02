@@ -7,6 +7,7 @@
 //
 
 #import "defaultTagCollectionViewCell.h"
+#import "CoverImageModel.h"
 
 @implementation defaultTagCollectionViewCell
 
@@ -22,8 +23,8 @@
     
     self.tagLabel.text = model.name;
     
-    NSString * url = model.coverImage.url;
-    [self.tagImageView loadImage:url];
+    CoverImageModel * imageModel = [model.atlasImagesArray objectAtIndex:0];
+    [self.tagImageView loadImage:imageModel.thumb.url];
     
 }
 

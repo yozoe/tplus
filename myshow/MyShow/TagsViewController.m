@@ -25,6 +25,7 @@
 @interface TagsViewController () <UIAlertViewDelegate,ASIHTTPRequestDelegate,DataRequestDelegate,SMTagFieldDelegate>
 {
     NSMutableArray * tags;
+    ASIFormDataRequest * asiRequest;
 }
 
 @property (weak, nonatomic) IBOutlet SMTagField * tagField;
@@ -222,11 +223,11 @@
     
     
     
-    ASIFormDataRequest * request = [ASIFormDataRequest requestWithURL:url];
+    asiRequest = [ASIFormDataRequest requestWithURL:url];
     
-    [request setRequestMethod:@"POST"];
-    [request setDelegate:self];
-    request.defaultResponseEncoding = NSUTF8StringEncoding;
+    [asiRequest setRequestMethod:@"POST"];
+    [asiRequest setDelegate:self];
+    asiRequest.defaultResponseEncoding = NSUTF8StringEncoding;
 
     
     
@@ -246,23 +247,23 @@
 
     
     //用户id
-    [request addRequestHeader:@"uid" value:DATA_ENV.userUid];
+    [asiRequest addRequestHeader:@"uid" value:DATA_ENV.userInfo.uid];
     //手机信息
-    [request addRequestHeader:@"brand" value:DATA_ENV.platformString];
+    [asiRequest addRequestHeader:@"brand" value:DATA_ENV.platformString];
     //位置
-//    [request addRequestHeader:@"location" value:[DATA_ENV.location encodeUrl]];
+    [asiRequest addRequestHeader:@"location" value:[DATA_ENV.location encodeUrl]];
     //经度
-    [request addRequestHeader:@"longtitude" value:DATA_ENV.longitude];
+    [asiRequest addRequestHeader:@"longtitude" value:DATA_ENV.longitude];
     //纬度
-    [request addRequestHeader:@"latitude" value:DATA_ENV.latitude];
+    [asiRequest addRequestHeader:@"latitude" value:DATA_ENV.latitude];
     //用户头像
-    [request addRequestHeader:@"headurl" value:DATA_ENV.userInfo.headUrl];
+    [asiRequest addRequestHeader:@"headurl" value:DATA_ENV.userInfo.headUrl];
     //用户昵称
-    [request addRequestHeader:@"nickname" value:[DATA_ENV.userInfo.nickname encodeUrl]];
+    [asiRequest addRequestHeader:@"nickname" value:[DATA_ENV.userInfo.nickname encodeUrl]];
     //UUID    新添加字段
-    [request addRequestHeader:@"did" value:DATA_ENV.did];
+    [asiRequest addRequestHeader:@"did" value:DATA_ENV.did];
     //TOKEN   新添加字段
-    [request addRequestHeader:@"token" value:DATA_ENV.token];
+    [asiRequest addRequestHeader:@"token" value:DATA_ENV.token];
     
     //以下数据测试用
     if (!DATA_ENV.longitude) {
@@ -278,30 +279,35 @@
     }
     
     //经纬度   新添加字段
-    [request addRequestHeader:@"ll" value:[NSString stringWithFormat:@"%@*%@", DATA_ENV.longitude, DATA_ENV.latitude]];
+    [asiRequest addRequestHeader:@"ll" value:[NSString stringWithFormat:@"%@*%@", DATA_ENV.longitude, DATA_ENV.latitude]];
     //位置
-    [request addRequestHeader:@"location" value:[DATA_ENV.location encodeUrl]];
+    [asiRequest addRequestHeader:@"location" value:[DATA_ENV.location encodeUrl]];
     
     
     
     //文字说明
-    [request setPostValue:[_uploadText encodeUrl] forKey:@"content"];
+    [asiRequest setPostValue:[_uploadText encodeUrl] forKey:@"content"];
     
     //标签id
     _uploadTags = [tags copy];
     for (NSString * name in _uploadTags) {
-        [request setPostValue:name forKey:@"labelNames"];
+        [asiRequest setPostValue:name forKey:@"labelNames"];
 
     }
     
     //图片压缩包
-    [request addFile:zipFile forKey:@"imageFiles"];
+    [asiRequest addFile:zipFile forKey:@"imageFiles"];
     
-    
-    [request startAsynchronous];
+    [self performSelector:@selector(uploadAction) withObject:nil afterDelay:1.0f];
     
 
     
+}
+
+- (void)uploadAction
+{
+    [asiRequest startAsynchronous];
+
 }
 
 
