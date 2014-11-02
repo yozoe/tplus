@@ -10,12 +10,14 @@
 #import "ItemHeader.h"
 #import "TextActionButton.h"
 #import "ImageActionButton.h"
+#import "UserModel.h"
 
 #define HOME_CELL_FOOT_HEIGHT 40
 
 typedef void (^CommentHandlerBlock)();
 typedef void (^TagHanlderBlock)();
 typedef void (^FavourHanlderBlock)();
+typedef void (^PortraitHandlerBlock)();
 typedef void (^ImageViewClickHanlderBlock)(NSInteger);
 
 @interface HomeRecommendCell : UITableViewCell <UIGestureRecognizerDelegate>
@@ -41,6 +43,7 @@ typedef void (^ImageViewClickHanlderBlock)(NSInteger);
 @property (copy, nonatomic) TagHanlderBlock tagBlock;
 @property (copy, nonatomic) FavourHanlderBlock favourBlock;
 @property (copy, nonatomic) ImageViewClickHanlderBlock imageViewClickHandlerBlock;
+@property (copy, nonatomic) PortraitHandlerBlock portraitHandleBlock;
 @property (assign, nonatomic) BOOL fixImageHeight;
 @property (assign, nonatomic) BOOL isSquare;
 @property (strong, nonatomic) UIButton *shareButton;

@@ -70,6 +70,11 @@
     [view addSubview:_usernameLabel];
     [view addSubview:_timeLabel];
 
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(_portraitImageView.left, _portraitImageView.top, _usernameLabel.right, _portraitImageView.height);
+    [view addSubview:button];
+    [button addTarget:self action:@selector(handleUserButtonEvent) forControlEvents:UIControlEventTouchUpInside];
+
     [self.contentView addSubview:_headerView];
 }
 
@@ -354,6 +359,13 @@
 {
     if (_favourBlock) {
         _favourBlock();
+    }
+}
+
+- (void)handleUserButtonEvent
+{
+    if (_portraitHandleBlock) {
+        _portraitHandleBlock();
     }
 }
 

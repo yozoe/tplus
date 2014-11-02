@@ -39,7 +39,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *messageBtn;
 @property (weak, nonatomic) IBOutlet UIView *noLoginView;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-
+@property (strong, nonatomic) UserModel *user;
 
 
 - (IBAction)messageBtnClickAction:(UIButton *)sender;

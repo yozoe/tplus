@@ -12,6 +12,7 @@
 #import "ITTPullTableView.h"
 #import "BaseViewController.h"
 #import "MWPhotoBrowser.h"
+#import "PersonalHomePageViewController.h"
 
 @class HMSegmentedControl;
 

@@ -411,6 +411,13 @@
             [self handleClickImageViewWithIndexPath:indexPath imageIndex:0 showView:1];
         };
 
+        cell.portraitHandleBlock = ^() {
+            UserModel *um = im.user;
+            PersonalHomePageViewController *pp = [PersonalHomePageViewController new];
+            pp.user = um;
+            [self.navigationController pushViewController:pp animated:YES];
+        };
+
         __block HomeRecommendCell *recommendCell = cell;
         cell.favourBlock = ^() {
 
@@ -466,6 +473,13 @@
 
         cell.tagBlock = ^() {
             [self handleClickImageViewWithIndexPath:indexPath imageIndex:0 showView:1];
+        };
+
+        cell.portraitHandleBlock = ^() {
+            UserModel *um = im.user;
+            PersonalHomePageViewController *pp = [PersonalHomePageViewController new];
+            pp.user = um;
+            [self.navigationController pushViewController:pp animated:YES];
         };
 
         __block HomeItemCell *itemCell = cell;
