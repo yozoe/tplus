@@ -76,13 +76,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    if (!DATA_ENV.isHasUserInfo) {
-        _noLoginView.hidden = NO;
-        [self.view bringSubviewToFront:_noLoginView];
+    if (!self.isFromHomePage) {
+        if (!DATA_ENV.isHasUserInfo) {
+            _noLoginView.hidden = NO;
+            [self.view bringSubviewToFront:_noLoginView];
+        }else{
+            _noLoginView.hidden = YES;
+            //        [self reloadData];
+        }
     }else{
         _noLoginView.hidden = YES;
-//        [self reloadData];
     }
+    
 }
 
 - (void)viewDidLoad
@@ -101,7 +106,10 @@
     }else{
         [self initNavi];
         [self initHeaderView];
-        
+        [self addTitleSegmentedView];
+        [self addMainScrollView];
+        [self initTableView];
+        [self startLoadMyDistributeImages];
     }
     
     [self initHeadImage];
@@ -292,6 +300,7 @@
     [self addMainScrollView];
     [self initTableView];
     [self startLoadMyDistributeImages];
+
 }
 
 

@@ -1089,9 +1089,6 @@
 				65F6F51119AE010700D6902D /* SearchViewController.h */,
 				65F6F51219AE010700D6902D /* SearchViewController.m */,
 				65F6F51319AE010700D6902D /* SearchViewController.xib */,
-				503C7E471A0752EE00CA6FDA /* myTableViewCell.h */,
-				503C7E481A0752EE00CA6FDA /* myTableViewCell.m */,
-				503C7E491A0752EE00CA6FDA /* myTableViewCell.xib */,
 				65F6F51619AE0C2700D6902D /* SearchTagListViewController.h */,
 				65F6F51719AE0C2700D6902D /* SearchTagListViewController.m */,
 				65F6F51819AE0C2700D6902D /* SearchTagListViewController.xib */,
@@ -1211,6 +1208,9 @@
 				651CAA96198E227B008D2EA7 /* HomeItemCell.m */,
 				6533958D19978C1C008F62A2 /* CommentCell.h */,
 				6533958E19978C1C008F62A2 /* CommentCell.m */,
+				503C7E471A0752EE00CA6FDA /* myTableViewCell.h */,
+				503C7E481A0752EE00CA6FDA /* myTableViewCell.m */,
+				503C7E491A0752EE00CA6FDA /* myTableViewCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
