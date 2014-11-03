@@ -533,36 +533,56 @@
     CoverKeyModel *coverKeyModel = [im.coverKeyArray objectAtIndex:0];
 
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
-    NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:operationQueue
-                           completionHandler:^(NSURLResponse*urlResponce,NSData*data,NSError*error) {
-         if(!error) {
-             NSString *responseString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-             NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?" options:0 error:&error];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:@"aaa"];
+        [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"呵呵"];
 
-             if (regex != nil) {
-                 NSTextCheckingResult *firstMatch = [regex firstMatchInString:responseString options:0 range:NSMakeRange(0, [responseString length])];
-                 if (firstMatch) {
-                     [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
-                     [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
-                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
-                         dispatch_async(dispatch_get_main_queue(), ^{
-                             [UMSocialSnsService presentSnsIconSheetView:self
-                                                                  appKey:UMENG_SDKKEY
-                                                               shareText:im.publish.publistext
-                                                              shareImage:image
-                                                         shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatTimeline,UMShareToQQ,UMShareToWechatSession,UMShareToQzone,UMShareToRenren,UMShareToDouban,nil]
-                                                                delegate:nil];
-                         });
-                     });
-                 }
-             }
-         }
-     }];
+        [UMSocialSnsService presentSnsIconSheetView:self
+                                             appKey:UMENG_SDKKEY
+                                          shareText:im.atlas.content
+                                         shareImage:image
+                                    shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatTimeline,UMShareToQQ,UMShareToWechatSession,UMShareToQzone,UMShareToRenren,UMShareToDouban,nil]
+                                           delegate:nil];
+    });
+
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];n
+//
+//    NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
+//
+//    [NSURLConnection sendAsynchronousRequest:request
+//                                       queue:operationQueue
+//                           completionHandler:^(NSURLResponse*urlResponce,NSData*data,NSError*error) {
+//         if(!error) {
+//             NSString *responseString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+//             NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?" options:0 error:&error];
+//
+//             if (regex != nil) {
+//                 NSTextCheckingResult *firstMatch = [regex firstMatchInString:responseString options:0 range:NSMakeRange(0, [responseString length])];
+//                 if (firstMatch) {
+//                     [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
+//                     [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
+//                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
+//                         dispatch_async(dispatch_get_main_queue(), ^{
+//                             [UMSocialSnsService presentSnsIconSheetView:self
+//                                                                  appKey:UMENG_SDKKEY
+//                                                               shareText:im.publish.publistext
+//                                                              shareImage:image
+//                                                         shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatTimeline,UMShareToQQ,UMShareToWechatSession,UMShareToQzone,UMShareToRenren,UMShareToDouban,nil]
+//                                                                delegate:nil];
+//                         });
+//                     });
+//                 }
+//             }
+//         }
+//     }];
+}
+
+-(void)didSelectSocialPlatform:(NSString *)platformName withSocialData:(UMSocialData *)socialData
+{
+    
 }
 
 - (void)praiseAddWithAtlasID:(NSString *)atlasID completion:(void (^)(BOOL finished, NSString *result))completion
