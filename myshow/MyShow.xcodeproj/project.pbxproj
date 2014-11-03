@@ -42,6 +42,8 @@
 		501A0F461A04C2CA00E170C9 /* UMFeedbackTableViewCellRight.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A0F271A04C2CA00E170C9 /* UMFeedbackTableViewCellRight.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		501A0F471A04C2CA00E170C9 /* UMFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 501A0F291A04C2CA00E170C9 /* UMFeedbackViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		501A0F481A04C2CA00E170C9 /* UMFeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 501A0F2A1A04C2CA00E170C9 /* UMFeedbackViewController.xib */; };
+		503C7E4A1A0752EE00CA6FDA /* myTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 503C7E481A0752EE00CA6FDA /* myTableViewCell.m */; };
+		503C7E4B1A0752EE00CA6FDA /* myTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 503C7E491A0752EE00CA6FDA /* myTableViewCell.xib */; };
 		5073CFB519FFE42400BB397F /* LogoutRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFB419FFE42400BB397F /* LogoutRequest.m */; };
 		5073CFBC1A00C36900BB397F /* SMTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFB81A00C36900BB397F /* SMTag.m */; };
 		5073CFBD1A00C36900BB397F /* SMTagField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5073CFBA1A00C36900BB397F /* SMTagField.m */; };
@@ -381,6 +383,9 @@
 		501A0F281A04C2CA00E170C9 /* UMFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMFeedbackViewController.h; sourceTree = "<group>"; };
 		501A0F291A04C2CA00E170C9 /* UMFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMFeedbackViewController.m; sourceTree = "<group>"; };
 		501A0F2A1A04C2CA00E170C9 /* UMFeedbackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UMFeedbackViewController.xib; sourceTree = "<group>"; };
+		503C7E471A0752EE00CA6FDA /* myTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myTableViewCell.h; sourceTree = "<group>"; };
+		503C7E481A0752EE00CA6FDA /* myTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myTableViewCell.m; sourceTree = "<group>"; };
+		503C7E491A0752EE00CA6FDA /* myTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = myTableViewCell.xib; sourceTree = "<group>"; };
 		5073CFB319FFE42400BB397F /* LogoutRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogoutRequest.h; sourceTree = "<group>"; };
 		5073CFB419FFE42400BB397F /* LogoutRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogoutRequest.m; sourceTree = "<group>"; };
 		5073CFB71A00C36900BB397F /* SMTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMTag.h; sourceTree = "<group>"; };
@@ -1203,6 +1208,9 @@
 				651CAA96198E227B008D2EA7 /* HomeItemCell.m */,
 				6533958D19978C1C008F62A2 /* CommentCell.h */,
 				6533958E19978C1C008F62A2 /* CommentCell.m */,
+				503C7E471A0752EE00CA6FDA /* myTableViewCell.h */,
+				503C7E481A0752EE00CA6FDA /* myTableViewCell.m */,
+				503C7E491A0752EE00CA6FDA /* myTableViewCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -2156,7 +2164,7 @@
 				ORGANIZATIONNAME = maxingchuan;
 				TargetAttributes = {
 					E16353A619000D7D0068918E = {
-						DevelopmentTeam = M99LZTCK8N;
+						DevelopmentTeam = 7H6JCDHBVJ;
 					};
 					E16353C119000D7D0068918E = {
 						DevelopmentTeam = NFYCGCGUPN;
@@ -2264,6 +2272,7 @@
 				655D57CA1A03F90E00FB08EA /* share_q@2x.png in Resources */,
 				65E028D3198632730062EE0E /* TagsViewController.xib in Resources */,
 				65B39A3C19931353008C31B2 /* ITTMaskActivityView.xib in Resources */,
+				503C7E4B1A0752EE00CA6FDA /* myTableViewCell.xib in Resources */,
 				655D57CC1A03F90E00FB08EA /* share_qzone@2x.png in Resources */,
 				E16353B519000D7D0068918E /* InfoPlist.strings in Resources */,
 				501A0F421A04C2CA00E170C9 /* umeng_logo.png in Resources */,
@@ -2428,6 +2437,7 @@
 				659E74C2197E557C0062ACE9 /* UIView+ITTAdditions.m in Sources */,
 				65DB0DAF19936F6000B984D8 /* ASIInputStream.m in Sources */,
 				65ED3D0E1998DA14009EB339 /* CommentInputView.m in Sources */,
+				503C7E4A1A0752EE00CA6FDA /* myTableViewCell.m in Sources */,
 				659E751A197E557C0062ACE9 /* RandomUtil.m in Sources */,
 				65B27A4019813D7200AADAD4 /* UserModel.m in Sources */,
 				656AC0081989DC6E00B2F865 /* ZipArchive.m in Sources */,
@@ -2634,8 +2644,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: zhiqun huang (T874RT6YKZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: zhiqun huang (T874RT6YKZ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyShow/Support/UMSocial_Sdk_4.0/Renren",
@@ -2665,7 +2675,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cfb87688-ba73-4fb9-a29b-65e3cc5816d0";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2678,8 +2688,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: zhiqun huang (T874RT6YKZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: zhiqun huang (T874RT6YKZ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyShow/Support/UMSocial_Sdk_4.0/Renren",
@@ -2708,7 +2718,7 @@
 					"$(PROJECT_DIR)/MyShow",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cfb87688-ba73-4fb9-a29b-65e3cc5816d0";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;

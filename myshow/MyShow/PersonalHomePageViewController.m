@@ -76,13 +76,17 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    if (!DATA_ENV.isHasUserInfo) {
-        _noLoginView.hidden = NO;
-        [self.view bringSubviewToFront:_noLoginView];
+    if (!self.isFromHomePage) {
+        if (!DATA_ENV.isHasUserInfo) {
+            _noLoginView.hidden = NO;
+            [self.view bringSubviewToFront:_noLoginView];
+        }else{
+            _noLoginView.hidden = YES;
+        }
     }else{
         _noLoginView.hidden = YES;
-//        [self reloadData];
     }
+    
 }
 
 - (void)viewDidLoad
@@ -101,7 +105,10 @@
     }else{
         [self initNavi];
         [self initHeaderView];
-        
+        [self addTitleSegmentedView];
+        [self addMainScrollView];
+        [self initTableView];
+        [self startLoadMyDistributeImages];
     }
     
     [self initHeadImage];
@@ -112,12 +119,12 @@
         //如果有token，才去登陆更新下token
         if (DATA_ENV.isHasToken) {
             [self refreshUserInfo];
+        }else{
+            
         }
-        
-//        [self addTitleSegmentedView];
-//        [self addMainScrollView];
-//        [self initTableView];
     }
+    
+    
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distributeSccessAction:) name:NOTIFICATION_DISTRIBUTE_SUCCESS object:nil];
@@ -292,6 +299,7 @@
     [self addMainScrollView];
     [self initTableView];
     [self startLoadMyDistributeImages];
+
 }
 
 
@@ -363,7 +371,6 @@
 - (void)startLoadMyDistributeImages
 {
     NSString *pageType = [self.titleArray objectAtIndex:_selectedIndex];
-    
     [self requestMainCellWithType:pageType andPage:@"1"];
 }
 
@@ -385,7 +392,6 @@
             NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
             BOOL isAdd = page.integerValue > 1 ? YES : NO;
             [self fillTalbeViewSourceFromArray:itemsArray type:typeStr isAdd:isAdd];
-            
             [self endLoadingData];
             
         } onRequestCanceled:^(ITTBaseDataRequest *request) {
@@ -433,8 +439,7 @@
     //    NSMutableArray *tempHeightArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < array.count; i++) {
         ItemModel *im = array[i];
-        CGSize  size = [im.publish.publistext sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-        //        [tempHeightArray addObject:@((int)size.height + 16)];
+        CGSize  size = [im.atlas.content sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
         [heightArray addObject:@((int)size.height + 16)];
     }
     [_recommentHeightDic setObject:heightArray forKey:typeStr];
@@ -455,29 +460,6 @@
 
 
 
-//#pragma mark - HeiShowManagerDelegate
-//- (void)homeTitleFinishedWithArray:(NSArray *)array
-//{
-//    self.titleArray = [array copy];
-//    
-//    NSMutableArray * sectionArray = [NSMutableArray arrayWithCapacity:0];
-//    
-//    for (id obj in self.titleArray)
-//    {
-//        if ([obj isKindOfClass:[NSString class]])
-//        {
-//            [sectionArray addObject:obj];
-//        }
-//    }
-//    _segmentedView.sectionTitles = sectionArray;
-//    
-//    NSString * type = [self.titleArray objectAtIndex:_selectedIndex];
-//    
-//    
-//    [self requestMainCellWithType:type andPage:[_pageDic objectForKey:type]];
-//}
-
-
 #pragma mark - 切换标签触发的事件
 - (void)segmentedCtrlChangedValue:(HMSegmentedControl *)segmentedControl
 {
@@ -488,7 +470,6 @@
 {
     _selectedIndex = index;
     [_segmentedView setSelectedSegmentIndex:index animated:YES];
-    NSString *pageType = [self.titleArray objectAtIndex:index];
     [_mainScrollView setContentOffset:CGPointMake(index * 320, 0) animated:YES];
     _currentTableView = (ITTPullTableView *)[_mainScrollView viewWithTag:index + 1000];
     
@@ -496,8 +477,8 @@
     
     NSArray *sourceArray = [_sourceDic objectForKey:type];
     if (!sourceArray) {
-        _currentTableView.pullTableIsRefreshing = YES;
-        [self requestMainCellWithType:pageType andPage:@"1"];
+//        _currentTableView.pullTableIsRefreshing = YES;
+        [self requestMainCellWithType:type andPage:@"1"];
     }
 }
 
@@ -544,7 +525,6 @@
             bodyHeight = 321;
             break;
         case 5:
-            bodyHeight = 213;
         case 6:
             bodyHeight = 213;
             break;
@@ -556,8 +536,8 @@
 {
     CoverKeyModel *ckm = [itemModel.coverKeyArray lastObject];
     NSArray *sizeArray = [ckm.size componentsSeparatedByString:@"*"];
-    CGFloat width = [sizeArray[0] floatValue];
-    CGFloat height = [sizeArray[1] floatValue];
+    NSInteger width = [sizeArray[0] integerValue];
+    NSInteger height = [sizeArray[1] integerValue];
     
     NSArray *heightArray = [_recommentHeightDic objectForKey:type];
     NSInteger textHeight = [heightArray[indexPath.row] integerValue];
@@ -581,9 +561,8 @@
     if (_selectedIndex == 0) {
         return  [self calculateRecommendCellHeightWithItemModel:im indexPath:indexPath andType:type];
     } else {
-        return [self calculateItemCellHeightWithItemModel:im indexPath:indexPath andType:type];
+        return  [self calculateItemCellHeightWithItemModel:im indexPath:indexPath andType:type];
     }
-    return 0.f;
 }
 
 - (void)requestPublishImgsWithPulishModel:(AtlasModel *)publishModel index:(NSInteger)index onFinished:(void(^)(NSArray *imgsArray))finishedBlock
@@ -726,43 +705,61 @@
 
 - (void)handleShareButtonEvent:(UIButton *)sender
 {
-    
     NSString * type = [_titleArray objectAtIndex:_selectedIndex];
     NSArray *sourceArray = [_sourceDic objectForKey:type];
     ItemModel *im = sourceArray[sender.tag];
     CoverKeyModel *coverKeyModel = [im.coverKeyArray objectAtIndex:0];
     
-    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]];
     
-    NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:operationQueue
-                           completionHandler:^(NSURLResponse*urlResponce,NSData*data,NSError*error) {
-                               if(!error) {
-                                   NSString *responseString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                                   NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?" options:0 error:&error];
-                                   
-                                   if (regex != nil) {
-                                       NSTextCheckingResult *firstMatch = [regex firstMatchInString:responseString options:0 range:NSMakeRange(0, [responseString length])];
-//                                       if (firstMatch) {
-                                           [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
-                                           [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
-                                           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                               UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
-                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                   [UMSocialSnsService presentSnsIconSheetView:self
-                                                                                        appKey:UMENG_SDKKEY
-                                                                                     shareText:im.publish.publistext
-                                                                                    shareImage:image
-                                                                               shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatTimeline,UMShareToQQ,UMShareToWechatSession,UMShareToQzone,UMShareToRenren,UMShareToDouban,nil]
-                                                                                      delegate:nil];
-                                               });
-                                           });
-//                                       }
-                                   }
-                               }
-                           }];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:[url absoluteString]];
+        [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:[url absoluteString]];
+        
+        [UMSocialSnsService presentSnsIconSheetView:self
+                                             appKey:UMENG_SDKKEY
+                                          shareText:im.atlas.content
+                                         shareImage:image
+                                    shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatTimeline,UMShareToQQ,UMShareToWechatSession,UMShareToQzone,UMShareToRenren,UMShareToDouban,nil]
+                                           delegate:nil];
+    });
+//    NSString * type = [_titleArray objectAtIndex:_selectedIndex];
+//    NSArray *sourceArray = [_sourceDic objectForKey:type];
+//    ItemModel *im = sourceArray[sender.tag];
+//    CoverKeyModel *coverKeyModel = [im.coverKeyArray objectAtIndex:0];
+//    
+//    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]]];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    
+//    NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
+//    [NSURLConnection sendAsynchronousRequest:request
+//                                       queue:operationQueue
+//                           completionHandler:^(NSURLResponse*urlResponce,NSData*data,NSError*error) {
+//                               if(!error) {
+//                                   NSString *responseString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+//                                   NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?" options:0 error:&error];
+//                                   
+//                                   if (regex != nil) {
+//                                       NSTextCheckingResult *firstMatch = [regex firstMatchInString:responseString options:0 range:NSMakeRange(0, [responseString length])];
+////                                       if (firstMatch) {
+//                                           [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
+//                                           [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
+//                                           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                                               UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
+//                                               dispatch_async(dispatch_get_main_queue(), ^{
+//                                                   [UMSocialSnsService presentSnsIconSheetView:self
+//                                                                                        appKey:UMENG_SDKKEY
+//                                                                                     shareText:im.publish.publistext
+//                                                                                    shareImage:image
+//                                                                               shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatTimeline,UMShareToQQ,UMShareToWechatSession,UMShareToQzone,UMShareToRenren,UMShareToDouban,nil]
+//                                                                                      delegate:nil];
+//                                               });
+//                                           });
+////                                       }
+//                                   }
+//                               }
+//                           }];
 }
 
 - (void)praiseAddWithAtlasID:(NSString *)atlasID completion:(void (^)(BOOL finished, NSString *result))completion

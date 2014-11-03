@@ -30,9 +30,21 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    if (IS_IOS_7) {
-        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+//    if (IS_IOS_7) {
+//        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+//    }
+    UISwipeGestureRecognizer * swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(backToPreviewAction:)];
+    [self.view addGestureRecognizer:swipe];
+}
+
+- (void)backToPreviewAction:(UISwipeGestureRecognizer *)swipe
+{
+    if (self.presentingViewController) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
     }
+    
 }
 
 - (void)didLoginOrRegisterSuccess
