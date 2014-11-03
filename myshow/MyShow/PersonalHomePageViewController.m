@@ -385,7 +385,6 @@
             NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
             BOOL isAdd = page.integerValue > 1 ? YES : NO;
             [self fillTalbeViewSourceFromArray:itemsArray type:typeStr isAdd:isAdd];
-            
             [self endLoadingData];
             
         } onRequestCanceled:^(ITTBaseDataRequest *request) {

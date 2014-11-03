@@ -8,10 +8,12 @@
 
 #import "BaseViewController.h"
 #import "MyShowNavigationBar.h"
+#import "ITTPullTableView.h"
 
-@interface SearchViewController : BaseViewController<NavigationBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface SearchViewController : BaseViewController<NavigationBarDelegate,UITableViewDelegate, UITableViewDataSource, ITTPullTableViewDelegate>
 {
     MyShowNavigationBar * _navigationBar;
+    ITTPullTableView *_tableView;
 }
 
 

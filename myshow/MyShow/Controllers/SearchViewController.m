@@ -16,6 +16,7 @@
 #import "ThumbModel.h"
 #import "defaultTagCollectionViewCell.h"
 #import "SearchTagListViewController.h"
+#import "myTableViewCell.h"
 
 
 @interface SearchViewController ()<UISearchBarDelegate,UISearchDisplayDelegate>
@@ -24,12 +25,14 @@
 {
     UISearchBar                 *_searchBar;
     UISearchDisplayController   *_searchDisplayController;
+    int _pageIndex;
 }
 @property (strong, nonatomic) NSArray                       *searchArray;
 @property (strong, nonatomic) NSDictionary                  *searchDict;
 @property (strong, nonatomic) NSString                      *searchStr;
 
 @property (strong, nonatomic) NSArray                       *tagsArray;
+@property (strong, nonatomic) NSMutableArray                *twoCellArray;
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
@@ -42,6 +45,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -83,9 +87,10 @@
 //    [self addNavigationBar];
     [self initNavigationBar];
     [self initSearchBar];
-    [self initCollectionView];
+    [self initTableView];
+//    [self initCollectionView];
     
-    [self requestDefaultTags];
+    [self requestDefaultTagsWithPage:@"1"];
     
 }
 
@@ -361,71 +366,178 @@
     }];
 }
 */
-- (void)initCollectionView
+
+- (void)initTableView
 {
-    [self.collectionView registerClass:[defaultTagCollectionViewCell class] forCellWithReuseIdentifier:@"defaultTagCollectionViewCell"];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"defaultTagCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"defaultTagCollectionViewCell"];
+    _tableView = [[ITTPullTableView alloc] initWithFrame:CGRectMake(0,_searchBar.bottom,self.view.frame.size.width,self.view.height - 108)];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.collectionView.backgroundColor = [UIColor clearColor];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.pullDelegate = self;
+    [self.view addSubview:_tableView];
+    
+    _pageIndex = 1;
 }
 
-#pragma mark - UICollectionViewDelegate/Datasource
--(NSInteger)numberOfSectionsInCollectionView:
-(UICollectionView *)collectionView
+
+#pragma mark - tableViewDelegate
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return [self.twoCellArray count];
 }
 
--(NSInteger)collectionView:(UICollectionView *)collectionView
-    numberOfItemsInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.tagsArray.count;
+    return 160;
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    defaultTagCollectionViewCell * cell = (defaultTagCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"defaultTagCollectionViewCell"
-                                                                                      forIndexPath:indexPath];
+    static NSString * cellIdentifier = @"myCell";
+    myTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (!cell) {
+        cell = [[[NSBundle mainBundle]loadNibNamed:@"myTableViewCell" owner:self options:nil] lastObject];
+    }
     
-    DefaultTagModel * model = [self.tagsArray objectAtIndex:indexPath.row];
-    cell.model = model;
+    cell.cellArray = [self.twoCellArray objectAtIndex:indexPath.row];
     
-    
+    cell.oneBlock = ^() {
+        DefaultTagModel * model = [[self.twoCellArray objectAtIndex:indexPath.row] objectAtIndex:0];
+        SearchTagListViewController * tagListVC = [[SearchTagListViewController alloc] init];
+        tagListVC.tagModel = model;
+        [self.navigationController pushViewController:tagListVC animated:YES];
+    };
+    cell.twoBlock = ^() {
+        DefaultTagModel * model = [[self.twoCellArray objectAtIndex:indexPath.row] objectAtIndex:1];
+        SearchTagListViewController * tagListVC = [[SearchTagListViewController alloc] init];
+        tagListVC.tagModel = model;
+        [self.navigationController pushViewController:tagListVC animated:YES];
+    };
+
     return cell;
 }
 
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+
+#pragma mark - 上拉和下拉的回调
+- (void)pullTableViewDidTriggerRefresh:(ITTPullTableView*)pullTableView
 {
-    return UIEdgeInsetsMake(0, 0, 0, 0);
+    [self requestDefaultTagsWithPage:@"1"];
 }
 
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)pullTableViewDidTriggerLoadMore:(ITTPullTableView*)pullTableView
 {
-    DefaultTagModel * model = [self.tagsArray objectAtIndex:indexPath.row];
-    SearchTagListViewController * tagListVC = [[SearchTagListViewController alloc] init];
-    tagListVC.tagModel = model;
-    [self.navigationController pushViewController:tagListVC animated:YES];
+    NSInteger page = _pageIndex;
+    page++;
+    _pageIndex = page;
+    [self requestDefaultTagsWithPage:[NSString stringWithFormat:@"%d",_pageIndex]];
 }
 
-- (void)requestDefaultTags
+- (void)endLoadingData
 {
-    [SearchTagListDefaultRequest requestWithParameters:nil withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    if (_tableView.pullTableIsLoadingMore) {
+        _tableView.pullTableIsLoadingMore = NO;
+    }
+    if (_tableView.pullTableIsRefreshing) {
+        _tableView.pullTableIsRefreshing = NO;
+    }
+}
+
+//- (void)initCollectionView
+//{
+//    [self.collectionView registerClass:[defaultTagCollectionViewCell class] forCellWithReuseIdentifier:@"defaultTagCollectionViewCell"];
+//    [self.collectionView registerNib:[UINib nibWithNibName:@"defaultTagCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"defaultTagCollectionViewCell"];
+//    
+//    self.collectionView.backgroundColor = [UIColor clearColor];
+//}
+//
+//#pragma mark - UICollectionViewDelegate/Datasource
+//-(NSInteger)numberOfSectionsInCollectionView:
+//(UICollectionView *)collectionView
+//{
+//    return 1;
+//}
+//
+//-(NSInteger)collectionView:(UICollectionView *)collectionView
+//    numberOfItemsInSection:(NSInteger)section
+//{
+//    return self.tagsArray.count;
+//}
+//
+//-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+//                 cellForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    defaultTagCollectionViewCell * cell = (defaultTagCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"defaultTagCollectionViewCell"
+//                                                                                      forIndexPath:indexPath];
+//    
+//    DefaultTagModel * model = [self.tagsArray objectAtIndex:indexPath.row];
+//    cell.model = model;
+//    
+//    
+//    return cell;
+//}
+//
+//
+//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+//{
+//    return UIEdgeInsetsMake(0, 0, 0, 0);
+//}
+//
+//
+//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    DefaultTagModel * model = [self.tagsArray objectAtIndex:indexPath.row];
+//    SearchTagListViewController * tagListVC = [[SearchTagListViewController alloc] init];
+//    tagListVC.tagModel = model;
+//    [self.navigationController pushViewController:tagListVC animated:YES];
+//}
+
+- (void)requestDefaultTagsWithPage:(NSString *)page
+{
+    NSDictionary * parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE};
+    [SearchTagListDefaultRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
         
     } onRequestFinished:^(ITTBaseDataRequest *request) {
-        _tagsArray = [[request.handleredResult objectForKey:@"models"] copy];
+        NSArray * tagsArray = [[request.handleredResult objectForKey:@"models"] copy];
         NSLog(@"%@",_tagsArray);
-
-        [self.collectionView reloadData];
         
+        BOOL isAdd = page.integerValue > 1 ? YES : NO;
+        
+        [self fillTalbeViewSourceFromTagsArray:tagsArray isAdd:isAdd];
+        [self endLoadingData];
         
     } onRequestCanceled:^(ITTBaseDataRequest *request) {
         
     } onRequestFailed:^(ITTBaseDataRequest *request) {
         
     }];
+}
+
+- (void)fillTalbeViewSourceFromTagsArray:(NSArray *)tagsArray isAdd:(BOOL)isAdd
+{
+    NSMutableArray * mArray = [NSMutableArray array];
+    NSMutableArray * array = nil;
+    for (int i = 0; i < tagsArray.count; i++) {
+        if (i%2 == 0) {
+            array = [NSMutableArray arrayWithCapacity:2];
+            [mArray addObject:array];
+        }
+        [array addObject:tagsArray[i]];
+    }
+    
+    if (!_twoCellArray) {
+        _twoCellArray = [[NSMutableArray alloc] initWithArray:mArray];
+    }else{
+        if (!isAdd) {
+            [_twoCellArray removeAllObjects];
+        }
+        [_twoCellArray addObjectsFromArray:mArray];
+    }
+    
+    [_tableView reloadData];
+
 }
 
 
