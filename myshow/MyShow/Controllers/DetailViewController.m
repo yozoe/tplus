@@ -14,6 +14,7 @@
 #import "LinkWebViewController.h"
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
+#import "MyShowDefine.h"
 
 @interface DetailViewController ()
 {
@@ -426,35 +427,57 @@
 - (void)shareWithType:(NSString *)type
 {
 
+
     CoverKeyModel *coverKeyModel = [_item.atlas.imgsArray objectAtIndex:0];
-
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
-    NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:operationQueue
-                           completionHandler:^(NSURLResponse*urlResponce,NSData*data,NSError*error) {
-                               if(!error) {
-                                   NSString *responseString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                                   NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?" options:0 error:&error];
-                                   if (regex != nil) {
-                                       NSTextCheckingResult *firstMatch = [regex firstMatchInString:responseString options:0 range:NSMakeRange(0, [responseString length])];
-                                       if (firstMatch) {
-                                           [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
-                                           [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
-                                           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                               UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
-                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                   [[UMSocialControllerService defaultControllerService] setShareText:_item.publish.publistext shareImage:image socialUIDelegate:self];
-                                                   UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:type];
-                                                   snsPlatform.snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
-                                               });
-                                           });
-                                       }
-                                   }
-                               }
-                           }];
+
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:[url absoluteString]];
+        [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:[url absoluteString]];
+
+        [[UMSocialControllerService defaultControllerService] setShareText:_item.atlas.content shareImage:image socialUIDelegate:self];
+        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:type];
+        snsPlatform.snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+
+
+//        [UMSocialSnsService presentSnsIconSheetView:self
+//                                             appKey:UMENG_SDKKEY
+//                                          shareText:_item.atlas.content
+//                                         shareImage:image
+//                                    shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatTimeline,UMShareToQQ,UMShareToWechatSession,UMShareToQzone,UMShareToRenren,UMShareToDouban,nil]
+//                                           delegate:nil];
+    });
+
+
+//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//
+//    NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
+//    [NSURLConnection sendAsynchronousRequest:request
+//                                       queue:operationQueue
+//                           completionHandler:^(NSURLResponse*urlResponce,NSData*data,NSError*error) {
+//                               if(!error) {
+//                                   NSString *responseString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+//                                   NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?" options:0 error:&error];
+//                                   if (regex != nil) {
+//                                       NSTextCheckingResult *firstMatch = [regex firstMatchInString:responseString options:0 range:NSMakeRange(0, [responseString length])];
+//                                       if (firstMatch) {
+//                                           [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
+//                                           [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
+//                                           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                                               UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
+//                                               dispatch_async(dispatch_get_main_queue(), ^{
+//                                                   [[UMSocialControllerService defaultControllerService] setShareText:_item.publish.publistext shareImage:image socialUIDelegate:self];
+//                                                   UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:type];
+//                                                   snsPlatform.snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
+//                                               });
+//                                           });
+//                                       }
+//                                   }
+//                               }
+//                           }];
 }
 
 - (void)showWebViewWithLink:(LinksModel *)link

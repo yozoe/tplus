@@ -526,10 +526,10 @@
 
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]];
 
-    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:@"aaa"];
-        [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"呵呵"];
+        [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:[url absoluteString]];
+        [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:[url absoluteString]];
 
         [UMSocialSnsService presentSnsIconSheetView:self
                                              appKey:UMENG_SDKKEY
