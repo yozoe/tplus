@@ -81,6 +81,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+//    self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
 //    self.navigationController.navigationBarHidden = YES;
 }
 
@@ -414,6 +420,7 @@
         cell.portraitHandleBlock = ^() {
             UserModel *um = im.user;
             PersonalHomePageViewController *pp = [PersonalHomePageViewController new];
+            pp.isFromHomePage = YES;
             pp.user = um;
             [self.navigationController pushViewController:pp animated:YES];
         };
@@ -478,6 +485,7 @@
         cell.portraitHandleBlock = ^() {
             UserModel *um = im.user;
             PersonalHomePageViewController *pp = [PersonalHomePageViewController new];
+            pp.isFromHomePage = YES;
             pp.user = um;
             [self.navigationController pushViewController:pp animated:YES];
         };
