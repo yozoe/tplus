@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UIView *noLoginView;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) UserModel *user;
+@property (assign, nonatomic) BOOL isFromHomePage;
 
 
 - (IBAction)messageBtnClickAction:(UIButton *)sender;

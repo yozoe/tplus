@@ -96,7 +96,14 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
-    [self addNavigationBar];
+    if (!self.isFromHomePage) {
+        [self addNavigationBar];
+    }else{
+        [self initNavi];
+        [self initHeaderView];
+        
+    }
+    
     [self initHeadImage];
     if (!DATA_ENV.isHasUserInfo) {
         //如果没有用户信息，就是没登陆，不再加载图集信息，只显示_noLoginView
@@ -119,6 +126,25 @@
 //    [self.view addGestureRecognizer:tapSelfView];
 }
 
+
+- (void)initNavi
+{
+    //初始化返回按钮
+    UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(0, 0, 24, 24);
+    [backButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = backItem;
+    
+    self.title = self.user.nickname;
+}
+
+- (void)initHeaderView
+{
+    self.HeaderView.top = 0;
+    [self reloadData];
+}
 
 //- (void)clickView:(UITapGestureRecognizer *)tap
 //{
@@ -147,7 +173,11 @@
                                                        ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
     _navigationBar.titleLabel.text = @"我的主页";
     
-    [_navigationBar.rightButton setImage:[UIImage imageNamed:@"Session_Multi_More_HL"] forState:UIControlStateNormal];
+    if (!self.isFromHomePage) {
+        [_navigationBar.rightButton setImage:[UIImage imageNamed:@"Session_Multi_More_HL"] forState:UIControlStateNormal];
+    }
+    
+    
     
     _navigationBar.delegate = self;
     [self.view addSubview:_navigationBar];
@@ -205,14 +235,28 @@
 
 - (void)reloadData
 {
-    NSLog(@"DATA_ENV.userInfo:%@",DATA_ENV.userInfo);
-    NSLog(@"DATA_ENV.token:%@",DATA_ENV.token);
-    [self.headImage loadImage:DATA_ENV.userInfo.headUrl placeHolder:[UIImage imageNamed:@"NoHeaderImge"]];
-    self.nameLabel.text = DATA_ENV.userInfo.nickname;
+    if (!self.isFromHomePage) {
+        [self.headImage loadImage:DATA_ENV.userInfo.headUrl placeHolder:[UIImage imageNamed:@"NoHeaderImge"]];
+        self.nameLabel.text = DATA_ENV.userInfo.nickname;
+    }else{
+        [self.headImage loadImage:self.user.headUrl placeHolder:[UIImage imageNamed:@"NoHeaderImge"]];
+        self.nameLabel.text = self.user.nickname;
+    }
+    
 }
 
 
+- (void)backAction:(UIButton *)button
+{
+    self.isFromHomePage = NO;
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
+//- (void)leftButtonClick
+//{
+//    self.isFromHomePage = NO;
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 - (void)rightButtonClick
 {
@@ -270,7 +314,12 @@
 - (void)addMainScrollView
 {
     float scrollViewY = _segmentedView.top + _segmentedView.height;
-    _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewY, self.view.width, self.view.height - scrollViewY - 49)];
+    if (!self.isFromHomePage) {
+        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewY, self.view.width, self.view.height - scrollViewY - 49)];
+    }else{
+        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewY, self.view.width, self.view.height - scrollViewY)];
+    }
+    
     _mainScrollView.pagingEnabled = YES;
     _mainScrollView.bounces = NO;
     _mainScrollView.delegate = self;
@@ -283,10 +332,13 @@
 - (void)initTableView
 {
     for (int i = 0; i < _titleArray.count; i++) {
+
         ITTPullTableView *tableView = [[ITTPullTableView alloc] initWithFrame:CGRectMake(i * 320,
-                                                                                         0,
-                                                                                         self.view.frame.size.width,
-                                                                                         _mainScrollView.height)];
+                                                                                             0,
+                                                                                             self.view.frame.size.width,
+                                                                                             _mainScrollView.height)];
+        
+        
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         if (i == 0) {
             _currentTableView = tableView;
@@ -319,7 +371,13 @@
 - (void)requestMainCellWithType:(NSString *)typeStr andPage:(NSString *)page
 {
     if ([typeStr isEqualToString:@"发布"]) {
-        NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userInfo.ID};
+        NSDictionary *parameter = nil;
+        if (!self.isFromHomePage) {
+            parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userInfo.ID};
+        }else{
+            parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : self.user.ID};
+        }
+        
         [MyDistributeTagClickRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
             
         } onRequestFinished:^(ITTBaseDataRequest *request) {
@@ -336,7 +394,12 @@
             
         }];
     }else{
-        NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userInfo.ID};
+        NSDictionary *parameter = nil;
+        if (!self.isFromHomePage) {
+            parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userInfo.ID};
+        }else{
+            parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : self.user.ID};
+        }
         [MyFavorateTagClickRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
             
         } onRequestFinished:^(ITTBaseDataRequest *request) {
@@ -581,9 +644,7 @@
             } else {
                 [self praiseAddWithAtlasID:im.atlas.ID completion:^(BOOL finished, NSString *result) {
                     if (finished) {
-                        if ([result isEqualToString:@"selfSuccess"]) {
-                            im.isLike = @"1";
-                        }
+                        im.isLike = @"1";
                         im.atlas.praiseNum = [NSString stringWithFormat:@"%d", im.atlas.praiseNum.integerValue + 1];
                         [recommendCell refresh];
                     }
@@ -610,7 +671,6 @@
         cell.shareButton.tag = indexPath.row;
         [cell.shareButton addTarget:self action:@selector(handleShareButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
         return cell;
-
     } else {
         HomeItemCell * cell = [tableView dequeueReusableCellWithIdentifier:itemIdentifier];
         if (nil == cell)
@@ -666,7 +726,9 @@
 
 - (void)handleShareButtonEvent:(UIButton *)sender
 {
-    NSArray *sourceArray = [_sourceDic objectForKey:self.currentKey];
+    
+    NSString * type = [_titleArray objectAtIndex:_selectedIndex];
+    NSArray *sourceArray = [_sourceDic objectForKey:type];
     ItemModel *im = sourceArray[sender.tag];
     CoverKeyModel *coverKeyModel = [im.coverKeyArray objectAtIndex:0];
     
@@ -683,7 +745,7 @@
                                    
                                    if (regex != nil) {
                                        NSTextCheckingResult *firstMatch = [regex firstMatchInString:responseString options:0 range:NSMakeRange(0, [responseString length])];
-                                       if (firstMatch) {
+//                                       if (firstMatch) {
                                            [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
                                            [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
                                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -697,7 +759,7 @@
                                                                                       delegate:nil];
                                                });
                                            });
-                                       }
+//                                       }
                                    }
                                }
                            }];
