@@ -82,7 +82,6 @@
             [self.view bringSubviewToFront:_noLoginView];
         }else{
             _noLoginView.hidden = YES;
-            //        [self reloadData];
         }
     }else{
         _noLoginView.hidden = YES;
@@ -120,12 +119,12 @@
         //如果有token，才去登陆更新下token
         if (DATA_ENV.isHasToken) {
             [self refreshUserInfo];
+        }else{
+            
         }
-        
-//        [self addTitleSegmentedView];
-//        [self addMainScrollView];
-//        [self initTableView];
     }
+    
+    
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distributeSccessAction:) name:NOTIFICATION_DISTRIBUTE_SUCCESS object:nil];
@@ -707,7 +706,7 @@
 - (void)handleShareButtonEvent:(UIButton *)sender
 {
     NSString * type = [_titleArray objectAtIndex:_selectedIndex];
-    NSArray *sourceArray = [_sourceDic objectForKey:self.currentKey];
+    NSArray *sourceArray = [_sourceDic objectForKey:type];
     ItemModel *im = sourceArray[sender.tag];
     CoverKeyModel *coverKeyModel = [im.coverKeyArray objectAtIndex:0];
     
