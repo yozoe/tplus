@@ -34,6 +34,11 @@ typedef void (^ImageViewClickHanlderBlock)(NSInteger);
     TextActionButton *_commentButton;
     TextActionButton *_tagButton;
     ImageActionButton *_favourButton;
+    UIImageView *_coverImageView;
+    UIView *_locaitonView;
+    UIView *_publishNumberView;
+    UILabel *_locationLabel;
+    UILabel *_publishNumberLabel;
 }
 
 @property (strong, nonatomic) ItemModel *itemModel;

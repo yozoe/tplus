@@ -11,11 +11,6 @@
 
 @interface HomeItemCell()
 {
-    UIImageView *_coverImageView;
-    UIView *_locaitonView;
-    UIView *_publishNumberView;
-    UILabel *_locationLabel;
-    UILabel *_publishNumberLabel;
     BOOL _fixImageHeight;
 }
 

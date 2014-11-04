@@ -172,6 +172,57 @@
             [self createRandomTileWithCount:size];
             break;
     }
+    if (!_locaitonView) {
+        _locaitonView = [[UIView alloc] init];
+        _locaitonView.backgroundColor = RGBACOLOR(0, 0, 0, 0.2);
+        _locaitonView.top = _imagesView.top + 15;
+        _locaitonView.height = 22;
+        _locaitonView.layer.cornerRadius = 5.f;
+        _locaitonView.clipsToBounds = YES;
+        [self.contentView addSubview:_locaitonView];
+
+        UIImage *locationImage = [UIImage imageNamed:@"didian"];
+        UIImageView *locationImageView = [[UIImageView alloc] initWithImage:locationImage];
+        locationImageView.width = 15;
+        locationImageView.height = 15;
+        locationImageView.top = 4;
+        locationImageView.left = 4;
+        [_locaitonView addSubview:locationImageView];
+
+        _locationLabel = [[UILabel alloc] init];
+        _locationLabel.textColor = [UIColor whiteColor];
+        [_locaitonView addSubview:_locationLabel];
+        _locationLabel.left = locationImageView.right + 5;
+        _locationLabel.top = 4;
+        _locationLabel.font = [UIFont systemFontOfSize:12.f];
+    }
+
+    if (!_publishNumberView) {
+        _publishNumberView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 46, 46)];
+        _publishNumberView.right = _imagesView.right;
+        UIImage *image = [UIImage imageNamed:@"zhangshu"];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:_publishNumberView.bounds];
+        imageView.image = image;
+        [_publishNumberView addSubview:imageView];
+        [self.contentView addSubview:_publishNumberView];
+
+        _publishNumberLabel = [[UILabel alloc] init];
+        _publishNumberLabel.top = 15;
+        _publishNumberLabel.left = 15;
+        _publishNumberLabel.font = [UIFont systemFontOfSize:12.f];
+        _publishNumberLabel.textColor = [UIColor whiteColor];
+        [_publishNumberView addSubview:_publishNumberLabel];
+    }
+
+    _publishNumberView.bottom = _imagesView.bottom - 8;
+
+    _locationLabel.text = self.itemModel.atlas.location;
+    [_locationLabel sizeToFit];
+    _locaitonView.width = _locationLabel.right + 10;
+    _locaitonView.right = 310;
+
+    _publishNumberLabel.text = [NSString stringWithFormat:@"X %@", self.itemModel.atlas.imageNum];
+    [_publishNumberLabel sizeToFit];
     [self updateLike];
 }
 
