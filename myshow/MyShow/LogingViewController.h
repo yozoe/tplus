@@ -10,10 +10,7 @@
 #import "MyShowNavigationBar.h"
 #import "BaseViewController.h"
 
-@interface LogingViewController : BaseViewController <NavigationBarDelegate>
-{
-    MyShowNavigationBar * _navigationBar;
-}
+@interface LogingViewController : BaseViewController
 
 @property (nonatomic, copy) void(^didLoginSuccess)();
 @property (nonatomic, copy) void(^didRegisterSuccess)();

@@ -100,23 +100,26 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     
+    //初始化视图
+    [self initHeadImage];
+    [self initNavigationBar];
+    [self addTitleSegmentedView];
+    [self addMainScrollView];
+    [self initTableView];
+    
+    
     if (!self.isFromHomePage) {
-        [self addNavigationBar];
     }else{
-        [self initNavi];
-        [self initHeaderView];
-        [self addTitleSegmentedView];
-        [self addMainScrollView];
-        [self initTableView];
+        //如果是从主页点击头像而来
+        [self reloadData];
         [self startLoadMyDistributeImages];
     }
-    
-    [self initHeadImage];
     
     if (!DATA_ENV.isHasUserInfo) {
         //如果没有用户信息，就是没登陆，不再加载图集信息，只显示_noLoginView
     }else{
-        //如果有用户信息
+        //如果有用户信息,更新头像，昵称信息
+        [self reloadData];
         //如果有token，才去登陆更新下token
         if (DATA_ENV.isHasToken) {
             [self refreshUserInfo];
@@ -129,145 +132,45 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distributeSccessAction:) name:NOTIFICATION_DISTRIBUTE_SUCCESS object:nil];
-    
-//    UITapGestureRecognizer * tapSelfView = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickView:)];
-//    [self.view addGestureRecognizer:tapSelfView];
 }
 
-
-- (void)initNavi
-{
-    //初始化返回按钮
-    UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    backButton.frame = CGRectMake(0, 0, 24, 24);
-    [backButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem * backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem = backItem;
-    
-    self.title = self.user.nickname;
-}
-
-- (void)initHeaderView
-{
-    self.HeaderView.top = 0;
-    [self reloadData];
-}
-
-//- (void)clickView:(UITapGestureRecognizer *)tap
-//{
-//    MyTabBarViewController * tabbar = [AppDelegate GetAppDelegate].tabBarController;
-//    if (tabbar.isShowCameraView) {
-//        [tabbar removeCameraView];
-//    }
-//}
-
-
-#pragma mark - NSNotification action
-- (void)distributeSccessAction:(NSNotification *)notification
-{
-    [_currentTableView reloadData];
-}
-
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)addNavigationBar
-{
-    _navigationBar = [[MyShowNavigationBar alloc] initWithFrame:self.view.frame
-                                                       ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
-    _navigationBar.titleLabel.text = @"我的主页";
-    
-    if (!self.isFromHomePage) {
-        [_navigationBar.rightButton setImage:[UIImage imageNamed:@"Session_Multi_More_HL"] forState:UIControlStateNormal];
-    }
-    
-    
-    
-    _navigationBar.delegate = self;
-    [self.view addSubview:_navigationBar];
-}
-
-- (void)initHeadImage
-{
-    _headImage.layer.masksToBounds = YES;
-    _headImage.layer.cornerRadius = 23.0f;
-    
-    [_loginButton setBackgroundColor:[MyShowTools hexStringToColor:@"#BD0007"]];
-}
-
-
-
-
-#pragma mark - 登陆刷新Token
-- (void)refreshUserInfo
-{
-    //如果有Token,直接登陆,更新下Token
-    NSDictionary * loginParames = @{@"uid":DATA_ENV.userUid,@"type":DATA_ENV.type};
-    [self startLoginWithParams:loginParames];
-}
-
-
-#pragma mark - 登陆
-- (void)startLoginWithParams:(NSDictionary *)params
-{
-    //登陆
-    [LoginRequest requestWithParameters:params withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
-        
-    } onRequestFinished:^(ITTBaseDataRequest *request) {
-        
-        NSLog(@"登陆成功返回数据:%@",request.handleredResult);
-        UserModel * loginedUserModel = [[UserModel alloc] initWithDataDic:[[request.handleredResult objectForKey:@"resp"] objectForKey:@"user"]];
-        
-        [DATA_ENV setUserInfo:loginedUserModel];
-        NSLog(@"userinfo:%@",DATA_ENV.userInfo);
-        
-        DATA_ENV.token = [[request.handleredResult objectForKey:@"resp"] objectForKey:@"token"];
-        NSLog(@"token:%@",DATA_ENV.token);
-        
-        //自动登陆成功加载页面所有数据
-        [self reloadData];
-        [self addTitleSegmentedView];
-        [self addMainScrollView];
-        [self initTableView];
-        
-    } onRequestCanceled:^(ITTBaseDataRequest *request) {
-        
-    } onRequestFailed:^(ITTBaseDataRequest *request) {
-        
-    }];
-}
-
-
-- (void)reloadData
+#pragma mark -
+#pragma mark 初始化导航栏
+- (void)initNavigationBar
 {
     if (!self.isFromHomePage) {
-        [self.headImage loadImage:DATA_ENV.userInfo.headUrl placeHolder:[UIImage imageNamed:@"NoHeaderImge"]];
-        self.nameLabel.text = DATA_ENV.userInfo.nickname;
+        self.title = @"我的主页";
+        //初始化更多按钮
+        UIButton * rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        rightButton.frame = CGRectMake(0, 0, 24, 24);
+        [rightButton setImage:[UIImage imageNamed:@"Session_Multi_More_HL"] forState:UIControlStateNormal];
+        [rightButton addTarget:self action:@selector(rightAction:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem * rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+        self.navigationItem.rightBarButtonItem = rightItem;
     }else{
-        [self.headImage loadImage:self.user.headUrl placeHolder:[UIImage imageNamed:@"NoHeaderImge"]];
-        self.nameLabel.text = self.user.nickname;
+        self.title = self.user.nickname;
+        //初始化返回按钮
+        UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        backButton.frame = CGRectMake(0, 0, 24, 24);
+        [backButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem * backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        self.navigationItem.leftBarButtonItem = backItem;
     }
-    
 }
-
 
 - (void)backAction:(UIButton *)button
 {
     self.isFromHomePage = NO;
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.presentingViewController) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
-//- (void)leftButtonClick
-//{
-//    self.isFromHomePage = NO;
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
-
-- (void)rightButtonClick
+- (void)rightAction:(UIButton *)button
 {
     MoreViewController * moreVC = [[MoreViewController alloc] init];
     moreVC.didLogoutSuccess = ^(){
@@ -276,36 +179,16 @@
     [self.navigationController pushViewController:moreVC animated:YES];
 }
 
-
-- (void)didReceiveMemoryWarning
+#pragma mark 头视图设置layer
+- (void)initHeadImage
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    _headImage.layer.masksToBounds = YES;
+    _headImage.layer.cornerRadius = 23.0f;
+    
+    [_loginButton setBackgroundColor:[MyShowTools hexStringToColor:@"#BD0007"]];
 }
 
-- (IBAction)messageBtnClickAction:(UIButton *)sender {
-}
-
-#pragma mark -
-#pragma mark 开启登陆
-- (IBAction)jumpToLoginViewAction:(id)sender {
-    [self jumpToLoginView];
-}
-
-#pragma mark 登陆成功回调
-- (void)didLoginOrRegisterSuccess
-{
-    //手动登陆成功加载页面所有数据
-    [self reloadData];
-    [self addTitleSegmentedView];
-    [self addMainScrollView];
-    [self initTableView];
-    [self startLoadMyDistributeImages];
-
-}
-
-
-#pragma mark - titleSegmentedView
+#pragma mark 初始化titleSegmentedView
 - (void)addTitleSegmentedView
 {
     _segmentedView = [[HMSegmentedControl alloc] initWithSectionTitles:_titleArray];
@@ -320,14 +203,13 @@
     
 }
 
-#pragma mark - mainScrollView
+#pragma mark 初始化mainScrollView
 - (void)addMainScrollView
 {
-    float scrollViewY = _segmentedView.top + _segmentedView.height;
     if (!self.isFromHomePage) {
-        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewY, self.view.width, self.view.height - scrollViewY - 49)];
+        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _segmentedView.bottom, self.view.width, self.view.height - _segmentedView.bottom - 49 - 64)];
     }else{
-        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewY, self.view.width, self.view.height - _segmentedView.bottom)];
+        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, _segmentedView.bottom, self.view.width, self.view.height - _segmentedView.bottom - 64)];
     }
     
     _mainScrollView.pagingEnabled = YES;
@@ -339,14 +221,16 @@
     
 }
 
+
+#pragma mark 初始化tableView
 - (void)initTableView
 {
     for (int i = 0; i < _titleArray.count; i++) {
-
+        
         ITTPullTableView *tableView = [[ITTPullTableView alloc] initWithFrame:CGRectMake(i * 320,
-                                                                                             0,
-                                                                                             self.view.frame.size.width,
-                                                                                             _mainScrollView.height)];
+                                                                                         0,
+                                                                                         self.view.frame.size.width,
+                                                                                         _mainScrollView.height)];
         
         
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -362,102 +246,9 @@
         [_pageDic setObject:@1 forKey:_titleArray[i]];
     }
     
-    
     [_mainScrollView setContentSize:CGSizeMake(_titleArray.count * 320, _mainScrollView.height)];
     _segmentedView.sectionTitles = _titleArray;
     _segmentedView.selectedSegmentIndex = 0;
-    [self startLoadMyDistributeImages];
-    
-}
-
-- (void)startLoadMyDistributeImages
-{
-    NSString *pageType = [self.titleArray objectAtIndex:_selectedIndex];
-    [self requestMainCellWithType:pageType andPage:@"1"];
-}
-
-#pragma mark - 请求item
-- (void)requestMainCellWithType:(NSString *)typeStr andPage:(NSString *)page
-{
-    if ([typeStr isEqualToString:@"发布"]) {
-        NSDictionary *parameter = nil;
-        if (!self.isFromHomePage) {
-            parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userInfo.ID};
-        }else{
-            parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : self.user.ID};
-        }
-        
-        [MyDistributeTagClickRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
-            
-        } onRequestFinished:^(ITTBaseDataRequest *request) {
-            
-            NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
-            BOOL isAdd = page.integerValue > 1 ? YES : NO;
-            [self fillTalbeViewSourceFromArray:itemsArray type:typeStr isAdd:isAdd];
-            [self endLoadingData];
-            
-        } onRequestCanceled:^(ITTBaseDataRequest *request) {
-            
-        } onRequestFailed:^(ITTBaseDataRequest *request) {
-            
-        }];
-    }else{
-        NSDictionary *parameter = nil;
-        if (!self.isFromHomePage) {
-            parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userInfo.ID};
-        }else{
-            parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : self.user.ID};
-        }
-        [MyFavorateTagClickRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
-            
-        } onRequestFinished:^(ITTBaseDataRequest *request) {
-            
-            NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
-            BOOL isAdd = page.integerValue > 1 ? YES : NO;
-            [self fillTalbeViewSourceFromArray:itemsArray type:typeStr isAdd:isAdd];
-            [self endLoadingData];
-            
-        } onRequestCanceled:^(ITTBaseDataRequest *request) {
-            
-        } onRequestFailed:^(ITTBaseDataRequest *request) {
-            
-        }];
-    }
-    
-}
-
-
-
-- (void)fillTalbeViewSourceFromArray:(NSArray *)array type:typeStr isAdd:(BOOL)isAdd
-{
-    NSMutableArray *heightArray = [_recommentHeightDic objectForKey:typeStr];
-    if (!heightArray) {
-        heightArray = [[NSMutableArray alloc] init];
-    } else {
-        if (!isAdd) {
-            [heightArray removeAllObjects];
-        }
-    }
-    //    NSMutableArray *tempHeightArray = [[NSMutableArray alloc] init];
-    for (int i = 0; i < array.count; i++) {
-        ItemModel *im = array[i];
-        CGSize  size = [im.atlas.content sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
-        [heightArray addObject:@((int)size.height + 16)];
-    }
-    [_recommentHeightDic setObject:heightArray forKey:typeStr];
-    
-    NSMutableArray *sourceArray = [_sourceDic objectForKey:typeStr];
-    if (!sourceArray) {
-        sourceArray = [[NSMutableArray alloc] initWithArray:array];
-    } else {
-        if (!isAdd) {
-            [sourceArray removeAllObjects];
-        }
-        [sourceArray addObjectsFromArray:array];
-    }
-    //    NSMutableArray *tempSourceArray = [[NSMutableArray alloc] initWithArray:array];
-    [_sourceDic setObject:sourceArray forKey:typeStr];
-    [_currentTableView  reloadData];
 }
 
 
@@ -479,7 +270,7 @@
     
     NSArray *sourceArray = [_sourceDic objectForKey:type];
     if (!sourceArray) {
-//        _currentTableView.pullTableIsRefreshing = YES;
+        //        _currentTableView.pullTableIsRefreshing = YES;
         [self requestMainCellWithType:type andPage:@"1"];
     }
 }
@@ -493,8 +284,192 @@
 }
 
 
-#pragma mark - tableViewDelegate
 
+
+
+#pragma mark - NSNotification action
+- (void)distributeSccessAction:(NSNotification *)notification
+{
+    [_currentTableView reloadData];
+}
+
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
+
+#pragma mark - 登陆刷新Token
+- (void)refreshUserInfo
+{
+    //如果有Token,直接登陆,更新下Token
+    NSDictionary * loginParames = @{@"uid":DATA_ENV.userUid,@"type":DATA_ENV.type};
+    [self startLoginWithParams:loginParames];
+}
+
+
+#pragma mark 自动登陆
+- (void)startLoginWithParams:(NSDictionary *)params
+{
+    //登陆
+    [LoginRequest requestWithParameters:params withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+        
+    } onRequestFinished:^(ITTBaseDataRequest *request) {
+        
+        NSLog(@"登陆成功返回数据:%@",request.handleredResult);
+        UserModel * loginedUserModel = [[UserModel alloc] initWithDataDic:[[request.handleredResult objectForKey:@"resp"] objectForKey:@"user"]];
+        
+        [DATA_ENV setUserInfo:loginedUserModel];
+        NSLog(@"userinfo:%@",DATA_ENV.userInfo);
+        
+        DATA_ENV.token = [[request.handleredResult objectForKey:@"resp"] objectForKey:@"token"];
+        NSLog(@"token:%@",DATA_ENV.token);
+        
+        //登陆完成刷新头像昵称，请求图集
+        [self reloadData];
+        [self startLoadMyDistributeImages];
+        
+    } onRequestCanceled:^(ITTBaseDataRequest *request) {
+        
+    } onRequestFailed:^(ITTBaseDataRequest *request) {
+        
+    }];
+}
+
+
+- (void)reloadData
+{
+    if (!self.isFromHomePage) {
+        [self.headImage loadImage:DATA_ENV.userInfo.headUrl placeHolder:[UIImage imageNamed:@"NoHeaderImge"]];
+        self.nameLabel.text = DATA_ENV.userInfo.nickname;
+    }else{
+        [self.headImage loadImage:self.user.headUrl placeHolder:[UIImage imageNamed:@"NoHeaderImge"]];
+        self.nameLabel.text = self.user.nickname;
+    }
+    
+}
+
+#pragma mark -
+#pragma mark 开启登陆
+- (IBAction)jumpToLoginViewAction:(id)sender {
+    [self jumpToLoginView];
+}
+
+#pragma mark 手动登陆成功回调
+- (void)didLoginOrRegisterSuccess
+{
+    //登陆完成刷新头像昵称，请求图集
+    [self reloadData];
+    [self startLoadMyDistributeImages];
+}
+
+
+
+#pragma mark - 这里开始请求tableView数据
+- (void)startLoadMyDistributeImages
+{
+    NSString *pageType = [self.titleArray objectAtIndex:_selectedIndex];
+    [self requestMainCellWithType:pageType andPage:@"1"];
+}
+
+#pragma mark 请求item
+- (void)requestMainCellWithType:(NSString *)typeStr andPage:(NSString *)page
+{
+    if ([typeStr isEqualToString:@"发布"]) {
+        NSDictionary *parameter = nil;
+        if (!self.isFromHomePage) {
+            parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userInfo.ID};
+        }else{
+            parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : self.user.ID};
+        }
+        
+        [MyDistributeTagClickRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+            
+        } onRequestFinished:^(ITTBaseDataRequest *request) {
+            
+            NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
+            BOOL isAdd = page.integerValue > 1 ? YES : NO;
+            if (itemsArray.count > 0) {
+                [self fillTalbeViewSourceFromArray:itemsArray type:typeStr isAdd:isAdd];
+            }
+            [self endLoadingData];
+            
+        } onRequestCanceled:^(ITTBaseDataRequest *request) {
+            
+        } onRequestFailed:^(ITTBaseDataRequest *request) {
+            
+        }];
+    }else{
+        NSDictionary *parameter = nil;
+        if (!self.isFromHomePage) {
+            parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : DATA_ENV.userInfo.ID};
+        }else{
+            parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : self.user.ID};
+        }
+        [MyFavorateTagClickRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+            
+        } onRequestFinished:^(ITTBaseDataRequest *request) {
+            
+            NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
+            BOOL isAdd = page.integerValue > 1 ? YES : NO;
+            if (itemsArray.count > 0) {
+                [self fillTalbeViewSourceFromArray:itemsArray type:typeStr isAdd:isAdd];
+            }
+            [self endLoadingData];
+            
+        } onRequestCanceled:^(ITTBaseDataRequest *request) {
+            
+        } onRequestFailed:^(ITTBaseDataRequest *request) {
+            
+        }];
+    }
+    
+}
+
+
+#pragma 数据处理
+- (void)fillTalbeViewSourceFromArray:(NSArray *)array type:typeStr isAdd:(BOOL)isAdd
+{
+    [_recommentHeightDic removeAllObjects];
+    [_sourceDic removeAllObjects];
+    
+    NSMutableArray *heightArray = [_recommentHeightDic objectForKey:typeStr];
+    if (!heightArray) {
+        heightArray = [[NSMutableArray alloc] init];
+    } else {
+        if (!isAdd) {
+            [heightArray removeAllObjects];
+        }
+    }
+
+    for (int i = 0; i < array.count; i++) {
+        ItemModel *im = array[i];
+        CGSize  size = [im.atlas.content sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(300, CGFLOAT_MAX) lineBreakMode:NSLineBreakByWordWrapping];
+        [heightArray addObject:@((int)size.height + 16)];
+    }
+    [_recommentHeightDic setObject:heightArray forKey:typeStr];
+    
+    NSMutableArray *sourceArray = [_sourceDic objectForKey:typeStr];
+    if (!sourceArray) {
+        sourceArray = [[NSMutableArray alloc] initWithArray:array];
+    } else {
+        if (!isAdd) {
+            [sourceArray removeAllObjects];
+        }
+        [sourceArray addObjectsFromArray:array];
+    }
+    [_sourceDic setObject:sourceArray forKey:typeStr];
+    [_currentTableView  reloadData];
+}
+
+
+
+
+
+
+#pragma mark - TableView Delegate/Datasource Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSString * type = _titleArray[_selectedIndex];
@@ -936,6 +911,8 @@
     NSLog(@"%@",response.description);
 }
 
+
+
 #pragma mark - 上拉和下拉的回调
 - (void)pullTableViewDidTriggerRefresh:(ITTPullTableView*)pullTableView
 {
@@ -979,6 +956,9 @@
     }
 }
 
+
+
+#pragma mark - MWPhotoBrowser delegate Methods
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
 {
     NSArray *sourceArray = [_sourceDic objectForKey:self.currentKey];
@@ -996,5 +976,17 @@
     [photoBrowser updatePhotoIndexViewWithIndex:index];
 }
 
+
+
+
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)messageBtnClickAction:(UIButton *)sender {
+}
 
 @end

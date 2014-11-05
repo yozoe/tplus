@@ -147,7 +147,7 @@
 - (void)addMainScrollView
 {
     float scrollViewY = _titleSegmentedView.top + _titleSegmentedView.height;
-    _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewY, self.view.width, self.view.height - scrollViewY - 49)];
+    _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewY, self.view.width, self.view.height - scrollViewY - 49 - 64)];
     _mainScrollView.pagingEnabled = YES;
     _mainScrollView.bounces = NO;
     _mainScrollView.delegate = self;

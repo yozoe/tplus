@@ -83,7 +83,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self addNavigationBar];
+    [self initNavigationBar];
     
     NSArray * titleArray = [NSArray arrayWithObjects:@"新浪微博", @"QQ", @"人人", nil];
     NSArray * colorArray = [NSArray arrayWithObjects:@"#f82a28", @"#2ab2f8", @"#3484fd",nil];
@@ -105,20 +105,20 @@
 
 }
 
-- (void)addNavigationBar
+
+- (void)initNavigationBar
 {
-    _navigationBar = [[MyShowNavigationBar alloc] initWithFrame:self.view.frame
-                                                       ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
-    _navigationBar.titleLabel.text = @"登陆";
-    
-    [_navigationBar.leftButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
-    
-    _navigationBar.delegate = self;
-    [self.view addSubview:_navigationBar];
+    self.title = @"登陆";
+    //初始化返回按钮
+    UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(0, 0, 24, 24);
+    [backButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = backItem;
 }
 
-
-- (void)leftButtonClick
+- (void)backAction:(UIButton *)button
 {
     if (self.presentingViewController) {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -127,6 +127,8 @@
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {

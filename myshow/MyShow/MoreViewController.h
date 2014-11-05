@@ -13,9 +13,8 @@
 
 #define DEFAULT_LOADING_MESSAGE  @"检查更新中..."
 
-@interface MoreViewController : BaseViewController <NavigationBarDelegate>
+@interface MoreViewController : BaseViewController
 {
-    MyShowNavigationBar * _navigationBar;
     ITTMaskActivityView *_maskActivityView;
 }
 

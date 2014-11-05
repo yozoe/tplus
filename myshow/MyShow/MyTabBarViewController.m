@@ -55,9 +55,23 @@
                                                                      nil]];
     homeNav.delegate = self;
     
+    
+    
+    
+    
+    
     PersonalHomePageViewController * personHomePageVC = [[PersonalHomePageViewController alloc] init];
     UINavigationController * homePageNav = [[UINavigationController alloc] initWithRootViewController:personHomePageVC];
-    homePageNav.navigationBarHidden = YES;
+//    homePageNav.navigationBarHidden = YES;
+    [homePageNav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationBg.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    [homePageNav.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                   [UIColor whiteColor], UITextAttributeTextColor,
+                                                   [UIColor whiteColor], UITextAttributeTextShadowColor,
+                                                   //                                                                     [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset,
+                                                   //                                                                     [UIFont fontWithName:@"Arial-Bold" size:0.0], UITextAttributeFont,
+                                                   nil]];
+    
     homePageNav.delegate = self;
     
     self.viewControllers = @[homeNav,homePageNav];

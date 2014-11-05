@@ -10,9 +10,6 @@
 #import "MyShowNavigationBar.h"
 
 
-@interface MyDownLoadViewController : BaseViewController <NavigationBarDelegate>
-{
-    MyShowNavigationBar * _navigationBar;
-}
+@interface MyDownLoadViewController : BaseViewController
 
 @end
