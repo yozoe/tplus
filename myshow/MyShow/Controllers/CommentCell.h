@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "CommentModel.h"
 
+typedef void (^PortraitButtonBlock)();
+
 @interface CommentCell : UITableViewCell
+
+@property (strong, nonatomic) UIButton *portraitButton;
+@property (copy, nonatomic) PortraitButtonBlock portraitButtonBlock;
 
 - (void)configModel:(CommentModel *)model;
 

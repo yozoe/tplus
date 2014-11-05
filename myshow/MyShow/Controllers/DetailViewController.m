@@ -15,6 +15,7 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 #import "MyShowDefine.h"
+#import "PersonalHomePageViewController.h"
 
 @interface DetailViewController ()
 {
@@ -485,6 +486,20 @@
     LinkWebViewController *vc = [LinkWebViewController new];
     vc.link = link;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#error 下面一个是点评论头像进个人页的， 一个是点标签的
+- (void)pushPersonalHomePageWithUserModel:(UserModel *)userModel
+{
+    PersonalHomePageViewController *ph = [PersonalHomePageViewController new];
+    ph.isFromHomePage = YES;
+    ph.user = userModel;
+    [self.navigationController pushViewController:ph animated:YES];
+}
+
+- (void)pushTagPageWithTagModel:(TagModel *)tagModel
+{
+    
 }
 
 @end

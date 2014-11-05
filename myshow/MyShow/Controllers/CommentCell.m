@@ -67,7 +67,20 @@
     [self.contentView addSubview:_portraitImageView];
     [self.contentView addSubview:_txtLabel];
     [self.contentView addSubview:_dateLabel];
+
+    _portraitButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _portraitButton.frame = CGRectMake(0, 0, 50, 40);
+    [_portraitButton addTarget:self action:@selector(handlePortraitButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:_portraitButton];
+
     [self addSubview:_lineView];
+}
+
+- (void)handlePortraitButtonEvent:(UIButton *)sender
+{
+    if (_portraitButtonBlock) {
+        _portraitButtonBlock();
+    }
 }
 
 - (void)configModel:(CommentModel *)model

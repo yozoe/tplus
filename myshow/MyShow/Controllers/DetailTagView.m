@@ -35,7 +35,10 @@
     CGFloat startTop = 10;
     for (int i = 0; i < total; i++) {
         TagModel *tm = [_tagDataSource tagItemAtIndex:i];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(startLeft, startTop, 60, 25)];
+        TagLabel *label = [[TagLabel alloc] initWithFrame:CGRectMake(startLeft, startTop, 60, 25)];
+        label.userInteractionEnabled = YES;
+
+        label.tag = i;
 
         CGSize size = [tm.name sizeWithFont:[UIFont systemFontOfSize:14.f]];
 
@@ -89,6 +92,12 @@
             [_tagDelegate didClickLink:hitView.tag];
         }
     }
+    if ([hitView isKindOfClass:[TagLabel class]]) {
+        NSInteger index = hitView.tag;
+        if ([_tagDelegate respondsToSelector:@selector(clickedTagAtIndex:)]) {
+            [_tagDelegate clickedTagAtIndex:index];
+        }
+    }
 }
 
 @end
@@ -110,5 +119,11 @@
     CGContextAddLineToPoint(ctx, r.x, r.y);
     CGContextStrokePath(ctx);
 }
+
+@end
+
+@implementation TagLabel
+
+
 
 @end

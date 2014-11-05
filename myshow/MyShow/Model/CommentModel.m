@@ -20,6 +20,7 @@
               ,@"nickname" : @"nickname"
               ,@"supprot" : @"supprot"
               ,@"createDate" : @"createDate"
+              ,@"userID" : @"userId"
              };
 }
 

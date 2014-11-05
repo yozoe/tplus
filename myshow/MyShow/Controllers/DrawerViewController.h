@@ -27,6 +27,8 @@ typedef enum : NSUInteger {
 - (void)clearInputView;
 - (void)shareWithType:(NSString *)type;
 - (void)showWebViewWithLink:(LinksModel *)link;
+- (void)pushPersonalHomePageWithUserModel:(UserModel *)userModel;
+- (void)pushTagPageWithTagModel:(TagModel *)tagModel;
 
 @end
 

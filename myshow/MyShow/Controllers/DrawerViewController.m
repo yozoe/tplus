@@ -11,6 +11,8 @@
 #import "DetailShareView.h"
 #import "ImageActionButton.h"
 #import "UserPraiseRequest.h"
+#import "MoreViewController.h"
+#import "PersonalHomePageViewController.h"
 
 #define FIX_BUTTON_TAG(x) (x - 1000)
 #define CREATE_BUTTON_TAG(x) (x + 1000)
@@ -225,8 +227,20 @@ int static drawerHeaderViewHeight = 40;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
+
     CommentModel *cm = _commentSourceArray[indexPath.row];
     [cell configModel:cm];
+
+    cell.portraitButtonBlock = ^() {
+        if ([_delegate respondsToSelector:@selector(pushPersonalHomePageWithUserModel:)]) {
+            UserModel *um = [UserModel new];
+            um.ID = cm.userID;
+            um.nickname = cm.nickname;
+            um.headUrl = cm.headUrl;
+            [_delegate pushPersonalHomePageWithUserModel:um];
+        }
+    };
+
 
     return cell;
 }
@@ -441,6 +455,14 @@ int static drawerHeaderViewHeight = 40;
     LinksModel *lm = _item.linksArray[index];
     if ([_delegate respondsToSelector:@selector(showWebViewWithLink:)]) {
         [_delegate showWebViewWithLink:lm];
+    }
+}
+
+- (void)clickedTagAtIndex:(NSInteger)index
+{
+    TagModel *tm = _item.labelsArray[index];
+    if ([_delegate respondsToSelector:@selector(pushTagPageWithTagModel:)]) {
+        [_delegate pushTagPageWithTagModel:tm];
     }
 }
 

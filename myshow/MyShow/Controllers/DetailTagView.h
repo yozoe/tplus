@@ -25,6 +25,7 @@
 
 @optional
 - (void)didClickLink:(NSInteger)index;
+- (void)clickedTagAtIndex:(NSInteger)index;
 
 @end
 
@@ -38,5 +39,9 @@
 @end
 
 @interface LinkLabel : UILabel
+
+@end
+
+@interface TagLabel : UILabel
 
 @end
