@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" tag="3001" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ful-kh-QYG">
-                    <rect key="frame" x="0.0" y="99" width="320" height="50"/>
+                    <rect key="frame" x="0.0" y="30" width="320" height="50"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" title="    我的下载" backgroundImage="setting_btn_bg.png">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -28,7 +28,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" tag="3002" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QqX-8G-Q00">
-                    <rect key="frame" x="0.0" y="167" width="320" height="50"/>
+                    <rect key="frame" x="0.0" y="98" width="320" height="50"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" title="    检查新版本" backgroundImage="setting_btn_bg.png">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -39,7 +39,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" tag="3003" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9wZ-zO-5Vp">
-                    <rect key="frame" x="0.0" y="237" width="320" height="50"/>
+                    <rect key="frame" x="0.0" y="168" width="320" height="50"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" title="    去评分" backgroundImage="setting_btn_bg.png">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -50,7 +50,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" tag="3004" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f27-5w-rK2">
-                    <rect key="frame" x="0.0" y="307" width="320" height="50"/>
+                    <rect key="frame" x="0.0" y="238" width="320" height="50"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" title="    关于我们" backgroundImage="setting_btn_bg.png">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -61,7 +61,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CPq-cS-B34">
-                    <rect key="frame" x="17" y="477" width="286" height="47"/>
+                    <rect key="frame" x="17" y="407" width="286" height="47"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <state key="normal" title="退出登录">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

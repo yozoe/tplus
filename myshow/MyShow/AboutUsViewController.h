@@ -13,8 +13,5 @@
 
 #import "UMSocialControllerService.h"
 
-@interface AboutUsViewController : BaseViewController <NavigationBarDelegate,UMSocialUIDelegate>
-{
-    MyShowNavigationBar * _navigationBar;
-}
+@interface AboutUsViewController : BaseViewController <UMSocialUIDelegate>
 @end

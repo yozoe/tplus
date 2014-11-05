@@ -16,6 +16,8 @@
 #import "UMSocialQQHandler.h"
 #import "MyShowDefine.h"
 #import "PersonalHomePageViewController.h"
+#import "SearchTagListViewController.h"
+#import "DefaultTagModel.h"
 
 @interface DetailViewController ()
 {
@@ -488,18 +490,46 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-#error 下面一个是点评论头像进个人页的， 一个是点标签的
+#pragma mark - 下面一个是点评论头像进个人页的， 一个是点标签的
 - (void)pushPersonalHomePageWithUserModel:(UserModel *)userModel
 {
     PersonalHomePageViewController *ph = [PersonalHomePageViewController new];
     ph.isFromHomePage = YES;
     ph.user = userModel;
-    [self.navigationController pushViewController:ph animated:YES];
+    
+    
+    UINavigationController * navi = [[UINavigationController alloc] initWithRootViewController:ph];
+    //    homeNav.navigationBarHidden = YES;
+    [navi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationBg.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    [navi.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                [UIColor whiteColor], UITextAttributeTextColor,
+                                                [UIColor whiteColor], UITextAttributeTextShadowColor,
+                                                nil]];
+    [self presentViewController:navi animated:YES completion:nil];
+//    [self.navigationController pushViewController:ph animated:YES];
 }
 
 - (void)pushTagPageWithTagModel:(TagModel *)tagModel
 {
+    SearchTagListViewController * tagListVC = [[SearchTagListViewController alloc] init];
+    DefaultTagModel * model = [[DefaultTagModel alloc] init];
+    model.ID = tagModel.ID;
+    model.name = tagModel.name;
+    tagListVC.tagModel = model;
+//    [self.navigationController pushViewController:tagListVC animated:YES];
     
+    
+    UINavigationController * navi = [[UINavigationController alloc] initWithRootViewController:tagListVC];
+    //    homeNav.navigationBarHidden = YES;
+    [navi.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationBg.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    [navi.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                   [UIColor whiteColor], UITextAttributeTextColor,
+                                                   [UIColor whiteColor], UITextAttributeTextShadowColor,
+                                                   nil]];
+
+    [self presentViewController:navi animated:YES completion:nil];
 }
 
 @end

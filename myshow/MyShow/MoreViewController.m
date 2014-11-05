@@ -34,7 +34,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self addNavigationBar];
+    [self initNavigationBar];
     [self.logoutBtn setBackgroundColor:[MyShowTools hexStringToColor:@"#BD0007"]];
 }
 
@@ -42,35 +42,34 @@
 {
     [super viewWillAppear:animated];
     if (!DATA_ENV.isHasUserInfo) {
-//        UIView * maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 300, 47)];
-//        maskView.backgroundColor = [UIColor colorWithWhite:0.000 alpha:0.500];
-//        maskView.tag = 999;
-//        [_logoutBtn addSubview:maskView];
-        
         _logoutBtn.userInteractionEnabled = NO;
     }else{
-//        UIView * maskView = [_logoutBtn viewWithTag:999];
-//        [maskView removeFromSuperview];
         _logoutBtn.userInteractionEnabled = YES;
     }
 }
 
-- (void)addNavigationBar
+- (void)initNavigationBar
 {
-    _navigationBar = [[MyShowNavigationBar alloc] initWithFrame:self.view.frame
-                                                       ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
-    _navigationBar.titleLabel.text = @"更多";
-    
-    [_navigationBar.leftButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
-    
-    _navigationBar.delegate = self;
-    [self.view addSubview:_navigationBar];
+    self.title = @"更多";
+    UIButton * backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    backButton.frame = CGRectMake(0, 0, 24, 24);
+    [backButton setImage:[UIImage imageNamed:@"top_navigation_back"] forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem * backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationItem.leftBarButtonItem = backItem;
 }
 
-- (void)leftButtonClick
+- (void)backAction:(UIButton *)button
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.presentingViewController) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
+
+
+
 
 - (void)didReceiveMemoryWarning
 {
