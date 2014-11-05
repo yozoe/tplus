@@ -22,6 +22,5 @@
     NSInteger _selectedItemIndex;
 }
 
-@property (nonatomic, strong)TagModel * model;
 @property (nonatomic, strong)DefaultTagModel * tagModel;
 @end

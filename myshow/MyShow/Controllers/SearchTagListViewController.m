@@ -220,7 +220,7 @@
     return headerHeight + bodyHeight + textHeight + footerHeight;
 }
 
-- (CGFloat)calculateItemCellHeightWithItemModel:(ItemModel *)itemModel indexPath:(NSIndexPath *)indexPath tagModel:(TagModel *)tagModel
+- (CGFloat)calculateItemCellHeightWithItemModel:(ItemModel *)itemModel indexPath:(NSIndexPath *)indexPath
 {
     CoverKeyModel *ckm = [itemModel.coverKeyArray lastObject];
     NSArray *sizeArray = [ckm.size componentsSeparatedByString:@"*"];
@@ -243,7 +243,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ItemModel *im = _sourceArray[indexPath.row];
-    return [self calculateItemCellHeightWithItemModel:im indexPath:indexPath tagModel:_model];
+    return [self calculateItemCellHeightWithItemModel:im indexPath:indexPath];
 }
 
 - (void)requestPublishImgsWithPulishModel:(AtlasModel *)publishModel index:(NSInteger)index onFinished:(void(^)(NSArray *imgsArray))finishedBlock
@@ -284,6 +284,14 @@
         [self handleClickImageViewWithIndexPath:indexPath imageIndex:0 showView:1];
     };
     
+    cell.portraitHandleBlock = ^() {
+        UserModel *um = im.user;
+        PersonalHomePageViewController *pp = [PersonalHomePageViewController new];
+        pp.isFromHomePage = YES;
+        pp.user = um;
+        [self.navigationController pushViewController:pp animated:YES];
+    };
+    
     __block HomeItemCell *itemCell = cell;
     cell.favourBlock = ^() {
         
@@ -321,41 +329,23 @@
 
 - (void)handleShareButtonEvent:(UIButton *)sender
 {
-
     ItemModel *im = _sourceArray[sender.tag];
     CoverKeyModel *coverKeyModel = [im.coverKeyArray objectAtIndex:0];
     
-    NSURL *url = [NSURL URLWithString:[REQUEST_DOMAIN stringByAppendingString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]];
     
-    NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:operationQueue
-                           completionHandler:^(NSURLResponse*urlResponce,NSData*data,NSError*error) {
-                               if(!error) {
-                                   NSString *responseString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-                                   NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?" options:0 error:&error];
-                                   
-                                   if (regex != nil) {
-                                       NSTextCheckingResult *firstMatch = [regex firstMatchInString:responseString options:0 range:NSMakeRange(0, [responseString length])];
-                                       if (firstMatch) {
-                                           [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
-                                           [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
-                                           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                               UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
-                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                   [UMSocialSnsService presentSnsIconSheetView:self
-                                                                                        appKey:UMENG_SDKKEY
-                                                                                     shareText:im.publish.publistext
-                                                                                    shareImage:image
-                                                                               shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatTimeline,UMShareToQQ,UMShareToWechatSession,UMShareToQzone,UMShareToRenren,UMShareToDouban,nil]
-                                                                                      delegate:nil];
-                                               });
-                                           });
-                                       }
-                                   }
-                               }
-                           }];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:[url absoluteString]];
+        [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:[url absoluteString]];
+        
+        [UMSocialSnsService presentSnsIconSheetView:self
+                                             appKey:UMENG_SDKKEY
+                                          shareText:im.atlas.content
+                                         shareImage:image
+                                    shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatTimeline,UMShareToQQ,UMShareToWechatSession,UMShareToQzone,UMShareToRenren,UMShareToDouban,nil]
+                                           delegate:nil];
+    });
 }
 
 - (void)praiseAddWithAtlasID:(NSString *)atlasID completion:(void (^)(BOOL finished, NSString *result))completion
@@ -508,7 +498,7 @@
 #pragma mark - 上拉和下拉的回调
 - (void)pullTableViewDidTriggerRefresh:(ITTPullTableView*)pullTableView
 {
-    NSString *pageID = _model.ID;
+    NSString *pageID = _tagModel.ID;
     [self requestMainCellWithPageID:pageID andPage:@"1"];
 }
 
@@ -517,8 +507,8 @@
     NSInteger page = _pageIndex;
     page++;
     _pageIndex = page;
-    NSString *pageID = _model.ID;
-    [self requestMainCellWithPageID:pageID andPage:[NSString stringWithFormat:@"%d", page]];
+    NSString *pageID = _tagModel.ID;
+    [self requestMainCellWithPageID:pageID andPage:[NSString stringWithFormat:@"%d", _pageIndex]];
 }
 
 - (void)endLoadingData

@@ -112,6 +112,7 @@
     }
     
     [self initHeadImage];
+    
     if (!DATA_ENV.isHasUserInfo) {
         //如果没有用户信息，就是没登陆，不再加载图集信息，只显示_noLoginView
     }else{
@@ -208,6 +209,7 @@
     NSDictionary * loginParames = @{@"uid":DATA_ENV.userUid,@"type":DATA_ENV.type};
     [self startLoginWithParams:loginParames];
 }
+
 
 #pragma mark - 登陆
 - (void)startLoginWithParams:(NSDictionary *)params
@@ -325,7 +327,7 @@
     if (!self.isFromHomePage) {
         _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewY, self.view.width, self.view.height - scrollViewY - 49)];
     }else{
-        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewY, self.view.width, self.view.height - scrollViewY)];
+        _mainScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, scrollViewY, self.view.width, self.view.height - _segmentedView.bottom)];
     }
     
     _mainScrollView.pagingEnabled = YES;
