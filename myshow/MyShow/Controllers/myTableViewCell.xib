@@ -53,6 +53,8 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="buttonOne" destination="w5D-ex-LWF" id="SCh-NK-EZS"/>
+                <outlet property="buttonTwo" destination="cQX-b2-rTA" id="d3C-oi-v4H"/>
                 <outlet property="imageViewOne" destination="8PG-KA-pTL" id="jRm-Bb-ljQ"/>
                 <outlet property="imageViewTwo" destination="lVS-RW-QSf" id="aO4-P0-46w"/>
                 <outlet property="labelOne" destination="O68-np-qk4" id="rjR-5N-8mZ"/>

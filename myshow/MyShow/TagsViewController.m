@@ -20,6 +20,7 @@
 #import "MyTabBarViewController.h"
 
 #import "SMTagField.h"
+#import "RXUitils.h"
 
 
 @interface TagsViewController () <UIAlertViewDelegate,ASIHTTPRequestDelegate,DataRequestDelegate,SMTagFieldDelegate>
@@ -194,7 +195,12 @@
     if (!DATA_ENV.isHasUserInfo) {
         [self jumpToLoginView];
     }else{
-        [self startRequest];
+        if (_tagField.tags.count <= 0) {
+            [RXUitils showHintMessage:@"请至少输入一个标签"];
+//            [self showHUDWithImgWithTitle:@"请至少输入一个标签" withHiddenDelay:1.0f];
+        }else{
+            [self startRequest];
+        }
     }
 }
 

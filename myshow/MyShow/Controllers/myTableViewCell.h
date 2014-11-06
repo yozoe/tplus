@@ -18,6 +18,10 @@ typedef void (^imageTwoHanlderBlock)();
 @property (weak, nonatomic) IBOutlet ITTImageView *imageViewTwo;
 @property (weak, nonatomic) IBOutlet UILabel *labelOne;
 @property (weak, nonatomic) IBOutlet UILabel *labelTwo;
+@property (weak, nonatomic) IBOutlet UIButton *buttonOne;
+@property (weak, nonatomic) IBOutlet UIButton *buttonTwo;
+
+
 
 
 @property (nonatomic, strong)NSArray * cellArray;

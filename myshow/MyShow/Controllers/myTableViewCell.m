@@ -43,15 +43,35 @@
 -(void)setCellArray:(NSArray *)cellArray
 {
     _cellArray = cellArray;
-    DefaultTagModel * modelOne = [cellArray objectAtIndex:0];
-    CoverImageModel * imageModelOne = [modelOne.atlasImagesArray objectAtIndex:0];
-    [self.imageViewOne loadImage:imageModelOne.thumb.url];
-    self.labelOne.text = modelOne.name;
+    if (cellArray.count == 1) {
+        
+        DefaultTagModel * modelOne = [cellArray objectAtIndex:0];
+        CoverImageModel * imageModelOne = [modelOne.atlasImagesArray objectAtIndex:0];
+        [self.imageViewOne loadImage:imageModelOne.thumb.url];
+        self.labelOne.text = modelOne.name;
+        
+        self.labelTwo.hidden = YES;
+        self.imageViewTwo.hidden = YES;
+        self.buttonTwo.hidden = YES;
+        
+    }else if(cellArray.count == 2){
+        
+        DefaultTagModel * modelOne = [cellArray objectAtIndex:0];
+        CoverImageModel * imageModelOne = [modelOne.atlasImagesArray objectAtIndex:0];
+        [self.imageViewOne loadImage:imageModelOne.thumb.url];
+        self.labelOne.text = modelOne.name;
+        
+        DefaultTagModel * modelTwo = [cellArray objectAtIndex:1];
+        CoverImageModel * imageModelTwo = [modelTwo.atlasImagesArray objectAtIndex:0];
+        [self.imageViewTwo loadImage:imageModelTwo.thumb.url];
+        self.labelTwo.text = modelTwo.name;
+        
+        self.labelTwo.hidden = NO;
+        self.imageViewTwo.hidden = NO;
+        self.buttonTwo.hidden = NO;
+        
+    }
     
-    DefaultTagModel * modelTwo = [cellArray objectAtIndex:1];
-    CoverImageModel * imageModelTwo = [modelTwo.atlasImagesArray objectAtIndex:0];
-    [self.imageViewTwo loadImage:imageModelTwo.thumb.url];
-    self.labelTwo.text = modelTwo.name;
 }
 
 @end

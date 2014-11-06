@@ -192,37 +192,37 @@
     return [_sourceArray count];
 }
 
-- (CGFloat)calculateRecommendCellHeightWithItemModel:(ItemModel *)itemModel indexPath:(NSIndexPath *)indexPath tagModel:(TagModel *)tagModel
-{
-    NSInteger textHeight = [_heightArray[indexPath.row] integerValue];
-    CGFloat headerHeight = 60.f;
-    CGFloat bodyHeight = 0.f;
-    CGFloat footerHeight = HOME_CELL_FOOT_HEIGHT;
-    int imageCount = itemModel.atlas.imageNum.integerValue;
-    if (imageCount > 6){
-        imageCount = 6;
-    }
-    switch (imageCount) {
-        case 1:
-            bodyHeight = 320;
-            break;
-        case 2:
-            bodyHeight = 160;
-            break;
-        case 3:
-            bodyHeight = 106;
-            break;
-        case 4:
-            bodyHeight = 321;
-            break;
-        case 5:
-            bodyHeight = 213;
-        case 6:
-            bodyHeight = 213;
-            break;
-    }
-    return headerHeight + bodyHeight + textHeight + footerHeight;
-}
+//- (CGFloat)calculateRecommendCellHeightWithItemModel:(ItemModel *)itemModel indexPath:(NSIndexPath *)indexPath
+//{
+//    NSInteger textHeight = [_heightArray[indexPath.row] integerValue];
+//    CGFloat headerHeight = 60.f;
+//    CGFloat bodyHeight = 0.f;
+//    CGFloat footerHeight = HOME_CELL_FOOT_HEIGHT;
+//    int imageCount = itemModel.atlas.imageNum.integerValue;
+//    if (imageCount > 6){
+//        imageCount = 6;
+//    }
+//    switch (imageCount) {
+//        case 1:
+//            bodyHeight = 320;
+//            break;
+//        case 2:
+//            bodyHeight = 160;
+//            break;
+//        case 3:
+//            bodyHeight = 106;
+//            break;
+//        case 4:
+//            bodyHeight = 321;
+//            break;
+//        case 5:
+//            bodyHeight = 213;
+//        case 6:
+//            bodyHeight = 213;
+//            break;
+//    }
+//    return headerHeight + bodyHeight + textHeight + footerHeight;
+//}
 
 - (CGFloat)calculateItemCellHeightWithItemModel:(ItemModel *)itemModel indexPath:(NSIndexPath *)indexPath
 {

@@ -506,7 +506,6 @@
         
     } onRequestFinished:^(ITTBaseDataRequest *request) {
         NSArray * tagsArray = [[request.handleredResult objectForKey:@"models"] copy];
-        NSLog(@"%@",_tagsArray);
         
         BOOL isAdd = page.integerValue > 1 ? YES : NO;
         

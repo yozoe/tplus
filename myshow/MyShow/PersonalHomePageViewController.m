@@ -112,7 +112,10 @@
     }else{
         //如果是从主页点击头像而来
         [self reloadData];
-        [self startLoadMyDistributeImages];
+        if (!DATA_ENV.isHasUserInfo) {
+            [self startLoadMyDistributeImages];
+        }
+        
     }
     
     if (!DATA_ENV.isHasUserInfo) {
