@@ -52,8 +52,8 @@
 
     _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, 320, self.view.height - 64)];
     [self.view addSubview:_webView];
-
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_link.url]];
+    NSString* encodedString = [_link.url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:encodedString]];
     [_webView loadRequest:request];
 }
 

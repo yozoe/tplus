@@ -18,6 +18,7 @@
 #import "PersonalHomePageViewController.h"
 #import "SearchTagListViewController.h"
 #import "DefaultTagModel.h"
+#import "MyTabBarViewController.h"
 
 @interface DetailViewController ()
 {
@@ -97,6 +98,8 @@
             [UserCommentAddRequest requestWithParameters:@{@"atlasId" : item.atlas.ID, @"content" : txt} withIndicatorView:superView withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
 
             } onRequestFinished:^(ITTBaseDataRequest *request) {
+                item.atlas.commentNum = [NSString stringWithFormat:@"%d", item.atlas.commentNum.integerValue + 1];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"REFRESH_NOTIFICATION" object:nil];
                 [dvc reloadCommentData];
             } onRequestCanceled:^(ITTBaseDataRequest *request) {
 
@@ -142,6 +145,8 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
+    MyTabBarViewController * tabbar = [AppDelegate GetAppDelegate].tabBarController;
+    [tabbar hiddenTabbar:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -429,8 +434,6 @@
 
 - (void)shareWithType:(NSString *)type
 {
-
-
     CoverKeyModel *coverKeyModel = [_item.atlas.imgsArray objectAtIndex:0];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]];
 
@@ -444,43 +447,8 @@
         UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:type];
         snsPlatform.snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
 
-
-//        [UMSocialSnsService presentSnsIconSheetView:self
-//                                             appKey:UMENG_SDKKEY
-//                                          shareText:_item.atlas.content
-//                                         shareImage:image
-//                                    shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToWechatTimeline,UMShareToQQ,UMShareToWechatSession,UMShareToQzone,UMShareToRenren,UMShareToDouban,nil]
-//                                           delegate:nil];
     });
 
-
-//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://share.591ku.com/t?imageId=%@", coverKeyModel.ID]];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//
-//    NSOperationQueue *operationQueue=[[NSOperationQueue alloc] init];
-//    [NSURLConnection sendAsynchronousRequest:request
-//                                       queue:operationQueue
-//                           completionHandler:^(NSURLResponse*urlResponce,NSData*data,NSError*error) {
-//                               if(!error) {
-//                                   NSString *responseString = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-//                                   NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\bhttps?://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?" options:0 error:&error];
-//                                   if (regex != nil) {
-//                                       NSTextCheckingResult *firstMatch = [regex firstMatchInString:responseString options:0 range:NSMakeRange(0, [responseString length])];
-//                                       if (firstMatch) {
-//                                           [UMSocialWechatHandler setWXAppId:@"wxd9a39c7122aa6516" url:responseString];
-//                                           [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:responseString];
-//                                           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                                               UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:coverKeyModel.url]]];
-//                                               dispatch_async(dispatch_get_main_queue(), ^{
-//                                                   [[UMSocialControllerService defaultControllerService] setShareText:_item.publish.publistext shareImage:image socialUIDelegate:self];
-//                                                   UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:type];
-//                                                   snsPlatform.snsClickHandler(self,[UMSocialControllerService defaultControllerService],YES);
-//                                               });
-//                                           });
-//                                       }
-//                                   }
-//                               }
-//                           }];
 }
 
 - (void)showWebViewWithLink:(LinksModel *)link

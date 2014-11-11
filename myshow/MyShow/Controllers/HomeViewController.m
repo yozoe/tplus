@@ -32,6 +32,7 @@
 #import "UMSocialWechatHandler.h"
 #import "UMSocialQQHandler.h"
 #import "UserAtlasListAttentionRequest.h"
+#import "MyTabBarViewController.h"
 
 @interface HomeViewController ()
 {
@@ -59,6 +60,7 @@
         _sourceDic = [NSMutableDictionary dictionary];
         _recommentHeightDic = [NSMutableDictionary dictionary];
         _pageDic = [NSMutableDictionary dictionary];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefreshNotification) name:@"REFRESH_NOTIFICATION" object:nil];
     }
     return self;
 }
@@ -82,6 +84,8 @@
 {
     [super viewWillAppear:animated];
 //    self.navigationController.navigationBarHidden = NO;
+    MyTabBarViewController * tabbar = [AppDelegate GetAppDelegate].tabBarController;
+    [tabbar hiddenTabbar:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -458,6 +462,7 @@
         if (cell.itemModel.atlas.imageNum > 0 && im.atlas.imgsArray.count == 0) {
             [self requestPublishImgsWithPulishModel:cell.itemModel.atlas index:indexPath.row onFinished:^(NSArray *imgsArray) {
                 if (imgsArray) {
+                    [cell.itemModel.atlas.imgsArray removeAllObjects];
                     [cell.itemModel.atlas.imgsArray addObjectsFromArray:imgsArray];
                     [cell refresh];
                 }
@@ -828,6 +833,11 @@
 - (NSString *)getCurrentKey
 {
     return [NSString stringWithFormat:@"%d", _selectedIndex];
+}
+
+- (void)handleRefreshNotification
+{
+    [_currentTableView reloadData];
 }
 
 @end
