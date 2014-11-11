@@ -49,6 +49,7 @@
 
 - (void)didLoginOrRegisterSuccess
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISTRIBUTE_SUCCESS object:nil];
 }
 
 - (void)jumpToLoginView
