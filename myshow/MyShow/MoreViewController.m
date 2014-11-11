@@ -12,6 +12,7 @@
 #import "MobClick.h"
 #import "LogoutRequest.h"
 #import "MyShowTools.h"
+#import "UMSocial.h"
 
 
 @interface MoreViewController ()
