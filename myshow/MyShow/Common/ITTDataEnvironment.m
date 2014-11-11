@@ -75,11 +75,11 @@ ITTOBJECT_SINGLETON_BOILERPLATE(ITTDataEnvironment, sharedDataEnvironment)
 {
     _userInfo = nil;
     _userUid = nil;
-    _platformString = nil;
+//    _platformString = nil;
     _location = nil;
     _longitude = nil;
     _latitude = nil;
-    _did = nil;
+//    _did = nil;
     _token = nil;
     _type = nil;
     

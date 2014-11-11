@@ -295,7 +295,7 @@
 #pragma mark - NSNotification action
 - (void)distributeSccessAction:(NSNotification *)notification
 {
-    [_currentTableView reloadData];
+    [self refreshUserInfo];
 }
 
 

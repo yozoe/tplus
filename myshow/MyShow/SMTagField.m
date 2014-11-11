@@ -134,6 +134,7 @@
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidEndEditingNotification" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFICATION_ADDTAG object:nil];
 }
 

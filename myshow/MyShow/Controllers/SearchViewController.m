@@ -502,7 +502,7 @@
 - (void)requestDefaultTagsWithPage:(NSString *)page
 {
     NSDictionary * parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE};
-    [SearchTagListDefaultRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    [SearchTagListDefaultRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
         
     } onRequestFinished:^(ITTBaseDataRequest *request) {
         NSArray * tagsArray = [[request.handleredResult objectForKey:@"models"] copy];
