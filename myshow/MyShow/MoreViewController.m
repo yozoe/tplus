@@ -163,7 +163,6 @@
         NSString *platformType = [UMSocialSnsPlatformManager getSnsPlatformString:UMSocialSnsTypeSina];
         [[UMSocialDataService defaultDataService] requestUnOauthWithType:platformType completion:^(UMSocialResponseEntity *response) {
             NSLog(@"unOauth response is %@",response);
-
         }];
         
         

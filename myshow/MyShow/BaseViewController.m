@@ -55,7 +55,18 @@
 {
     LogingViewController *loginVC = [[LogingViewController alloc] initWithNibName:@"LogingViewController" bundle:nil];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
-    nav.navigationBarHidden = YES;
+//    nav.navigationBarHidden = YES;
+    [nav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationBg.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    [nav.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                   [UIColor whiteColor], UITextAttributeTextColor,
+                                                   [UIColor whiteColor], UITextAttributeTextShadowColor,
+                                                   //                                                                     [NSValue valueWithUIOffset:UIOffsetMake(0, 0)], UITextAttributeTextShadowOffset,
+                                                   //                                                                     [UIFont fontWithName:@"Arial-Bold" size:0.0], UITextAttributeFont,
+                                                   nil]];
+
+    
+    
     __weak typeof(self) weakSelf = self;
     loginVC.didLoginSuccess = ^(){
         [weakSelf didLoginOrRegisterSuccess];

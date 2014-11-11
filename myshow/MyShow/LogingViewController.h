@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "MyShowNavigationBar.h"
 #import "BaseViewController.h"
+#import "UMSocial.h"
 
-@interface LogingViewController : BaseViewController
+@interface LogingViewController : BaseViewController <UMSocialUIDelegate>
 
 @property (nonatomic, copy) void(^didLoginSuccess)();
 @property (nonatomic, copy) void(^didRegisterSuccess)();

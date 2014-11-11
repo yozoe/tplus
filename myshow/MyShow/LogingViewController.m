@@ -66,6 +66,9 @@
 
 
 @interface LogingViewController ()
+{
+    NSArray * _uMShareArray;
+}
 
 @end
 
@@ -76,6 +79,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _uMShareArray = [NSArray arrayWithObjects:UMShareToSina, UMShareToQQ, UMShareToRenren, nil];
     }
     return self;
 }
@@ -84,7 +88,7 @@
 {
     [super viewDidLoad];
     [self initNavigationBar];
-    
+
     NSArray * titleArray = [NSArray arrayWithObjects:@"新浪微博", @"QQ", @"人人", nil];
     NSArray * colorArray = [NSArray arrayWithObjects:@"#f82a28", @"#2ab2f8", @"#3484fd",nil];
     for (int i = 0; i < 3; i++)
@@ -92,7 +96,7 @@
         LoginButton * button = [LoginButton buttonWithType:UIButtonTypeCustom
                                                      title:[titleArray objectAtIndex:i]
                                                  headImage:[UIImage imageNamed:[NSString stringWithFormat:@"Share_%d.png",i + 1]]];
-        button.tag = i + 33;
+        button.tag = i + 100;
         [button setFrame:CGRectMake(SPACE,
                                     self.view.frame.size.height / 3 + SPACE + (ICON_LENGTH + SPACE) * i,
                                     self.view.frame.size.width - SPACE * 2,
@@ -140,105 +144,91 @@
 #pragma mark - 第三方注册/登陆
 - (void)buttonClick:(UIButton *)sender
 {
-    
-    NSArray * arrar = [NSArray arrayWithObjects:UMShareToSina, UMShareToTencent, UMShareToRenren, nil];
-    
-    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:[arrar objectAtIndex:sender.tag - 33]];
-    
-    
-    NSLog(@"snsPlatform:%@",snsPlatform);
+    [UMSocialControllerService defaultControllerService].socialUIDelegate = self;
+    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:[_uMShareArray objectAtIndex:sender.tag - 100]];
     
     snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
         
+        //获取所有平台账号数据
+        NSDictionary *snsAccountDic = [UMSocialAccountManager socialAccountDictionary];
         
-                                      //新浪微博
-                                      if ([snsPlatform.platformName isEqualToString:UMShareToSina])
-                                      {
-                                          
-                                          //如果是授权到新浪微博，SSO之后如果想获取用户的昵称、头像等需要再次获取一次账户信息
-                                          [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *accountResponse)
-                                           {
-                                               
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            //新浪微博
+            if ([snsPlatform.platformName isEqualToString:UMShareToSina])
+            {
+                
+                //如果是授权到新浪微博，SSO之后如果想获取用户的昵称、头像等需要再次获取一次账户信息
+                [[UMSocialDataService defaultDataService] requestSocialAccountWithCompletion:^(UMSocialResponseEntity *accountResponse)
+                 {
+                     NSLog(@"accountResponse.data:%@",accountResponse.data);
+                     NSDictionary * sinaDic = [[accountResponse.data objectForKey:@"accounts"] objectForKey:@"sina"];
+                     
+                     UserModel * model = [[UserModel alloc] init];
+                     model.uid = [sinaDic objectForKey:@"usid"];
+                     DATA_ENV.userUid = model.uid;
+                     
+                     model.nickname = [sinaDic objectForKey:@"username"];
+                     model.headUrl = [sinaDic objectForKey:@"icon"];
+                     model.type = @"sina";
+                     DATA_ENV.type = model.type;
+                     
+                     NSDictionary * params = @{@"uid":model.uid,@"nickname":model.nickname,@"headUrl":model.headUrl,@"type":model.type};
+                     
+                     
+                     [self startRegisterWithParams:params];
+                     
+                 }];
+                
+                
+            }
+            //QQ
+            else if([snsPlatform.platformName isEqualToString:UMShareToQQ]){
+                
+                UMSocialAccountEntity *qqAccount = [snsAccountDic valueForKey:UMShareToQQ];
+                
+                UserModel * model = [[UserModel alloc] init];
+                model.uid = qqAccount.usid;
+                //uid需要放入请求头去注册
+                DATA_ENV.userUid = model.uid;
+                
+                model.nickname = qqAccount.userName;
+                model.headUrl = qqAccount.iconURL;
+                model.type = qqAccount.platformName;
+                DATA_ENV.type = model.type;
+                
+                NSDictionary * params = @{@"uid":model.uid,@"nickname":model.nickname,@"headUrl":model.headUrl,@"type":model.type};
+                
+                [self startRegisterWithParams:params];
+                
+                
+            }
+            //人人
+            else{
+                UMSocialAccountEntity *renrenAccount = [snsAccountDic valueForKey:UMShareToRenren];
+                
+                UserModel * model = [[UserModel alloc] init];
+                model.uid = renrenAccount.usid;
+                //uid需要放入请求头去注册
+                DATA_ENV.userUid = model.uid;
+                
+                model.nickname = renrenAccount.userName;
+                model.headUrl = renrenAccount.iconURL;
+                model.type = renrenAccount.platformName;
+                DATA_ENV.type = model.type;
+                
+                NSDictionary * params = @{@"uid":model.uid,@"nickname":model.nickname,@"headUrl":model.headUrl,@"type":model.type};
+                
+                [self startRegisterWithParams:params];
+            }
+        
+        }else{
+            NSError * error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@认证失败",snsPlatform.platformName]
+                                                  code:1
+                                              userInfo:nil];
+            NSLog(@"error:%@",error);
 
-                                               NSLog(@"accountResponse.data:%@",accountResponse.data);
-                                               NSDictionary * sinaDic = [[accountResponse.data objectForKey:@"accounts"] objectForKey:@"sina"];
-                                               
-                                               //如果直接返回，没获取到任何数据，直接弹出认证失败
-                                               if (nil != sinaDic) {
-                                                   UserModel * model = [[UserModel alloc] init];
-                                                   model.uid = [sinaDic objectForKey:@"usid"];
-                                                   DATA_ENV.userUid = model.uid;
-                                                   
-                                                   model.nickname = [sinaDic objectForKey:@"username"];
-                                                   model.headUrl = [sinaDic objectForKey:@"icon"];
-                                                   model.type = @"sina";
-                                                   DATA_ENV.type = model.type;
-                                                   
-                                                   NSDictionary * params = @{@"uid":model.uid,@"nickname":model.nickname,@"headUrl":model.headUrl,@"type":model.type};
-                                                   
-                                                   
-                                                   
-                                                   //                                                   NSLog(@"查看请求头数据对不对location:%@",DATA_ENV.location);
-                                                   //                                                   NSLog(@"查看请求头数据对不对did:%@",DATA_ENV.did);
-                                                   //                                                   NSLog(@"查看请求头数据对不对brand:%@",DATA_ENV.platformString);
-                                                   //                                                   NSLog(@"查看请求头数据对不对ll:%@*%@",DATA_ENV.longitude, DATA_ENV.latitude);
-                                                   
-                                                   [self startRegisterWithParams:params];
-                                               }else{
-                                                   NSError * error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@认证失败",snsPlatform.platformName]
-                                                                                         code:1
-                                                                                     userInfo:nil];
-                                                   NSLog(@"error:%@",error);
-                                               }
-                                               
-                                               
-                                           }];
-                                      }else{
-                                          
-                                          NSLog(@"response:%@",response);
-                                          //腾讯微博/人人
-                                          NSDictionary * dict = [UMSocialAccountManager socialAccountDictionary];
-                                          NSLog(@"dict:%@",dict);
-                                          UMSocialAccountEntity * entity = [dict valueForKey:snsPlatform.platformName];
-                                          NSLog(@"entity:%@",entity);
-                                          NSString * type = nil;
-                                          if ([entity.platformName isEqualToString:@"tencent"]) {
-                                              type = @"qq";
-                                              DATA_ENV.type = type;
-                                          }else{
-                                              type = @"renren";
-                                              DATA_ENV.type = type;
-                                          }
-                                          if (nil != entity.accessToken)
-                                          {
-                                              UserModel * model = [[UserModel alloc] init];
-                                              model.uid = entity.accessToken;
-                                              
-                                              //uid需要放入请求头去注册
-                                              DATA_ENV.userUid = model.uid;
-                                              model.nickname = entity.userName;
-                                              model.headUrl = entity.iconURL;
-                                              
-                                              NSDictionary * params = @{@"uid":model.uid,@"nickname":model.nickname,@"headUrl":model.headUrl,@"type":type};
-                                              
-//                                                  NSLog(@"查看请求头数据对不对location:%@",DATA_ENV.location);
-//                                                  NSLog(@"查看请求头数据对不对did:%@",DATA_ENV.did);
-//                                                  NSLog(@"查看请求头数据对不对brand:%@",DATA_ENV.platformString);
-//                                                  NSLog(@"查看请求头数据对不对ll:%@*%@",DATA_ENV.longitude, DATA_ENV.latitude);
-                                              [self startRegisterWithParams:params];
-                                          }
-                                          else
-                                          {
-                                              NSError * error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@认证失败",snsPlatform.platformName]
-                                                                                    code:1
-                                                                                userInfo:nil];
-                                              NSLog(@"error:%@",error);
-                                          }
-                                      }
-                                      
-                                  });
-
-    
+        }
+    });
 }
 
 

@@ -332,9 +332,12 @@
 
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [self removeCameraView];
+//    if (self.imageArray.count <= 0) {
+        [picker dismissViewControllerAnimated:YES completion:nil];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [self removeCameraView];
+
+//    }
 }
 
 
@@ -351,9 +354,11 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [self removeCameraView];
+//    if (self.imageArray.count <= 0) {
+        [picker dismissViewControllerAnimated:YES completion:nil];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [self removeCameraView];
+//    }
 }
 
 
