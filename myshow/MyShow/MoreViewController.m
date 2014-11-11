@@ -12,6 +12,7 @@
 #import "MobClick.h"
 #import "LogoutRequest.h"
 #import "MyShowTools.h"
+#import "UMSocial.h"
 
 
 @interface MoreViewController ()
@@ -163,7 +164,6 @@
         NSString *platformType = [UMSocialSnsPlatformManager getSnsPlatformString:UMSocialSnsTypeSina];
         [[UMSocialDataService defaultDataService] requestUnOauthWithType:platformType completion:^(UMSocialResponseEntity *response) {
             NSLog(@"unOauth response is %@",response);
-
         }];
         
         

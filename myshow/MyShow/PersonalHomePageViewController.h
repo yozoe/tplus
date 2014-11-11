@@ -25,7 +25,6 @@
 //    ITTPullTableView *_twoTableView;
     
     UIScrollView *_mainScrollView;
-    NSMutableArray * _tableViewDataSource;
     NSInteger _selectedItemIndex;
 }
 

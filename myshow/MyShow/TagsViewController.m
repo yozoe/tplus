@@ -95,6 +95,11 @@
 
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)textFieldDidChange:(NSNotification*)aNotification
 {
     if(self.tagField.text.length == 0 && self.tagField.tags.count == 0){
@@ -192,21 +197,20 @@
 
 - (void)rightButtonClick
 {
-    if (!DATA_ENV.isHasUserInfo) {
-        [self jumpToLoginView];
+    if (_tagField.tags.count <= 0) {
+        [RXUitils showHintMessage:@"请至少输入一个标签"];
     }else{
-        if (_tagField.tags.count <= 0) {
-            [RXUitils showHintMessage:@"请至少输入一个标签"];
-//            [self showHUDWithImgWithTitle:@"请至少输入一个标签" withHiddenDelay:1.0f];
-        }else{
+        if (!DATA_ENV.isHasUserInfo) {
+            [self jumpToLoginView];
+        }else
             [self startRequest];
-        }
     }
 }
 
 #pragma mark - 登陆成功回调方法
 - (void)didLoginOrRegisterSuccess
 {
+//    [RXUitils showHintMessage:@"登陆成功，可以上传了"];
     [self startRequest];
 }
 
@@ -217,6 +221,7 @@
         _maskActivityView = [ITTMaskActivityView loadFromXib];
         [_maskActivityView showInView:self.view withHintMessage:@"上传中..."];
     }
+    
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsPath = [paths objectAtIndex:0];
     NSString *zipFile = [documentsPath stringByAppendingPathComponent:@"imgfiles.zip"];

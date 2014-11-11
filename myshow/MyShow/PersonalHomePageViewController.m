@@ -52,7 +52,6 @@
     NSMutableDictionary *_pageDic;
 }
 @property (weak, nonatomic) IBOutlet UIView *HeaderView;
-@property (strong, nonatomic, getter = getCurrentKey) NSString *currentKey;
 
 
 @end
@@ -64,7 +63,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         _selectedIndex = 0;
-        _tableViewDataSource = [NSMutableArray array];
         _sourceDic = [NSMutableDictionary dictionary];
         _recommentHeightDic = [NSMutableDictionary dictionary];
         _titleArray = @[@"发布",@"喜欢"];
@@ -177,7 +175,11 @@
 {
     MoreViewController * moreVC = [[MoreViewController alloc] init];
     moreVC.didLogoutSuccess = ^(){
-        [_mainScrollView removeFromSuperview];
+        _selectedIndex = 0;
+        _segmentedView.selectedSegmentIndex = 0;
+        [_sourceDic removeAllObjects];
+        [_recommentHeightDic removeAllObjects];
+        [_pageDic removeAllObjects];
     };
     [self.navigationController pushViewController:moreVC animated:YES];
 }
@@ -293,7 +295,7 @@
 #pragma mark - NSNotification action
 - (void)distributeSccessAction:(NSNotification *)notification
 {
-    [_currentTableView reloadData];
+    [self refreshUserInfo];
 }
 
 
@@ -964,7 +966,8 @@
 #pragma mark - MWPhotoBrowser delegate Methods
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser
 {
-    NSArray *sourceArray = [_sourceDic objectForKey:self.currentKey];
+    NSString * pageType = [self.titleArray objectAtIndex:_selectedIndex];
+    NSArray *sourceArray = [_sourceDic objectForKey:pageType];
     ItemModel *im = sourceArray[_selectedItemIndex];
     return im.atlas.imgsArray.count ? im.atlas.imgsArray.count : _photoModelArray.count;
 }

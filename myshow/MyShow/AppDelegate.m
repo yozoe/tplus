@@ -80,13 +80,14 @@ static AppDelegate *_appDelegate;
     [UMSocialSinaHandler openSSOWithRedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     
     //打开腾讯微博SSO开关，设置回调地址
-    [UMSocialTencentWeiboHandler openSSOWithRedirectUrl:@"http://sns.whalecloud.com/tencent2/callback"];
+//    [UMSocialTencentWeiboHandler openSSOWithRedirectUrl:@"http://sns.whalecloud.com/tencent2/callback"];
     
     //打开人人网SSO开关
     [UMSocialRenrenHandler openSSO];
     
     //设置分享到QQ空间的应用Id，和分享url 链接
-    //    [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"http://www.umeng.com/social"];
+//    [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"http://www.umeng.com/social"];
+    [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"http://www.umeng.com/social"];
     //设置支持没有客户端情况下使用SSO授权
     [UMSocialQQHandler setSupportWebView:YES];
     

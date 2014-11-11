@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "UMSocialControllerService.h"
+
 @class MyTabBarViewController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>

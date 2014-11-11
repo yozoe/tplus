@@ -21,7 +21,7 @@
 #define TEXT_LOAD_MORE_NORMAL_STATE @"向上拉动加载更多..."
 #define TEXT_LOAD_MORE_LOADING_STATE @"更多数据加载中..."
 
-#define HOME_PAGE_SIZE @"9"
+#define HOME_PAGE_SIZE @"10"
 
 #define KEY_USER @"KEY_USER"
 #define KEY_USERID @"KEY_USERID"
