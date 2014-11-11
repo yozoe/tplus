@@ -315,7 +315,6 @@ int static drawerHeaderViewHeight = 40;
     [DetailCommentRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
 
     } onRequestFinished:^(ITTBaseDataRequest *request) {
-
         [self clearInputView];
         NSArray *itemsArray = [request.handleredResult objectForKey:@"models"];
         BOOL isAdd = page > 1 ? YES : NO;

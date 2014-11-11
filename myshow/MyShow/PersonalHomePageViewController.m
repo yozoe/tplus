@@ -388,7 +388,7 @@
             parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : self.user.ID};
         }
         
-        [MyDistributeTagClickRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+        [MyDistributeTagClickRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
             
         } onRequestFinished:^(ITTBaseDataRequest *request) {
             
@@ -411,7 +411,7 @@
         }else{
             parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"userId" : self.user.ID};
         }
-        [MyFavorateTagClickRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+        [MyFavorateTagClickRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
             
         } onRequestFinished:^(ITTBaseDataRequest *request) {
             
