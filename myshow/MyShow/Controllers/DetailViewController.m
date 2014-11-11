@@ -500,4 +500,9 @@
     [self presentViewController:navi animated:YES completion:nil];
 }
 
+- (void)didLoginOrRegisterSuccess
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISTRIBUTE_SUCCESS object:nil];
+}
+
 @end
