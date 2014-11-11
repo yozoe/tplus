@@ -49,6 +49,7 @@
 
 - (void)didLoginOrRegisterSuccess
 {
+    
 }
 
 - (void)jumpToLoginView
