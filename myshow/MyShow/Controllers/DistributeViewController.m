@@ -148,7 +148,8 @@
     for (UIImage * image in _imageArray) {
         NSString *filePath = [documentsPath stringByAppendingPathComponent:[NSString stringWithFormat:@"pic_%d.png", index]];
         // 保存文件的名称
-        [UIImagePNGRepresentation(image)writeToFile:filePath atomically:YES];
+        [UIImageJPEGRepresentation(image, 0) writeToFile:filePath atomically:YES];
+        
         // 保存文件的名称
         [_imagesDict setObject:filePath forKey:[NSString stringWithFormat:@"pic_%d", index]];
         index ++;
@@ -324,6 +325,9 @@
         ALAssetRepresentation* representation = [asset defaultRepresentation];
         //获取高清图片
         UIImage * hignQualityImage = [UIImage imageWithCGImage:[representation fullResolutionImage]];
+        
+        hignQualityImage = [UIImage imageWithData:UIImageJPEGRepresentation(hignQualityImage, 0)];
+        
         [self.imageArray addObject:hignQualityImage];
     }
     [self generateFinalImageArrayWithArray:self.imageArray];
@@ -347,6 +351,9 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     UIImage * image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    
+    image = [UIImage imageWithData:UIImageJPEGRepresentation(image, 0)];
+    
     [self.imageArray addObject:image];
     [self generateFinalImageArrayWithArray:self.imageArray];
     [self removeCameraView];

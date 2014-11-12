@@ -502,7 +502,7 @@
 
 - (void)didLoginOrRegisterSuccess
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISTRIBUTE_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOGIN_SUCCESS object:nil];
 }
 
 @end

@@ -133,6 +133,7 @@
     
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distributeSccessAction:) name:NOTIFICATION_DISTRIBUTE_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessAction:) name:NOTIFICATION_LOGIN_SUCCESS object:nil];
 }
 
 #pragma mark -
@@ -177,9 +178,15 @@
     moreVC.didLogoutSuccess = ^(){
         _selectedIndex = 0;
         _segmentedView.selectedSegmentIndex = 0;
-        [_sourceDic removeAllObjects];
-        [_recommentHeightDic removeAllObjects];
-        [_pageDic removeAllObjects];
+//        [_sourceDic removeAllObjects];
+        _sourceDic = nil;
+        _sourceDic = [NSMutableDictionary dictionary];
+//        [_recommentHeightDic removeAllObjects];
+        _recommentHeightDic = nil;
+        _recommentHeightDic = [NSMutableDictionary dictionary];
+//        [_pageDic removeAllObjects];
+        _pageDic = nil;
+        _pageDic = [NSMutableDictionary dictionary];
     };
     [self.navigationController pushViewController:moreVC animated:YES];
 }
@@ -293,11 +300,20 @@
 
 
 #pragma mark - NSNotification action
+#pragma mark  发布成功发出的通知
 - (void)distributeSccessAction:(NSNotification *)notification
 {
     [self refreshUserInfo];
 }
 
+#pragma mark 发表评论成功发出的通知
+- (void)loginSuccessAction:(NSNotification *)notification
+{
+    [self reloadData];
+    [self startLoadMyDistributeImages];
+    
+
+}
 
 - (void)dealloc
 {
@@ -437,9 +453,6 @@
 #pragma 数据处理
 - (void)fillTalbeViewSourceFromArray:(NSArray *)array type:typeStr isAdd:(BOOL)isAdd
 {
-    [_recommentHeightDic removeAllObjects];
-    [_sourceDic removeAllObjects];
-    
     NSMutableArray *heightArray = [_recommentHeightDic objectForKey:typeStr];
     if (!heightArray) {
         heightArray = [[NSMutableArray alloc] init];

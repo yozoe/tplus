@@ -210,18 +210,22 @@
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
    
+    if (self.imageArray.count > 0) {
+        [self.imageArray removeAllObjects];
+    }
+    for (ALAsset * asset in assets) {
+        
+        //获取资源图片的详细资源信息
+        ALAssetRepresentation* representation = [asset defaultRepresentation];
+        //获取高清图片
+        UIImage * image = [UIImage imageWithCGImage:[representation fullResolutionImage]];
+        UIImage * newImage = [UIImage imageWithData:UIImageJPEGRepresentation(image, 0)];
+        
+        [self.imageArray addObject:newImage];
+    }
+
+    
     [picker dismissViewControllerAnimated:YES completion:^{
-        if (self.imageArray.count > 0) {
-            [self.imageArray removeAllObjects];
-        }
-        for (ALAsset * asset in assets) {
-            
-            //获取资源图片的详细资源信息
-            ALAssetRepresentation* representation = [asset defaultRepresentation];
-            //获取高清图片
-            UIImage * image = [UIImage imageWithCGImage:[representation fullResolutionImage]];
-            [self.imageArray addObject:image];
-        }
         
         DistributeViewController * distributeVC = [[DistributeViewController alloc] init];
         UINavigationController * distributeNav = [[UINavigationController alloc] initWithRootViewController:distributeVC];
@@ -254,14 +258,15 @@
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
 
+    UIImage * image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    UIImage * newImage = [UIImage imageWithData:UIImageJPEGRepresentation(image, 0)];
+    
     [picker dismissViewControllerAnimated:YES completion:^{
-        UIImage * image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
-        
         DistributeViewController * distributeVC = [[DistributeViewController alloc] init];
         UINavigationController * disNav = [[UINavigationController alloc] initWithRootViewController:distributeVC];
         disNav.delegate = self;
         disNav.navigationBarHidden = YES;
-        distributeVC.image = image;
+        distributeVC.image = newImage;
         [self presentViewController:disNav animated:YES completion:nil];
         [self removeCameraView];
     }];
