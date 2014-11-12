@@ -118,10 +118,16 @@
     TagsViewController * tagsVC = [[TagsViewController alloc] init];
     tagsVC.uploadText = _textView.text;
     
-    [self storeImages];
-    
-    tagsVC.uploadImagesDict = _imagesDict;
-    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        // 处理耗时操作的代码块...
+        [self storeImages];
+        //通知主线程刷新
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //回调或者说是通知主线程刷新，
+            tagsVC.uploadImagesDict = _imagesDict;
+        });
+        
+    });
     
     //上传结束,拉起自定义tabbar
     tagsVC.didDistributeSuccess = ^(){
@@ -134,6 +140,8 @@
         [tabbar hiddenTabbar:NO];
         [self dismissViewControllerAnimated:YES completion:nil];
     };
+    
+    
     
     [self.navigationController pushViewController:tagsVC animated:YES];
 }
