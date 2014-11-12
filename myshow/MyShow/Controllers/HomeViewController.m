@@ -85,7 +85,7 @@
     [super viewWillAppear:animated];
 //    self.navigationController.navigationBarHidden = NO;
     MyTabBarViewController * tabbar = [AppDelegate GetAppDelegate].tabBarController;
-    [tabbar hiddenTabbar:YES];
+    [tabbar hiddenTabbar:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
