@@ -213,29 +213,25 @@
     if (self.imageArray.count > 0) {
         [self.imageArray removeAllObjects];
     }
+
     for (ALAsset * asset in assets) {
-        
         //获取资源图片的详细资源信息
         ALAssetRepresentation* representation = [asset defaultRepresentation];
         //获取高清图片
         UIImage * image = [UIImage imageWithCGImage:[representation fullResolutionImage]];
-        UIImage * newImage = [UIImage imageWithData:UIImageJPEGRepresentation(image, 0)];
-        
-        [self.imageArray addObject:newImage];
+        [self.imageArray addObject:image];
     }
-
     
+    DistributeViewController * distributeVC = [[DistributeViewController alloc] init];
+    UINavigationController * distributeNav = [[UINavigationController alloc] initWithRootViewController:distributeVC];
+    distributeNav.delegate = self;
+    distributeNav.navigationBarHidden = YES;
+    distributeVC.imageArray = self.imageArray;
     [picker dismissViewControllerAnimated:YES completion:^{
-        
-        DistributeViewController * distributeVC = [[DistributeViewController alloc] init];
-        UINavigationController * distributeNav = [[UINavigationController alloc] initWithRootViewController:distributeVC];
-        distributeNav.delegate = self;
-        distributeNav.navigationBarHidden = YES;
-        distributeVC.imageArray = self.imageArray;
         [self presentViewController:distributeNav animated:YES completion:nil];
         [self removeCameraView];
     }];
-    
+
 }
 
 #pragma mark - 系统 Picker Delegate
