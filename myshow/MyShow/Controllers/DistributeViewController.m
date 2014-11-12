@@ -311,31 +311,25 @@
 - (void)openAlbum
 {
     CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-    picker.maximumNumberOfSelection = 10;
+    picker.maximumNumberOfSelection = 9;
     picker.assetsFilter = [ALAssetsFilter allAssets];
     picker.delegate = self;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-    [self presentViewController:picker animated:YES completion:NULL];
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 #pragma mark - AssetsPicker Delegate
 
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
-    NSLog(@"self.imageArray:%@",self.imageArray);
     for (ALAsset * asset in assets) {
-        
-        
         //获取资源图片的详细资源信息
         ALAssetRepresentation* representation = [asset defaultRepresentation];
         //获取高清图片
         UIImage * hignQualityImage = [UIImage imageWithCGImage:[representation fullResolutionImage]];
-        
-        hignQualityImage = [UIImage imageWithData:UIImageJPEGRepresentation(hignQualityImage, 0)];
-        
+//        hignQualityImage = [UIImage imageWithData:UIImageJPEGRepresentation(hignQualityImage, 0)];
         [self.imageArray addObject:hignQualityImage];
     }
     [self generateFinalImageArrayWithArray:self.imageArray];
@@ -344,24 +338,17 @@
 
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker
 {
-//    if (self.imageArray.count <= 0) {
-        [picker dismissViewControllerAnimated:YES completion:nil];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        [self removeCameraView];
-
-//    }
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self removeCameraView];
 }
 
 
 #pragma mark UIImagePickerController Delegate
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [picker dismissViewControllerAnimated:YES completion:nil];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     UIImage * image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
-    
-    image = [UIImage imageWithData:UIImageJPEGRepresentation(image, 0)];
-    
+//    image = [UIImage imageWithData:UIImageJPEGRepresentation(image, 0)];
     [self.imageArray addObject:image];
     [self generateFinalImageArrayWithArray:self.imageArray];
     [self removeCameraView];
@@ -369,11 +356,8 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-//    if (self.imageArray.count <= 0) {
-        [picker dismissViewControllerAnimated:YES completion:nil];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-        [self removeCameraView];
-//    }
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self removeCameraView];
 }
 
 

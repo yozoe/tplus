@@ -277,17 +277,17 @@
     [asiRequest addRequestHeader:@"token" value:DATA_ENV.token];
     
     //以下数据测试用
-    if (!DATA_ENV.longitude) {
-        DATA_ENV.longitude = @"37.785834";
-    }
-    
-    if (!DATA_ENV.latitude) {
-        DATA_ENV.latitude = @"122.406417";
-    }
-    
-    if (!DATA_ENV.location) {
-        DATA_ENV.location = @"北京市朝阳区";
-    }
+//    if (!DATA_ENV.longitude) {
+//        DATA_ENV.longitude = @"37.785834";
+//    }
+//    
+//    if (!DATA_ENV.latitude) {
+//        DATA_ENV.latitude = @"122.406417";
+//    }
+//    
+//    if (!DATA_ENV.location) {
+//        DATA_ENV.location = @"北京市朝阳区";
+//    }
     
     //经纬度   新添加字段
     [asiRequest addRequestHeader:@"ll" value:[NSString stringWithFormat:@"%@*%@", DATA_ENV.longitude, DATA_ENV.latitude]];

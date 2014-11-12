@@ -84,7 +84,7 @@
     }else{
         _noLoginView.hidden = YES;
     }
-    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (void)viewDidLoad

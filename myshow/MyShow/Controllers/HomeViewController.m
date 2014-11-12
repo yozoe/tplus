@@ -83,20 +83,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    self.navigationController.navigationBarHidden = NO;
-    MyTabBarViewController * tabbar = [AppDelegate GetAppDelegate].tabBarController;
-    [tabbar hiddenTabbar:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)initViews
 {
-//    [self addNavigationBar];
     [self initNavigationBar];
     [self addTitleSegmentedView];
     [self addMainScrollView];
@@ -108,19 +103,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-//- (void)addNavigationBar
-//{
-//    self.navigationController.navigationBarHidden = YES;
-//
-//    _navigationBar = [[MyShowNavigationBar alloc] initWithFrame:self.view.frame
-//                                                       ColorStr:[NSString stringWithUTF8String:"#BD0007"]];
-//    _navigationBar.titleLabel.text = @"T语言";
-//
-//    [_navigationBar.rightButton setImage:[UIImage imageNamed:@"sousuo.png"] forState:UIControlStateNormal];
-//    _navigationBar.leftButton = nil;
-//    _navigationBar.delegate = self;
-//    [self.view addSubview:_navigationBar];
-//}
 
 - (void)initNavigationBar
 {

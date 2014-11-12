@@ -40,7 +40,7 @@
 - (void)backToPreviewAction:(UISwipeGestureRecognizer *)swipe
 {
     if (self.presentingViewController) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self dismissViewControllerAnimated:YES completion:nil];
     }else{
         [self.navigationController popViewControllerAnimated:YES];
     }

@@ -34,7 +34,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
     [self initViewCtrls];
     [self initCustumTabbar];
     [self initCameraView];
@@ -44,7 +44,6 @@
 {
     HomeViewController * homeVC = [[HomeViewController alloc] init];
     UINavigationController * homeNav = [[UINavigationController alloc] initWithRootViewController:homeVC];
-//    homeNav.navigationBarHidden = YES;
     [homeNav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationBg.png"] forBarMetrics:UIBarMetricsDefault];
 
     [homeNav.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -62,7 +61,6 @@
     
     PersonalHomePageViewController * personHomePageVC = [[PersonalHomePageViewController alloc] init];
     UINavigationController * homePageNav = [[UINavigationController alloc] initWithRootViewController:personHomePageVC];
-//    homePageNav.navigationBarHidden = YES;
     [homePageNav.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationBg.png"] forBarMetrics:UIBarMetricsDefault];
     
     [homePageNav.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -112,6 +110,7 @@
 {
     [super viewWillAppear:animated];
     [self removeCameraView];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 #pragma mark - TabbarSelect Action
@@ -195,7 +194,7 @@
     if (!self.imageArray)
         self.imageArray = [[NSMutableArray alloc] init];
     CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
-    picker.maximumNumberOfSelection = 10;
+    picker.maximumNumberOfSelection = 9;
     picker.assetsFilter = [ALAssetsFilter allAssets];
     picker.delegate = self;
     [self presentViewController:picker animated:YES completion:nil];
@@ -206,7 +205,7 @@
 #pragma mark - Assets Picker Delegate
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
-    [UIView animateWithDuration:.5 animations:^{
+    [UIView animateWithDuration:.35 animations:^{
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
    
@@ -237,11 +236,14 @@
 #pragma mark - 系统 Picker Delegate
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker
 {
-    [UIView animateWithDuration:.5 animations:^{
+    [UIView animateWithDuration:.35 animations:^{
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
     [picker dismissViewControllerAnimated:YES completion:^{
         [self removeCameraView];
+//        if (_mainTableBar.hidden) {
+//            [self hiddenTabbar:NO];
+//        }
     }];
     
 }
@@ -276,6 +278,9 @@
     }];
     [picker dismissViewControllerAnimated:YES completion:^{
         [self removeCameraView];
+//        if (_mainTableBar.hidden) {
+//            [self hiddenTabbar:NO];
+//        }
     }];
     
 }
