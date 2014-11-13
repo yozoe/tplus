@@ -301,7 +301,7 @@
         _picker.allowsEditing = YES;
         _picker.sourceType = UIImagePickerControllerSourceTypeCamera;
         _picker.showsCameraControls = YES;
-        [self presentViewController:_picker animated:YES completion:NULL];
+        [self presentViewController:_picker animated:YES completion:nil];
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
         _picker.wantsFullScreenLayout = NO;
     }
@@ -319,11 +319,9 @@
 }
 
 #pragma mark - AssetsPicker Delegate
-
 - (void)assetsPickerController:(CTAssetsPickerController *)picker didFinishPickingAssets:(NSArray *)assets
 {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-
     for (ALAsset * asset in assets) {
         //获取资源图片的详细资源信息
         ALAssetRepresentation* representation = [asset defaultRepresentation];
@@ -356,8 +354,18 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [self removeCameraView];
+//    [picker dismissViewControllerAnimated:YES completion:^{
+//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//        [self removeCameraView];
+//    }];
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        //        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        [UIView animateWithDuration:.5 animations:^{
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        }];
+        [self removeCameraView];
+    }];
 }
 
 

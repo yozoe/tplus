@@ -277,10 +277,8 @@
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
     [picker dismissViewControllerAnimated:YES completion:^{
+//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         [self removeCameraView];
-//        if (_mainTableBar.hidden) {
-//            [self hiddenTabbar:NO];
-//        }
     }];
     
 }
