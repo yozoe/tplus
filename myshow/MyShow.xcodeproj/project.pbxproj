@@ -2644,8 +2644,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: YuXun Du (3N5CWBDX3Z)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: YuXun Du (3N5CWBDX3Z)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: LI XIAO (MK636A256V)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: LI XIAO (MK636A256V)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyShow/Support/UMSocial_Sdk_4.0/Renren",
@@ -2677,7 +2677,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0eed613f-992a-4a11-bd4d-3b19529b8f1e";
+				PROVISIONING_PROFILE = "8befe6c5-86c5-411e-a783-f2c901bfb072";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
@@ -2722,7 +2722,7 @@
 					"$(PROJECT_DIR)/MyShow/Support/UMSocial_Sdk_4.2",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0eed613f-992a-4a11-bd4d-3b19529b8f1e";
+				PROVISIONING_PROFILE = "8befe6c5-86c5-411e-a783-f2c901bfb072";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;

@@ -410,10 +410,11 @@
     [_photoModelArray removeAllObjects];
     
     ItemModel *im = _sourceArray[indexPath.row];
-    if (!im.publish.imgsArray.count) {
+    if (!im.atlas.imgsArray.count) {
         
         [self requestPublishImgsWithPulishModel:im.atlas index:indexPath.row onFinished:^(NSArray *imgsArray) {
             for (ImgsModel *imgModel in imgsArray) {
+                [im.atlas.imgsArray addObject:imgModel];
                 MWPhoto *mp = [[MWPhoto alloc] initWithURL:[NSURL URLWithString:imgModel.url]];
                 [_photoModelArray addObject:mp];
             }
