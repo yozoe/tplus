@@ -303,16 +303,17 @@
 #pragma mark  发布成功发出的通知
 - (void)distributeSccessAction:(NSNotification *)notification
 {
-    [self refreshUserInfo];
+//    [self refreshUserInfo];
+//    NSString *pageType = [self.titleArray objectAtIndex:_selectedIndex];
+//    [self requestMainCellWithType:pageType andPage:@"1"];
 }
 
 #pragma mark 发表评论成功发出的通知
 - (void)loginSuccessAction:(NSNotification *)notification
 {
-    [self reloadData];
-    [self startLoadMyDistributeImages];
-    
-
+//    [self refreshUserInfo];
+//    NSString *pageType = [self.titleArray objectAtIndex:_selectedIndex];
+//    [self requestMainCellWithType:pageType andPage:@"1"];
 }
 
 - (void)dealloc
