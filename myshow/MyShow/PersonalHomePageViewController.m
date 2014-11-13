@@ -84,6 +84,13 @@
     }else{
         _noLoginView.hidden = YES;
     }
+    
+    if (DATA_ENV.isNeedRefresh) {
+        [self reloadData];
+        [self startLoadMyDistributeImages];
+        DATA_ENV.isNeedRefresh = NO;
+    }
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
@@ -132,8 +139,8 @@
     
     
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distributeSccessAction:) name:NOTIFICATION_DISTRIBUTE_SUCCESS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessAction:) name:NOTIFICATION_LOGIN_SUCCESS object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distributeSccessAction:) name:NOTIFICATION_DISTRIBUTE_SUCCESS object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginSuccessAction:) name:NOTIFICATION_LOGIN_SUCCESS object:nil];
 }
 
 #pragma mark -
@@ -301,24 +308,24 @@
 
 #pragma mark - NSNotification action
 #pragma mark  发布成功发出的通知
-- (void)distributeSccessAction:(NSNotification *)notification
-{
+//- (void)distributeSccessAction:(NSNotification *)notification
+//{
 //    [self refreshUserInfo];
 //    NSString *pageType = [self.titleArray objectAtIndex:_selectedIndex];
 //    [self requestMainCellWithType:pageType andPage:@"1"];
-}
+//}
 
 #pragma mark 发表评论成功发出的通知
-- (void)loginSuccessAction:(NSNotification *)notification
-{
+//- (void)loginSuccessAction:(NSNotification *)notification
+//{
 //    [self refreshUserInfo];
 //    NSString *pageType = [self.titleArray objectAtIndex:_selectedIndex];
 //    [self requestMainCellWithType:pageType andPage:@"1"];
-}
+//}
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 

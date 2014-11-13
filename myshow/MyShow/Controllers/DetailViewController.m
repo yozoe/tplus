@@ -502,7 +502,8 @@
 
 - (void)didLoginOrRegisterSuccess
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOGIN_SUCCESS object:nil];
+    DATA_ENV.isNeedRefresh = YES;
+//    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_LOGIN_SUCCESS object:nil];
 }
 
 @end

@@ -359,7 +359,9 @@
         _didDistributeSuccess();
         
         //还需要发个全局通知，如果是在个人页面发布的，发布完了需要刷新我发布的图集；如果是首页图集页面，当发布完了，不需要做什么
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISTRIBUTE_SUCCESS object:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DISTRIBUTE_SUCCESS object:nil];
+        
+        DATA_ENV.isNeedRefresh = YES;
     }
 }
 

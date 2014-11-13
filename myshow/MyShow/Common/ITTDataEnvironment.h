@@ -29,6 +29,8 @@
 @property (nonatomic, assign) BOOL isHasUserInfo;
 @property (nonatomic, assign) BOOL isHasToken;
 
+@property (nonatomic, assign) BOOL isNeedRefresh;  //个人主页是否需要刷新，主要解决发布成功跟登陆完成数据错乱问题
+
 
 
 + (ITTDataEnvironment *)sharedDataEnvironment;
