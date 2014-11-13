@@ -293,7 +293,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[_sourceDic objectForKey:self.currentKey] count];
+    if (tableView.tag == 1000) {
+        return [[_sourceDic objectForKey:@"0"] count];
+    } else if (tableView.tag == 1001) {
+        return [[_sourceDic objectForKey:@"1"] count];
+    }
+    return 0;
 }
 
 - (CGFloat)calculateRecommendCellHeightWithItemModel:(ItemModel *)itemModel indexPath:(NSIndexPath *)indexPath

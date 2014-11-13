@@ -4,10 +4,10 @@
 
 
 
-#define UMENG_SDKKEY @"534d3dc156240b4ced03a744"
+#define UMENG_SDKKEY @"54648e26fd98c5cedd000691"
 
 //测试appkey
-#define UmengAppkey @"5211818556240bc9ee01db2f"
+#define UmengAppkey @"54648e26fd98c5cedd000691"
 
 
 

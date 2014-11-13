@@ -296,7 +296,7 @@ int static drawerHeaderViewHeight = 40;
 - (void)reloadCommentData
 {
     _commentPage = 1;
-    NSDictionary *parameter = @{@"page" :[NSString stringWithFormat:@"%d", _commentPage], @"limit" : @"5", @"atlasId" : _item.atlas.ID};
+    NSDictionary *parameter = @{@"page" :[NSString stringWithFormat:@"%d", _commentPage], @"limit" : @"20", @"atlasId" : _item.atlas.ID};
     [self requestCommentDataWithParameter:parameter];
 }
 
@@ -304,7 +304,7 @@ int static drawerHeaderViewHeight = 40;
 - (void)checkCommentDataSource
 {
     if (!_commentFirstRequest) {
-        NSDictionary *parameter = @{@"page" : [NSString stringWithFormat:@"%d", _commentPage], @"limit" : @"5", @"atlasId" : _item.atlas.ID};
+        NSDictionary *parameter = @{@"page" : [NSString stringWithFormat:@"%d", _commentPage], @"limit" : @"20", @"atlasId" : _item.atlas.ID};
         [self requestCommentDataWithParameter:parameter];
     }
 }
@@ -366,7 +366,7 @@ int static drawerHeaderViewHeight = 40;
 
 - (void)pullTableViewDidTriggerLoadMore:(ITTPullTableView*)pullTableView
 {
-    NSDictionary *parameter = @{@"page" : [NSString stringWithFormat:@"%d", ++_commentPage], @"limit" : @"5", @"atlasId" : _item.publish.ID};
+    NSDictionary *parameter = @{@"page" : [NSString stringWithFormat:@"%d", ++_commentPage], @"limit" : @"20", @"atlasId" : _item.atlas.ID};
     [self requestCommentDataWithParameter:parameter];
 }
 
