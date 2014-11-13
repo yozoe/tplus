@@ -10,11 +10,13 @@
 #import "MyShowNavigationBar.h"
 #import "BaseViewController.h"
 #import "ITTMaskActivityView.h"
+#import "MBProgressHUD.h"
 
 @interface TagsViewController : BaseViewController<NavigationBarDelegate,UITextFieldDelegate>
 {
     MyShowNavigationBar * _navigationBar;
     ITTMaskActivityView * _maskActivityView;
+    MBProgressHUD * _hud;
 }
 
 @property (nonatomic, strong) NSArray * tagsArray;

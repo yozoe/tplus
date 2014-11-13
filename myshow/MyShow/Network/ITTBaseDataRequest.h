@@ -9,6 +9,7 @@
 #import "ITTDataCacheManager.h"
 #import "ITTMaskActivityView.h"
 #import "ITTNetwork.h"
+#import "MBProgressHUD.h"
 
 typedef enum : NSUInteger{
 	ITTRequestMethodGet = 0,
@@ -42,6 +43,7 @@ typedef enum : NSUInteger{
     
     DataCacheManagerCacheType _cacheType;
     ITTMaskActivityView       *_maskActivityView;
+    MBProgressHUD *_hud;
     
     void (^_onRequestStartBlock)(ITTBaseDataRequest *);
     void (^_onRequestFinishBlock)(ITTBaseDataRequest *);

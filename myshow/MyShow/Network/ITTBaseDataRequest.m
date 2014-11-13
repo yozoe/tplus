@@ -490,17 +490,28 @@
 - (void)showIndicator:(BOOL)bshow
 {
 	_isLoading = bshow;
+//    if (bshow && _indicatorView) {
+//        if (!_maskActivityView) {
+//            _maskActivityView = [ITTMaskActivityView loadFromXib];
+//            [_maskActivityView showInView:self.indicatorView withHintMessage:self.loadingMessage onCancleRequest:^(ITTMaskActivityView *hintView){
+//                [self cancelRequest];
+//            }];
+//        }
+//    }else {
+//        if (_maskActivityView) {
+//            [_maskActivityView hide];
+//            _maskActivityView = nil;
+//        }
+//    }
     if (bshow && _indicatorView) {
-        if (!_maskActivityView) {
-            _maskActivityView = [ITTMaskActivityView loadFromXib];
-            [_maskActivityView showInView:self.indicatorView withHintMessage:self.loadingMessage onCancleRequest:^(ITTMaskActivityView *hintView){
-                [self cancelRequest];
-            }];
+        if (!_hud) {
+            
+            _hud = [MBProgressHUD showHUDAddedTo:[AppDelegate GetAppDelegate].window animated:YES];
+            _hud.labelText = @"Loading...";
         }
     }else {
-        if (_maskActivityView) {
-            [_maskActivityView hide];
-            _maskActivityView = nil;
+        if (_hud) {
+            [MBProgressHUD hideHUDForView:[AppDelegate GetAppDelegate].window animated:YES];
         }
     }
 }

@@ -217,9 +217,13 @@
 
 - (void)startRequest
 {
-    if (!_maskActivityView) {
-        _maskActivityView = [ITTMaskActivityView loadFromXib];
-        [_maskActivityView showInView:self.view withHintMessage:@"上传中..."];
+//    if (!_maskActivityView) {
+//        _maskActivityView = [ITTMaskActivityView loadFromXib];
+//        [_maskActivityView showInView:self.view withHintMessage:@"上传中..."];
+//    }
+    if (!_hud) {
+        _hud = [MBProgressHUD showHUDAddedTo:[AppDelegate GetAppDelegate].window animated:YES];
+        _hud.labelText = @"Loading...";
     }
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -333,9 +337,12 @@
     if ([[resultDic objectForKey:@"code"]  isEqual: @20000]) {
         NSLog(@"发布成功了!");
         
-        if (_maskActivityView) {
-            [_maskActivityView hide];
-            _maskActivityView = nil;
+//        if (_maskActivityView) {
+//            [_maskActivityView hide];
+//            _maskActivityView = nil;
+//        }
+        if (_hud) {
+            [MBProgressHUD hideHUDForView:[AppDelegate GetAppDelegate].window animated:YES];
         }
         
         [self showHUDWithImgWithTitle:@"发布成功." withHiddenDelay:1.0f];
@@ -362,9 +369,12 @@
     NSLog(@"response:%@",request.responseString);
     NSLog(@"发布失败了!");
     
-    if (_maskActivityView) {
-        [_maskActivityView hide];
-        _maskActivityView = nil;
+//    if (_maskActivityView) {
+//        [_maskActivityView hide];
+//        _maskActivityView = nil;
+//    }
+    if (_hud) {
+        [MBProgressHUD hideHUDForView:[AppDelegate GetAppDelegate].window animated:YES];
     }
     
     [self showHUDWithImgWithTitle:@"发布失败." withHiddenDelay:1.0f];

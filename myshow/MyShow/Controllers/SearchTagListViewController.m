@@ -128,7 +128,7 @@
 - (void)requestMainCellWithPageID:(NSString *)pageID andPage:(NSString *)page
 {
     NSDictionary *parameter = @{@"page" : page, @"limit" : HOME_PAGE_SIZE, @"labelId" : pageID};
-    [SearchTagListRequest requestWithParameters:parameter withIndicatorView:nil withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
+    [SearchTagListRequest requestWithParameters:parameter withIndicatorView:self.view withCancelSubject:nil onRequestStart:^(ITTBaseDataRequest *request) {
         
     } onRequestFinished:^(ITTBaseDataRequest *request) {
         
@@ -403,7 +403,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (!_photoModelArray) {
         _photoModelArray = [[NSMutableArray alloc] init];
     }

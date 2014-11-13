@@ -21,4 +21,6 @@
     #import "ITTCommonMacros.h"
     #import "ITTCommonFunctions.h"
     #import "UIView+ITTAdditions.h"
+    #import "AppDelegate.h"
+
 #endif

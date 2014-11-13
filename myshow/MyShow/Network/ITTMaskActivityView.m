@@ -191,6 +191,10 @@
     UIView *superView = [self viewForView:view];
     [superView addSubview:self];
     
+
+    
+    
+    
     CGPoint origin = CGPointMake((CGRectGetWidth(superView.bounds) - CGRectGetWidth(self.bounds))/2, (CGRectGetHeight(superView.bounds) - CGRectGetHeight(self.bounds))/2);
     CGRect frame = self.bounds;
     frame.origin.x = origin.x;
