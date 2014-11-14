@@ -337,15 +337,17 @@
     if ([[resultDic objectForKey:@"code"]  isEqual: @20000]) {
         NSLog(@"发布成功了!");
         
+        if (_hud) {
+            [MBProgressHUD hideHUDForView:[AppDelegate GetAppDelegate].window animated:YES];
+        }
 //        if (_maskActivityView) {
 //            [_maskActivityView hide];
 //            _maskActivityView = nil;
 //        }
-        if (_hud) {
-            [MBProgressHUD hideHUDForView:[AppDelegate GetAppDelegate].window animated:YES];
-        }
+        
         
         [self showHUDWithImgWithTitle:@"发布成功." withHiddenDelay:1.0f];
+        
         [self performSelector:@selector(successAction) withObject:nil afterDelay:1.0f];
     }
     

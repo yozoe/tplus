@@ -15,6 +15,7 @@
 #import "ImageDisplayViewController.h"
 #import "AppDelegate.h"
 #import "MyTabBarViewController.h"
+#import "RXUitils.h"
 
 @interface DistributeViewController ()
 {
@@ -232,14 +233,21 @@
     if ([self.textView isFirstResponder]) {
         [self.textView resignFirstResponder];
     }
+    
     if (index == (self.finalImageArray.count -1) )
     {
-        [self showCameraView];
+        if (self.imageArray.count >= 9) {
+            [RXUitils showHintMessage:@"最多支持9张图片"];
+        }else{
+            [self showCameraView];
+        }
     }else{
         ImageDisplayViewController * displayVC = [[ImageDisplayViewController alloc] init];
         displayVC.images = self.imageArray;
         [self.navigationController pushViewController:displayVC animated:YES];
     }
+    
+    
 }
 
 
@@ -328,10 +336,23 @@
         //获取高清图片
         UIImage * hignQualityImage = [UIImage imageWithCGImage:[representation fullResolutionImage]];
 //        hignQualityImage = [UIImage imageWithData:UIImageJPEGRepresentation(hignQualityImage, 0)];
+        
         [self.imageArray addObject:hignQualityImage];
     }
-    [self generateFinalImageArrayWithArray:self.imageArray];
-    [self removeCameraView];
+    
+    if (self.imageArray.count >= 9) {
+        NSMutableArray * imageArray = [NSMutableArray arrayWithCapacity:9];
+        for (int i = 0; i < 9; i++) {
+            [imageArray addObject:self.imageArray[i]];
+        }
+        [RXUitils showHintMessage:@"最多支持9张图片"];
+        [self generateFinalImageArrayWithArray:imageArray];
+        [self removeCameraView];
+    }else{
+        [self generateFinalImageArrayWithArray:self.imageArray];
+        [self removeCameraView];
+    }
+    
 }
 
 - (void)assetsPickerControllerDidCancel:(CTAssetsPickerController *)picker
@@ -344,23 +365,22 @@
 #pragma mark UIImagePickerController Delegate
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     UIImage * image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
 //    image = [UIImage imageWithData:UIImageJPEGRepresentation(image, 0)];
     [self.imageArray addObject:image];
     [self generateFinalImageArrayWithArray:self.imageArray];
-    [self removeCameraView];
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        [UIView animateWithDuration:.5 animations:^{
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+        }];
+        [self removeCameraView];
+    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-//    [picker dismissViewControllerAnimated:YES completion:^{
-//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-//        [self removeCameraView];
-//    }];
-    
     [picker dismissViewControllerAnimated:YES completion:^{
-        //        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         [UIView animateWithDuration:.5 animations:^{
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         }];
