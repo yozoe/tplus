@@ -269,11 +269,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *itemIdentifier = @"HomeItemCell";
-    
-
     ItemModel *im = _sourceArray[indexPath.row];
     
-
     HomeItemCell * cell = [tableView dequeueReusableCellWithIdentifier:itemIdentifier];
     if (nil == cell)
     {

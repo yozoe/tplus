@@ -231,10 +231,10 @@
     NSString *zipFile = [documentsPath stringByAppendingPathComponent:@"imgfiles.zip"];
 
 //    真实环境
-//    NSURL * url = [NSURL URLWithString:@"http://show.591ku.com/myshow/client/user/atlas/add"];
+    NSURL * url = [NSURL URLWithString:@"http://tplus.api.591ku.com/user/atlas/add"];
     
     //测试环境
-    NSURL * url = [NSURL URLWithString:@"http://test.api.591ku.com/user/atlas/add"];
+//    NSURL * url = [NSURL URLWithString:@"http://test.api.591ku.com/user/atlas/add"];
     
     
     
