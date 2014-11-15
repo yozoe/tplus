@@ -14,6 +14,7 @@
 #import "RegisterRequest.h"
 #import "LoginRequest.h"
 #import "PersonalHomePageViewController.h"
+#import "RXUitils.h"
 
 @interface LoginButton : UIButton
 
@@ -239,11 +240,19 @@
         
     } onRequestFinished:^(ITTBaseDataRequest *request) {
         NSLog(@"注册成功返回数据:%@",request.handleredResult);
-
-        DATA_ENV.token = [[request.handleredResult objectForKey:@"resp"] objectForKey:@"token"];
         
-        NSDictionary * loginParames = @{@"uid":DATA_ENV.userUid,@"type":[params objectForKey:@"type"]};
-        [self startLoginWithParams:loginParames];
+        NSNumber * statusCode = [request.handleredResult objectForKey:@"code"];
+        
+        if (statusCode.longValue == 20000) {
+            DATA_ENV.token = [[request.handleredResult objectForKey:@"resp"] objectForKey:@"token"];
+            
+            NSDictionary * loginParames = @{@"uid":DATA_ENV.userUid,@"type":[params objectForKey:@"type"]};
+            [self startLoginWithParams:loginParames];
+        }else{
+            [RXUitils showHintMessage:@"登陆失败，请重试一次"];
+        }
+
+        
         
     } onRequestCanceled:^(ITTBaseDataRequest *request) {
         
